@@ -2,19 +2,25 @@
 
 public class Orbit : MonoBehaviour
 {
-    public Transform center;
     [SerializeField] float radius, rotationSpeed;
     [SerializeField] private LineRenderer lineToCenter;
     [SerializeField] private LineRenderer orbitLine;
 
+    private Transform center;
     private int segments = 100;
     private float angle;
     private Vector3 orbitPosition;
 
     private void Start()
-    {
+    {       
         lineToCenter.positionCount = 2;
         orbitLine.positionCount = segments + 1;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            center = player.transform;
+        }
     }
 
     private void FixedUpdate()

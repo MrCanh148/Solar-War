@@ -1,40 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Attractor : MonoBehaviour
 {
-    const float G = 667.4f;
+    const float G = 6.674f;
+    private Rigidbody2D rb;
+    private bool isAttraced, isOnCollider;
+    private float TimeConnect, TimeLimit;
 
-    public static List<Attractor> Attractors;
-
-    [SerializeField] Rigidbody2D rb;
-
-    private void FixedUpdate()
+    private void Start()
     {
-        foreach (Attractor attractor in Attractors)
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        if (isAttraced)
+            TimeConnect += Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Attractor otherAttractor = collision.GetComponent<Attractor>();
+        if (otherAttractor != null && !isAttraced)
         {
-            if (attractor != this)
-                Attract(attractor);
+            if (collision.gameObject.tag == "Asteroid")
+            {
+
+            }
+            else
+            {   
+                Attract(otherAttractor);
+                isAttraced = true;
+            }
+            isOnCollider = true;
         }
     }
-
-    private void OnEnable()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (Attractors ==  null)
-            Attractors = new List<Attractor>();
-
-        Attractors.Add(this);
+        Attractor otherAttractor = collision.GetComponent<Attractor>();
+        if (otherAttractor != null && isAttraced)
+        {
+            isAttraced = false;
+        }
+        isOnCollider = false;
+        TimeConnect = 0;
     }
 
-    private void OnDisable()
+    private void Attract(Attractor objToAttract)
     {
-        Attractors.Remove(this);
-    }
-
-    private void Attract( Attractor objToAttrac)
-    {
-        Rigidbody2D rbToAttract = objToAttrac.rb;
+        Rigidbody2D rbToAttract = objToAttract.rb;
 
         Vector3 direction = rb.position - rbToAttract.position;
         float distance = direction.magnitude;
@@ -43,7 +57,6 @@ public class Attractor : MonoBehaviour
             return;
 
         float forceMagnitude = G * (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
-        //float forceMagnitude = (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
         Vector3 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(force);

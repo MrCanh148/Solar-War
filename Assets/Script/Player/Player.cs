@@ -170,19 +170,4 @@ public class Player : Character
             lineCircle.SetPosition(i, new Vector3(x, y, 0));
         }
     }
-
-    public void Test()
-    {
-        characters.Clear();
-        Collider2D[] character = Physics2D.OverlapCircleAll(tf.position, captureZoneRadius, characterLayer);
-        for (int i = 0; i < character.Length; i++)
-        {
-            if (character[i].gameObject != this.gameObject)
-            {
-                Character c = character[i].GetComponent<Character>();
-                characters.Add(c);
-                Attract(c);
-            }
-        }
-    }
 }

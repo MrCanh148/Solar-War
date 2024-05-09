@@ -118,7 +118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4758425480747483308
 Transform:
   m_ObjectHideFlags: 0
@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 4630829897465738085}
   - component: {fileID: 4080077729829598709}
   - component: {fileID: 2181993403441797318}
+  - component: {fileID: 493987866401263788}
   m_Layer: 0
   m_Name: BigStar
   m_TagString: Planet
@@ -286,7 +287,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4630829897465738085
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -334,7 +335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec66ab1183f50c4984442d2545b70b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {fileID: 0}
   radius: 1
   rotationSpeed: 50
   lineToCenter: {fileID: 2181993403441797318}
@@ -443,6 +443,18 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &493987866401263788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359258016561016704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6377482054849216260
 GameObject:
   m_ObjectHideFlags: 0

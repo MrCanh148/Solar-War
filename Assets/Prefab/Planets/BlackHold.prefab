@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 726689616112988236}
   - component: {fileID: 4648958658933179145}
   - component: {fileID: 5062301154862715840}
+  - component: {fileID: -3649492927105155403}
   m_Layer: 0
   m_Name: BlackHold
   m_TagString: Planet
@@ -117,7 +118,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &726689616112988236
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -165,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec66ab1183f50c4984442d2545b70b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {fileID: 0}
   radius: 1
   rotationSpeed: 50
   lineToCenter: {fileID: 5062301154862715840}
@@ -274,6 +274,18 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-3649492927105155403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703456355523802025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2004665523626693517
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &41563519036608589
 Transform:
   m_ObjectHideFlags: 0

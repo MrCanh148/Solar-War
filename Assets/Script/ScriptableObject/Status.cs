@@ -6,5 +6,7 @@ public class Status : ScriptableObject
 {
     public float acceleration; // Tốc độ tăng tốc
     public float deceleration; // Tốc độ giảm tốc
-    public double gravitationalConstant = 6.674f;
+    public const float gravitationalConstant = 6.674f;
+    public float GravitationalConstant => gravitationalConstant;
+    public float minimumMergeForce;
 }
