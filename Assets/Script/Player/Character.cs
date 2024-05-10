@@ -17,7 +17,6 @@ public enum CharacterType
 
 public class Character : MonoBehaviour
 {
-
     public CharacterType characterType;
     public Rigidbody2D rb;
     public Character host;
@@ -31,8 +30,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected LayerMask characterLayer;
     public Vector2 velocity;
     public Vector2 externalVelocity;
-
-
+    public Vector2 mainVelocity;
 
     protected virtual void Start()
     {
@@ -74,19 +72,33 @@ public class Character : MonoBehaviour
         velocity.x -= velocity.x * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
         velocity.y -= velocity.y * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
         velocity = new Vector2(velocity.x, velocity.y);
-        rb.velocity = velocity + externalVelocity;
+        mainVelocity = velocity + externalVelocity;
+        rb.velocity = mainVelocity;
 
     }
 
+    public void Attract(Character character)
+    {
+        Rigidbody2D rigidbody = character.rb;
+        Vector3 direction = tf.position - character.tf.position;
+        float distance = direction.magnitude;
+        if (distance <= 0.01f)
+            return;
+
+        float forceMagnitude = (GameManager.instance.status.GravitationalConstant * rigidbody.mass * rb.mass) / Mathf.Pow(distance, 2);
+        Vector2 force = direction.normalized * forceMagnitude;
+        rigidbody.AddForce(force);
+    }
+
+    //=================================== VA CHAM DAN HOI ============================================ 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character character = collision.gameObject.GetComponent<Character>();
-
         if (character.characterType == CharacterType.Asteroid)
         {
             if (characterType == CharacterType.Asteroid)
             {
-                Debug.Log(name + ": " + velocity.magnitude + " " + character.name + ": " + character.velocity.magnitude);
+                //Debug.Log(name + ": " + mainVelocity.magnitude + " " + character.name + ": " + character.mainVelocity.magnitude);
                 if (this.GetInstanceID() > character.GetInstanceID())
                 {
                     HandleCollision(this, character);
@@ -97,17 +109,19 @@ public class Character : MonoBehaviour
 
     public void HandleCollision(Character c1, Character c2)
     {
+
         float gravitational = (c1.velocity * c1.rb.mass - c2.velocity * c2.rb.mass).magnitude;
-        Debug.Log(gravitational);
         if (gravitational <= GameManager.instance.status.minimumMergeForce)
         {
-            Vector2 velocityC1 = (2 * c2.rb.mass * c2.velocity + (c1.rb.mass - c2.rb.mass) * c1.velocity) / (c1.rb.mass + c2.rb.mass);
+            Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
 
-            Vector2 velocityC2 = (2 * c1.rb.mass * c1.velocity + (c2.rb.mass - c1.rb.mass) * c2.velocity) / (c1.rb.mass + c2.rb.mass);
+            Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
 
             c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
+            c1.ResetExternalVelocity();
 
             c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
+            c2.ResetExternalVelocity();
         }
         else
         {
@@ -117,15 +131,14 @@ public class Character : MonoBehaviour
         }
     }
 
-    public float VelocityMagnitude(Vector2 vector)
-    {
-        return Mathf.Sqrt(Mathf.Pow(vector.x, 2) + Mathf.Pow(vector.y, 2));
-    }
-
     public void MergeCharacter(Character c1, Character c2)
     {
-        c1.rb.mass += c2.rb.mass;
+        c1.rb.mass++;
         c2.gameObject.SetActive(false);
     }
 
+    protected virtual void ResetExternalVelocity()
+    {
+        externalVelocity = Vector2.zero;
+    }
 }

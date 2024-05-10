@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 10
   deceleration: 0.4
-  gravitationalConstant: 6.673999786376953
+  minimumMergeForce: 10

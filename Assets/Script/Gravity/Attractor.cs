@@ -2,63 +2,45 @@ using UnityEngine;
 
 public class Attractor : MonoBehaviour
 {
-    const float G = 6.674f;
-    private Rigidbody2D rb;
-    private bool isAttraced, isOnCollider;
-    private float TimeConnect, TimeLimit;
+    public float G = 6.674f;
+    private Character rb, otherAttractor;
+    //private bool isAttraced;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        if (isAttraced)
-            TimeConnect += Time.deltaTime;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Attractor otherAttractor = collision.GetComponent<Attractor>();
-        if (otherAttractor != null && !isAttraced)
-        {
-            if (collision.gameObject.tag == "Asteroid")
-            {
+        rb = GetComponent<Character>();
+        otherAttractor = collision.GetComponent<Character>();
 
-            }
-            else
-            {   
-                Attract(otherAttractor);
-                isAttraced = true;
-            }
-            isOnCollider = true;
+        if (otherAttractor != null)
+        {   
+            Attract(rb, otherAttractor);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Attractor otherAttractor = collision.GetComponent<Attractor>();
-        if (otherAttractor != null && isAttraced)
-        {
-            isAttraced = false;
-        }
-        isOnCollider = false;
-        TimeConnect = 0;
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    Attractor otherAttractor = collision.GetComponent<Attractor>();
+    //    if (otherAttractor != null && isAttraced)
+    //    {
+    //        isAttraced = false;
+    //    }
+    //}
 
-    private void Attract(Attractor objToAttract)
+    private void Attract(Character attractor, Character target)
     {
-        Rigidbody2D rbToAttract = objToAttract.rb;
+        float massProduct = attractor.rb.mass * target.rb.mass;
 
-        Vector3 direction = rb.position - rbToAttract.position;
+        Vector3 direction = attractor.transform.position - target.transform.position;
         float distance = direction.magnitude;
 
-        if (distance == 0f)
-            return;
+        float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
+        float forceMagnitude = G * unScaledforceManguite;
 
-        float forceMagnitude = G * (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
         Vector3 force = direction.normalized * forceMagnitude;
-
-        rbToAttract.AddForce(force);
+        target.externalVelocity = force;
     }
 }

@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public float moveSpeed; // Tốc độ di chuyển của player
-    //public float acceleration; // Tốc độ tăng tốc
-    //public float deceleration; // Tốc độ giảm tốc
+    public float moveSpeed;
     public float velocityStart;
 
     private bool isMovingUp;
@@ -16,7 +14,6 @@ public class Player : Character
     private float velocityMoveDown;
     private float velocityMoveLeft;
     private float velocityMoveRight;
-
 
     [SerializeField] private LineRenderer lineCircle;
 
@@ -36,10 +33,7 @@ public class Player : Character
         velocityMoveRight = 0;
         velocityStart = 5;
         moveSpeed = 20;
-        /*acceleration = 10f;
-        deceleration = .1f;*/
     }
-
 
     private void Update()
     {
@@ -66,15 +60,11 @@ public class Player : Character
             isMovingRight = true;
         }
         else { isMovingRight = false; }
-
-
-        CaptureZone();
-        //DisplayCaptureZone();
-        //Test();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+
         if (isMovingUp)  // Len
         {
             velocityMoveUp += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
@@ -102,7 +92,6 @@ public class Player : Character
                 velocityMoveDown = 0f;
             }
         }
-
 
         if (isMovingLeft) //Trai
         {
@@ -134,40 +123,17 @@ public class Player : Character
 
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
+        externalVelocity = new(velocityVertical, velocityHorizontal);
 
-        tf.position += new Vector3(velocityVertical, velocityHorizontal, 0) * Time.fixedDeltaTime;
+        base.FixedUpdate();
     }
 
-    public void CaptureZone()
+    protected override void ResetExternalVelocity()
     {
-        characters.Clear();
-        Collider2D[] character = Physics2D.OverlapCircleAll(tf.position, captureZoneRadius, characterLayer);
-        //Debug.Log(character.Length);
-        for (int i = 0; i < character.Length; i++)
-        {
-            if (character[i].gameObject != this.gameObject)
-            {
-                Character c = character[i].GetComponent<Character>();
-                characters.Add(c);
-                c.isCapture = true;
-                c.host = this;
-            }
-        }
-    }
-
-    public void DisplayCaptureZone()
-    {
-        lineCircle.enabled = true;
-        float Theta = 0f;
-        float ThetaScale = 0.01f;
-        int Size = (int)((1f / ThetaScale) + 1f);
-        lineCircle.positionCount = Size;
-        for (int i = 0; i < Size; i++)
-        {
-            Theta += (2.0f * Mathf.PI * ThetaScale);
-            float x = lineCircle.transform.localPosition.x + captureZoneRadius * Mathf.Cos(Theta);
-            float y = lineCircle.transform.localPosition.y + captureZoneRadius * Mathf.Sin(Theta);
-            lineCircle.SetPosition(i, new Vector3(x, y, 0));
-        }
+        base.ResetExternalVelocity();
+        velocityMoveUp = 0;
+        velocityMoveDown = 0;
+        velocityMoveLeft = 0;
+        velocityMoveRight = 0;
     }
 }
