@@ -4,31 +4,20 @@ public class Attractor : MonoBehaviour
 {
     public float G = 6.674f;
     private Character rb, otherAttractor;
-    //private bool isAttraced;
 
     private void Start()
     {
-        
+        rb = GetComponent<Character>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        rb = GetComponent<Character>();
         otherAttractor = collision.GetComponent<Character>();
 
         if (otherAttractor != null)
-        {   
             Attract(rb, otherAttractor);
-        }
+        
     }
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    Attractor otherAttractor = collision.GetComponent<Attractor>();
-    //    if (otherAttractor != null && isAttraced)
-    //    {
-    //        isAttraced = false;
-    //    }
-    //}
 
     private void Attract(Character attractor, Character target)
     {

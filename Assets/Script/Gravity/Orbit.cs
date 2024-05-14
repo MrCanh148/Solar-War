@@ -4,33 +4,41 @@ public class Orbit : MonoBehaviour
 {
     [SerializeField] float radius, rotationSpeed;
     [SerializeField] private LineRenderer lineToCenter;
-    [SerializeField] private LineRenderer orbitLine;
 
     private Transform center;
-    private int segments = 100;
-    private float angle;
+    private Character planet1;
     private Vector3 orbitPosition;
+    public float TimeConnect;
+    [SerializeField] private float timeLimit = 2;
+    private bool isConnecting;
 
     private void Start()
-    {       
+    {
         lineToCenter.positionCount = 2;
-        orbitLine.positionCount = segments + 1;
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            center = player.transform;
-        }
+        lineToCenter.enabled = false;
+        planet1 = GetComponent<Character>();
     }
 
     private void FixedUpdate()
     {
-        orbitPosition = CalculateOrbitPosition();
-        transform.position = orbitPosition;
+        if (isConnecting)
+        {
+            TimeConnect += Time.deltaTime;
+        }
 
-        lineToCenter.SetPosition(0, center.position);
-        lineToCenter.SetPosition(1, transform.position);
-        DrawOrbitCircle();
+        if (TimeConnect >= timeLimit)
+        {
+            orbitPosition = CalculateOrbitPosition();
+            transform.position = orbitPosition;
+
+            lineToCenter.SetPosition(0, center.position);
+            lineToCenter.SetPosition(1, transform.position);
+            lineToCenter.enabled = true;
+        }
+        else
+        {
+            lineToCenter.enabled = false;
+        }
     }
 
     private Vector3 CalculateOrbitPosition()
@@ -44,14 +52,28 @@ public class Orbit : MonoBehaviour
         return newPosition;
     }
 
-    private void DrawOrbitCircle()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        angle = 360f / segments;
-        for (int i = 0; i < segments + 1; i++)
+        Character planet2 = collision.GetComponent<Character>();
+
+        if (planet2 == null)
+            return;
+
+        if (planet2.rb.mass >= planet1.rb.mass)
         {
-            float x = Mathf.Sin(Mathf.Deg2Rad * (angle * i)) * radius;
-            float y = Mathf.Cos(Mathf.Deg2Rad * (angle * i)) * radius;
-            orbitLine.SetPosition(i, new Vector3(x, y, 0) + center.position);
+            center = planet2.transform;
+            isConnecting = true;
         }
+        else
+        {
+            center = null;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        isConnecting = false;
+        TimeConnect = 0;
+        lineToCenter.enabled = false;
     }
 }

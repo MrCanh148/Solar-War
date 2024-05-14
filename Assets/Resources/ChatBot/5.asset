@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d48af97b14b7d4585a937b1e1c55e6, type: 3}
-  m_Name: Asteroid
+  m_Script: {fileID: 11500000, guid: 96ae35b121c693f4994348ec5017d579, type: 3}
+  m_Name: 5
   m_EditorClassIdentifier: 
-  Name: Asteroid
-  Mass: 0
-  ImagePlanet: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  text: 

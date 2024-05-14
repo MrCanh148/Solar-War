@@ -36,13 +36,13 @@ public class Character : MonoBehaviour
     {
         OnInit();
     }
+
     protected virtual void OnInit()
     {
         radius = 5f;
         spinSpeed = 1f;
         angle = 0f;
         isCapture = false;
-
     }
 
     private void Update()
@@ -65,6 +65,7 @@ public class Character : MonoBehaviour
                 lineRenderer.SetPosition(0, host.tf.position);
             }
         }
+            
     }
 
     protected virtual void FixedUpdate()
