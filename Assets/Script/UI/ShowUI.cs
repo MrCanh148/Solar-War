@@ -12,13 +12,14 @@ public class ShowUI : MonoBehaviour
     [SerializeField] private GameObject PauseUI, TutorUI;
 
     private const string Guide1 = "Press <ESC> to see more";
+    private bool isPaused = false;
 
     private void Start()
     {
         bts[0].onClick.AddListener(PauseGame);
-        bts[1].onClick.AddListener(TutorFeature);
+        bts[1].onClick.AddListener(TutorBtFeature);
         bts[2].onClick.AddListener(() => Application.Quit());
-        bts[3].onClick.AddListener(() => TutorUI.SetActive(false));
+        bts[3].onClick.AddListener(BackBtFeature);
     }
 
     private void Update()
@@ -27,17 +28,28 @@ public class ShowUI : MonoBehaviour
         Guide.text = Guide1;
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             PauseGame();
+        }
     }
 
     private void PauseGame()
     {
-        PauseUI.SetActive(!PauseUI.activeSelf);
+        isPaused = !isPaused;
+        PauseUI.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0 : 1;
     }
 
-    private void TutorFeature()
+    private void TutorBtFeature()
     {
         TutorUI.SetActive(true);
         PauseUI.SetActive(false);
+        Time.timeScale = 0;
+    }
+
+    private void BackBtFeature()
+    {
+        Time.timeScale = 1f;
+        TutorUI.SetActive(false);
     }
 }

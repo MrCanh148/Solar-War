@@ -167,14 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   rb: {fileID: 8711889904679413240}
-  host: {fileID: 0}
   tf: {fileID: 5691377956253586852}
-  radius: 0
-  spinSpeed: 0
-  angle: 0
-  isCapture: 0
-  captureZoneRadius: 0
-  lineRenderer: {fileID: 0}
   characterLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -193,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.05
+  G: 0.0000001
 --- !u!1 &2004665523626693517
 GameObject:
   m_ObjectHideFlags: 0

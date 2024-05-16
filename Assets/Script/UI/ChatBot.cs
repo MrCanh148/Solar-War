@@ -7,34 +7,48 @@ public class ChatBot : MonoBehaviour
     private BotChatText[] BotChatText;
     [SerializeField] GameObject BotUI;
     [SerializeField] TextMeshProUGUI ChatText;
+    [SerializeField] private float TimeShowText = 0.01f;
+
+    private int currentIndex = 0; 
+    private bool isDisplayingText = false; 
+
 
     private void Start()
     {
         BotUI.SetActive(true);
         BotChatText = Resources.LoadAll<BotChatText>("BotChatText");
-        StartCoroutine(DisplayTextOverTime(BotChatText[1].text));
+        if (BotChatText.Length > 0)
+        {
+            StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
+        }
     }
 
     private void Update()
     {
-        for (int i = 0; i < BotChatText.Length; i++)
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (!isDisplayingText)
             {
-                i++;
-                StartCoroutine(DisplayTextOverTime(BotChatText[i].text));
+                if (currentIndex < BotChatText.Length - 1)
+                {
+                    currentIndex++;
+                    StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
+                }
+                else if (currentIndex == BotChatText.Length - 1)
+                    BotUI.SetActive(false);
             }
         }
     }
 
-
     private IEnumerator DisplayTextOverTime(string fullText)
     {
+        isDisplayingText = true;
         ChatText.text = "";
         foreach (char c in fullText)
         {
             ChatText.text += c;
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(TimeShowText);
         }
+        isDisplayingText = false;
     }
 }

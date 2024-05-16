@@ -15,8 +15,6 @@ public class Player : Character
     private float velocityMoveLeft;
     private float velocityMoveRight;
 
-    [SerializeField] private LineRenderer lineCircle;
-
     List<Character> characters = new();
 
     protected override void Start()

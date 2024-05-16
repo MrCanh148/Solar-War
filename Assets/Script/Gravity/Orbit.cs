@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
@@ -29,11 +30,15 @@ public class Orbit : MonoBehaviour
         if (TimeConnect >= timeLimit)
         {
             orbitPosition = CalculateOrbitPosition();
-            transform.position = orbitPosition;
 
-            lineToCenter.SetPosition(0, center.position);
-            lineToCenter.SetPosition(1, transform.position);
-            lineToCenter.enabled = true;
+            if (center != null) 
+            {
+                transform.position = orbitPosition;
+
+                lineToCenter.SetPosition(0, center.position);
+                lineToCenter.SetPosition(1, transform.position);
+                lineToCenter.enabled = true;
+            }
         }
         else
         {
@@ -43,6 +48,12 @@ public class Orbit : MonoBehaviour
 
     private Vector3 CalculateOrbitPosition()
     {
+        StartCoroutine(SpawnNewPlayer(3f));
+        if (center == null)
+        {
+            return transform.position;
+        }
+
         float angleInRadians = (Time.time * rotationSpeed) * Mathf.Deg2Rad;
         float x = Mathf.Cos(angleInRadians) * radius;
         float y = Mathf.Sin(angleInRadians) * radius;
@@ -75,5 +86,12 @@ public class Orbit : MonoBehaviour
         isConnecting = false;
         TimeConnect = 0;
         lineToCenter.enabled = false;
+    }
+
+    private IEnumerator SpawnNewPlayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        center = null; 
+        isConnecting = false;
     }
 }

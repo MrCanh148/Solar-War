@@ -271,14 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   rb: {fileID: 1818355852921660798}
-  host: {fileID: -6489732090044767875}
   tf: {fileID: 2111806101972903701}
-  radius: 0
-  spinSpeed: 0
-  angle: 0
-  isCapture: 0
-  captureZoneRadius: 0
-  lineRenderer: {fileID: 0}
   characterLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -297,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.05
+  G: 0
 --- !u!120 &-4740987572406462871
 LineRenderer:
   serializedVersion: 2

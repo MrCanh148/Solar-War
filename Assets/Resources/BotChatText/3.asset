@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ae35b121c693f4994348ec5017d579, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  text: Press "ESC" to pause game and see more info.
+  text: Press "ESC" to Pause game and see more Info useful.

@@ -573,14 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 0
   rb: {fileID: 4034527734867974287}
-  host: {fileID: 0}
   tf: {fileID: 2892627947799192805}
-  radius: 0
-  spinSpeed: 0
-  angle: 0
-  isCapture: 0
-  captureZoneRadius: 0
-  lineRenderer: {fileID: 0}
   characterLayer:
     serializedVersion: 2
     m_Bits: 0
