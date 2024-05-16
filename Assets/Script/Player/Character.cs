@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum CharacterType
 {
-    Asteroid,
-    Planet,
-    Star,
-    BlackHole,
-    SmallPlanet,
-    LifePlanet,
-    GasGiantPlanet,
-    SmallStar,
-    MediumStar,
-    BigStar,
-    NeutronStar
-}
+    Asteroid = 0,
+    SmallPlanet = 1,
+    LifePlanet = 2,
+    GasGiantPlanet = 3,
+    SmallStar = 4,
+    MediumStar = 5,
+    BigStar = 6,
+    NeutronStar = 7,
+    BlackHole = 8,
+    BigCrunch = 9,
+    BigBang = 10
+};
+
 
 public class Character : MonoBehaviour
 {
@@ -25,17 +25,11 @@ public class Character : MonoBehaviour
     public Vector2 velocity;
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
-    public bool canControl;
-    public SpriteRenderer spriteRenderer;
-
-    // DONT NEED
-    [SerializeField] private GameObject canvar;
-
+    public bool isPlayer;
 
     protected virtual void Start()
     {
         OnInit();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void OnInit()
@@ -51,10 +45,6 @@ public class Character : MonoBehaviour
         mainVelocity = velocity + externalVelocity;
         rb.velocity = mainVelocity;
 
-        tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
-
-        if (canvar != null)
-            canvar.transform.rotation = Quaternion.identity; //DONT NEED
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -71,20 +61,12 @@ public class Character : MonoBehaviour
                 }
             }
         }
-
-        if (collision.gameObject.tag != "Player" && this.rb.mass < character.rb.mass)
-        {
-            canControl = false;
-            spriteRenderer.enabled = false;
-            ResetExternalVelocity();
-            StartCoroutine(ReSpawnNew());
-        }
     }
 
     public void HandleCollision(Character c1, Character c2)
     {
 
-        float gravitational = (c1.velocity * c1.rb.mass - c2.velocity * c2.rb.mass).magnitude;
+        float gravitational = (c1.mainVelocity * c1.rb.mass - c2.mainVelocity * c2.rb.mass).magnitude;
         if (gravitational <= GameManager.instance.status.minimumMergeForce)
         {
             Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
@@ -109,27 +91,14 @@ public class Character : MonoBehaviour
     {
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
+        if (c1.isPlayer)
+        {
+            ShowUI.instance.UpdateInfo();
+        }
     }
 
     protected virtual void ResetExternalVelocity()
     {
         externalVelocity = Vector2.zero;
-    }
-
-    private IEnumerator ReSpawnNew()
-    {
-        yield return new WaitForSeconds(2f);
-        PlaceRespawn();
-        canControl = true;
-        spriteRenderer.enabled = true;
-    }
-    private void PlaceRespawn()
-    {
-        Vector2 newPos = new Vector2(0, 0);
-
-        newPos.x = Random.Range(-200f, 200f);
-        newPos.y = Random.Range(-200f, 200f);
-
-        transform.position = newPos;
     }
 }
