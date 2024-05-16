@@ -2,18 +2,19 @@
 
 public enum CharacterType
 {
-    Asteroid,
-    Planet,
-    Star,
-    BlackHole,
-    SmallPlanet,
-    LifePlanet,
-    GasGiantPlanet,
-    SmallStar,
-    MediumStar,
-    BigStar,
-    NeutronStar
-}
+    Asteroid = 0,
+    SmallPlanet = 1,
+    LifePlanet = 2,
+    GasGiantPlanet = 3,
+    SmallStar = 4,
+    MediumStar = 5,
+    BigStar = 6,
+    NeutronStar = 7,
+    BlackHole = 8,
+    BigCrunch = 9,
+    BigBang = 10
+};
+
 
 public class Character : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Character : MonoBehaviour
     public Vector2 velocity;
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
+    public bool isPlayer;
 
     protected virtual void Start()
     {
@@ -64,7 +66,7 @@ public class Character : MonoBehaviour
     public void HandleCollision(Character c1, Character c2)
     {
 
-        float gravitational = (c1.velocity * c1.rb.mass - c2.velocity * c2.rb.mass).magnitude;
+        float gravitational = (c1.mainVelocity * c1.rb.mass - c2.mainVelocity * c2.rb.mass).magnitude;
         if (gravitational <= GameManager.instance.status.minimumMergeForce)
         {
             Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
@@ -89,6 +91,10 @@ public class Character : MonoBehaviour
     {
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
+        if (c1.isPlayer)
+        {
+            ShowUI.instance.UpdateInfo();
+        }
     }
 
     protected virtual void ResetExternalVelocity()

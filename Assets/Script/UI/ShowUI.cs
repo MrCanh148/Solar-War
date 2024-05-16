@@ -2,14 +2,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowUI : MonoBehaviour
+public class ShowUI : FastSingleton<ShowUI>
 {
+    public long[] Mass = { 1, 20, 40, 80, 180, 1500, 2000, 3000, 100000, 1000000, 10000000 };
     [SerializeField] private TextMeshProUGUI Guide, MassText;
-    [SerializeField] private Player player;
+    [SerializeField] private Character player;
 
     [Header("Bt0: Continue / Bt1: Tutor / Bt2: Exit")]
     [SerializeField] private Button[] bts;
     [SerializeField] private GameObject PauseUI, TutorUI;
+
+    [SerializeField] TextMeshProUGUI NameTxt;
+    [SerializeField] TextMeshProUGUI EvoluTxt;
+    [SerializeField] Slider EvoluSlider;
+
 
     private const string Guide1 = "Press <ESC> to see more";
     private bool isPaused = false;
@@ -20,11 +26,12 @@ public class ShowUI : MonoBehaviour
         bts[1].onClick.AddListener(TutorBtFeature);
         bts[2].onClick.AddListener(() => Application.Quit());
         bts[3].onClick.AddListener(BackBtFeature);
+        UpdateInfo();
     }
 
     private void Update()
     {
-        MassText.text = player.rb.mass.ToString();
+        //MassText.text = player.rb.mass.ToString();
         Guide.text = Guide1;
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -33,23 +40,51 @@ public class ShowUI : MonoBehaviour
         }
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         isPaused = !isPaused;
         PauseUI.SetActive(isPaused);
         Time.timeScale = isPaused ? 0 : 1;
     }
 
-    private void TutorBtFeature()
+    public void TutorBtFeature()
     {
         TutorUI.SetActive(true);
         PauseUI.SetActive(false);
         Time.timeScale = 0;
     }
 
-    private void BackBtFeature()
+    public void BackBtFeature()
     {
         Time.timeScale = 1f;
         TutorUI.SetActive(false);
+    }
+
+    public void SetNameTxt(string CharacterType)
+    {
+        NameTxt.text = CharacterType;
+    }
+
+    public void SetMassTxt(int mass)
+    {
+        MassText.text = mass.ToString();
+    }
+
+    public void SetEvoluTxt(string CharacterType)
+    {
+        EvoluTxt.text = "To " + CharacterType;
+    }
+
+    public void SetEvoluSlider(long currentMass, long massNeedeVolution)
+    {
+        EvoluSlider.value = (float)currentMass / massNeedeVolution;
+    }
+
+    public void UpdateInfo()
+    {
+        SetNameTxt(player.characterType.ToString());
+        SetMassTxt((int)player.rb.mass);
+        SetEvoluTxt((player.characterType + 1).ToString());
+        SetEvoluSlider((long)player.rb.mass, Mass[(int)player.characterType + 1]);
     }
 }
