@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum CharacterType
@@ -46,6 +45,7 @@ public class Character : MonoBehaviour
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        EvolutionCharacter();
     }
 
     protected virtual void OnInit()
@@ -86,12 +86,12 @@ public class Character : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag != "Player")
+        /*if (collision.gameObject.tag != "Player")
         {
             spriteRenderer.enabled = false;
             canControl = false;
             StartCoroutine(TeleNewPos());
-        }
+        }*/
     }
 
     public void HandleCollision(Character c1, Character c2)
@@ -116,6 +116,7 @@ public class Character : MonoBehaviour
             Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
             c1.velocity = new Vector2(velocityS.x, velocityS.y);
         }
+
     }
 
     public void MergeCharacter(Character c1, Character c2)
@@ -123,6 +124,7 @@ public class Character : MonoBehaviour
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
+        c1.EvolutionCharacter();
         if (c1.isPlayer)
         {
             ShowUI.instance.UpdateInfo();
@@ -164,7 +166,7 @@ public class Character : MonoBehaviour
     }
     private void RespawnPlace()
     {
-        Vector2 newPos = new Vector2(0,0);
+        Vector2 newPos = new Vector2(0, 0);
 
         newPos.x = Random.Range(-200f, 200f);
         newPos.y = Random.Range(-200f, 200f);
