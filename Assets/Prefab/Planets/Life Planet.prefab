@@ -714,6 +714,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
+  canvar: {fileID: 4033417834790607751}
 --- !u!114 &-4247851755060420036
 MonoBehaviour:
   m_ObjectHideFlags: 0

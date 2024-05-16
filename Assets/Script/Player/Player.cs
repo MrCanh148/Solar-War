@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Player : Character
 {
@@ -16,10 +18,13 @@ public class Player : Character
     private float velocityMoveRight;
 
     List<Character> characters = new();
+    [SerializeField] private Camera miniCam;
+
 
     protected override void Start()
     {
         base.Start();
+        canControl = true;
     }
 
     protected override void OnInit()
@@ -62,66 +67,70 @@ public class Player : Character
 
     protected override void FixedUpdate()
     {
-
-        if (isMovingUp)  // Len
+        if (canControl)
         {
-            velocityMoveUp += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
-            velocityMoveUp = Mathf.Clamp(velocityMoveUp, -moveSpeed, moveSpeed);
-        }
-        else
-        {
-            velocityMoveUp -= velocityMoveUp * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
-            if (Mathf.Abs(velocityMoveUp) < 0.01f)
+            if (isMovingUp)  // Len
             {
-                velocityMoveUp = 0f;
+                velocityMoveUp += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
+                velocityMoveUp = Mathf.Clamp(velocityMoveUp, -moveSpeed, moveSpeed);
+            }
+            else
+            {
+                velocityMoveUp -= velocityMoveUp * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
+                if (Mathf.Abs(velocityMoveUp) < 0.01f)
+                {
+                    velocityMoveUp = 0f;
+                }
+            }
+
+            if (isMovingDown)  //Xuong
+            {
+                velocityMoveDown += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
+                velocityMoveDown = Mathf.Clamp(velocityMoveDown, -moveSpeed, moveSpeed);
+            }
+            else
+            {
+                velocityMoveDown -= velocityMoveDown * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
+                if (Mathf.Abs(velocityMoveDown) < 0.01f)
+                {
+                    velocityMoveDown = 0f;
+                }
+            }
+
+            if (isMovingLeft) //Trai
+            {
+                velocityMoveLeft += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
+                velocityMoveLeft = Mathf.Clamp(velocityMoveLeft, -moveSpeed, moveSpeed);
+            }
+            else
+            {
+                velocityMoveLeft -= velocityMoveLeft * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
+                if (Mathf.Abs(velocityMoveLeft) < 0.01f)
+                {
+                    velocityMoveLeft = 0f;
+                }
+            }
+
+            if (isMovingRight)  // Phai
+            {
+                velocityMoveRight += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
+                velocityMoveRight = Mathf.Clamp(velocityMoveRight, -moveSpeed, moveSpeed);
+            }
+            else
+            {
+                velocityMoveRight -= velocityMoveRight * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
+                if (Mathf.Abs(velocityMoveRight) < 0.01f)
+                {
+                    velocityMoveRight = 0f;
+                }
             }
         }
 
-        if (isMovingDown)  //Xuong
-        {
-            velocityMoveDown += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
-            velocityMoveDown = Mathf.Clamp(velocityMoveDown, -moveSpeed, moveSpeed);
-        }
-        else
-        {
-            velocityMoveDown -= velocityMoveDown * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
-            if (Mathf.Abs(velocityMoveDown) < 0.01f)
-            {
-                velocityMoveDown = 0f;
-            }
-        }
-
-        if (isMovingLeft) //Trai
-        {
-            velocityMoveLeft += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
-            velocityMoveLeft = Mathf.Clamp(velocityMoveLeft, -moveSpeed, moveSpeed);
-        }
-        else
-        {
-            velocityMoveLeft -= velocityMoveLeft * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
-            if (Mathf.Abs(velocityMoveLeft) < 0.01f)
-            {
-                velocityMoveLeft = 0f;
-            }
-        }
-
-        if (isMovingRight)  // Phai
-        {
-            velocityMoveRight += velocityStart * 0.1f * GameManager.instance.status.acceleration * Time.fixedDeltaTime;
-            velocityMoveRight = Mathf.Clamp(velocityMoveRight, -moveSpeed, moveSpeed);
-        }
-        else
-        {
-            velocityMoveRight -= velocityMoveRight * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
-            if (Mathf.Abs(velocityMoveRight) < 0.01f)
-            {
-                velocityMoveRight = 0f;
-            }
-        }
 
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
         externalVelocity = new(velocityVertical, velocityHorizontal);
+        miniCam.transform.rotation = Quaternion.identity;
 
         base.FixedUpdate();
     }
@@ -134,4 +143,12 @@ public class Player : Character
         velocityMoveLeft = 0;
         velocityMoveRight = 0;
     }
+    
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+
+    //}
+
+ 
 }
