@@ -270,14 +270,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 0
+  generalityType: 0
   rb: {fileID: 1818355852921660798}
   tf: {fileID: 2111806101972903701}
   characterLayer:
     serializedVersion: 2
     m_Bits: 0
-  velocity: {x: 2, y: 0}
+  velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
+  isPlayer: 0
+  canControl: 0
   canvar: {fileID: 863610445395194257}
 --- !u!114 &4298866619803219257
 MonoBehaviour:

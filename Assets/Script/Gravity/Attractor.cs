@@ -14,22 +14,31 @@ public class Attractor : MonoBehaviour
     {
         otherAttractor = collision.GetComponent<Character>();
 
-        if (otherAttractor != null)
+        if (otherAttractor != null && rb != null)
+        {
             Attract(rb, otherAttractor);
-        
+            Debug.Log("Attractor");
+        }
+
+
     }
 
     private void Attract(Character attractor, Character target)
     {
-        float massProduct = attractor.rb.mass * target.rb.mass;
+        if (attractor.characterType > CharacterType.Asteroid)
+        {
+            float massProduct = attractor.rb.mass * target.rb.mass;
 
-        Vector3 direction = attractor.transform.position - target.transform.position;
-        float distance = direction.magnitude;
+            Vector3 direction = attractor.transform.position - target.transform.position;
+            float distance = direction.magnitude;
 
-        float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
-        float forceMagnitude = G * unScaledforceManguite;
+            float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
+            float forceMagnitude = G * unScaledforceManguite;
 
-        Vector3 force = direction.normalized * forceMagnitude;
-        target.externalVelocity = force;
+            Vector3 force = direction.normalized * forceMagnitude;
+            target.externalVelocity = force;
+            Debug.Log(force);
+        }
+
     }
 }

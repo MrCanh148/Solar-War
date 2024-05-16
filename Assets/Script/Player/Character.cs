@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public enum CharacterType
 {
@@ -12,13 +14,23 @@ public enum CharacterType
     NeutronStar = 7,
     BlackHole = 8,
     BigCrunch = 9,
-    BigBang = 10
+    BigBang = 10,
+
 };
 
+
+public enum GeneralityType
+{
+    Asteroid = 0,
+    Planet = 1,
+    Star = 3,
+    BlackHole = 4,
+};
 
 public class Character : MonoBehaviour
 {
     public CharacterType characterType;
+    public GeneralityType generalityType;
     public Rigidbody2D rb;
     public Transform tf;
     [SerializeField] protected LayerMask characterLayer;
@@ -26,10 +38,14 @@ public class Character : MonoBehaviour
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
+    public bool canControl;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] GameObject canvar;
 
     protected virtual void Start()
     {
         OnInit();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void OnInit()
@@ -45,6 +61,10 @@ public class Character : MonoBehaviour
         mainVelocity = velocity + externalVelocity;
         rb.velocity = mainVelocity;
 
+        tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
+
+        if (canvar != null)
+            canvar.transform.rotation = Quaternion.identity;
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -55,11 +75,22 @@ public class Character : MonoBehaviour
         {
             if (characterType == CharacterType.Asteroid)
             {
-                if (this.GetInstanceID() > character.GetInstanceID())
+                if (isPlayer)
+                {
+                    HandleCollision(this, character);
+                }
+                else if (this.GetInstanceID() > character.GetInstanceID())
                 {
                     HandleCollision(this, character);
                 }
             }
+        }
+
+        if (collision.gameObject.tag != "Player")
+        {
+            spriteRenderer.enabled = false;
+            canControl = false;
+            StartCoroutine(TeleNewPos());
         }
     }
 
@@ -91,6 +122,7 @@ public class Character : MonoBehaviour
     {
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
+        SpawnPlanets.instance.ActiveCharacter(c2);
         if (c1.isPlayer)
         {
             ShowUI.instance.UpdateInfo();
@@ -100,5 +132,43 @@ public class Character : MonoBehaviour
     protected virtual void ResetExternalVelocity()
     {
         externalVelocity = Vector2.zero;
+    }
+
+    public void EvolutionCharacter()
+    {
+        if (characterType == CharacterType.SmallPlanet)
+        {
+            generalityType = GeneralityType.Asteroid;
+        }
+        else if (characterType == CharacterType.SmallPlanet || characterType == CharacterType.LifePlanet || characterType == CharacterType.GasGiantPlanet)
+        {
+            generalityType = GeneralityType.Planet;
+        }
+        else if (characterType == CharacterType.SmallStar || characterType == CharacterType.MediumStar || characterType == CharacterType.NeutronStar)
+        {
+            generalityType = GeneralityType.Star;
+        }
+        else if (characterType == CharacterType.BlackHole || characterType == CharacterType.BigCrunch || characterType == CharacterType.BigBang)
+        {
+            generalityType = GeneralityType.BlackHole;
+        }
+    }
+
+
+    private IEnumerator TeleNewPos()
+    {
+        yield return new WaitForSeconds(2f);
+        RespawnPlace();
+        spriteRenderer.enabled = true;
+        canControl = true;
+    }
+    private void RespawnPlace()
+    {
+        Vector2 newPos = new Vector2(0,0);
+
+        newPos.x = Random.Range(-200f, 200f);
+        newPos.y = Random.Range(-200f, 200f);
+
+        transform.position = newPos;
     }
 }

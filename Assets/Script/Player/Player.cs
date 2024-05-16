@@ -63,6 +63,8 @@ public class Player : Character
             isMovingRight = true;
         }
         else { isMovingRight = false; }
+
+        miniCam.transform.rotation = Quaternion.identity;
     }
 
     protected override void FixedUpdate()
@@ -144,11 +146,4 @@ public class Player : Character
         velocityMoveRight = 0;
     }
     
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-
-    //}
-
- 
 }
