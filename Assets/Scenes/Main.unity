@@ -709,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 0
+  generalityType: 0
   rb: {fileID: 8549888146538814806}
   tf: {fileID: 3325762445165478924}
   characterLayer:
@@ -717,7 +718,8 @@ MonoBehaviour:
   velocity: {x: 3, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
-  canvar: {fileID: 0}
+  isPlayer: 0
+  canControl: 0
   moveSpeed: 0
   velocityStart: 0
   miniCam: {fileID: 409854971}
@@ -1848,7 +1850,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581862330}
-  - component: {fileID: 581862329}
   - component: {fileID: 581862331}
   - component: {fileID: 581862332}
   - component: {fileID: 581862333}
@@ -1859,28 +1860,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &581862329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581862328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fa26f85dcc76242b66bd0fd581decd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Guide: {fileID: 344220592}
-  MassText: {fileID: 1915455094}
-  player: {fileID: 211834571}
-  bts:
-  - {fileID: 241560362}
-  - {fileID: 1888755422}
-  - {fileID: 659557145}
-  - {fileID: 1238073051}
-  PauseUI: {fileID: 1133225803}
-  TutorUI: {fileID: 65410068}
 --- !u!4 &581862330
 Transform:
   m_ObjectHideFlags: 0
@@ -1909,20 +1888,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Planets:
-  - {fileID: 3203132349341816512, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
-  - {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
-  - {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
-  - {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
-  - {fileID: 1649527303139333485, guid: 3f4a91237892ba7468bbbe7c9a6a8be7, type: 3}
-  - {fileID: 2347289635430099732, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}
-  - {fileID: 6359258016561016704, guid: f99e3ba012de2e14eac8a26cf66619d0, type: 3}
-  - {fileID: 2003567711149025007, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
-  - {fileID: 1703456355523802025, guid: 13b09c1da668598488d4f68ba2bb58cd, type: 3}
+  - {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+  - {fileID: 7453806933414085857, guid: f99e3ba012de2e14eac8a26cf66619d0, type: 3}
+  - {fileID: -3676052940744468643, guid: 13b09c1da668598488d4f68ba2bb58cd, type: 3}
+  - {fileID: 8694100981238886532, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+  - {fileID: 6238116557087275231, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
+  - {fileID: -8290093958724739382, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}
+  - {fileID: -411917550344471460, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
+  - {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+  - {fileID: 1594576687291401600, guid: 3f4a91237892ba7468bbbe7c9a6a8be7, type: 3}
   player: {fileID: 3325762445165478924}
+  tfCharacterManager: {fileID: 581862330}
   arrowPrefab: {fileID: 5137242729789617109, guid: dcf941ae9c2e5f74ebd90e4a5b749f15, type: 3}
   FarFromPlayerMin: 4
   FarFromPlayerMax: 10
   destroyDistance: 2.5
+  quantityAsteroid: 20
+  quantityPlanet: 0
 --- !u!114 &581862332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,6 +1933,64 @@ MonoBehaviour:
   BotUI: {fileID: 841581694}
   ChatText: {fileID: 1836827988}
   TimeShowText: 0.05
+--- !u!1 &618944114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618944116}
+  - component: {fileID: 618944115}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &618944115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618944114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0fa26f85dcc76242b66bd0fd581decd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mass: 0100000000000000140000000000000028000000000000005000000000000000b400000000000000dc05000000000000d007000000000000b80b000000000000a08601000000000040420f00000000008096980000000000
+  Guide: {fileID: 344220592}
+  MassText: {fileID: 1915455094}
+  player: {fileID: 211834571}
+  bts:
+  - {fileID: 241560362}
+  - {fileID: 1888755422}
+  - {fileID: 659557145}
+  - {fileID: 1238073051}
+  PauseUI: {fileID: 1133225803}
+  TutorUI: {fileID: 65410068}
+  NameTxt: {fileID: 1960691530}
+  EvoluTxt: {fileID: 879103838}
+  EvoluSlider: {fileID: 368642066}
+--- !u!4 &618944116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618944114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &644853582
 GameObject:
   m_ObjectHideFlags: 0
@@ -5719,7 +5759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecde017294691bd49b04c4f99a4de9f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 6772659483532777773}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5731,3 +5770,4 @@ SceneRoots:
   - {fileID: 771132784}
   - {fileID: 581862330}
   - {fileID: 1090917939}
+  - {fileID: 618944116}

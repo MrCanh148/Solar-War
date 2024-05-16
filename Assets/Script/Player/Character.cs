@@ -36,6 +36,7 @@ public class Character : MonoBehaviour
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
+    public bool canControl;
 
     protected virtual void Start()
     {

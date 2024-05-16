@@ -15,3 +15,5 @@ MonoBehaviour:
   acceleration: 10
   deceleration: 0.4
   minimumMergeForce: 10
+  coefficientActiveGameObject: 2
+  coefficientAttractive: 1
