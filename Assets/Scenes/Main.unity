@@ -720,6 +720,7 @@ MonoBehaviour:
   mainVelocity: {x: 0, y: 0}
   isPlayer: 0
   canControl: 0
+  canvar: {fileID: 0}
   moveSpeed: 0
   velocityStart: 0
   miniCam: {fileID: 409854971}
@@ -1782,7 +1783,7 @@ Transform:
   m_GameObject: {fileID: 427382974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.95}
+  m_LocalPosition: {x: 0, y: 0, z: -6.72}
   m_LocalScale: {x: 0.1724, y: 0.1724, z: 0.1724}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1898,7 +1899,7 @@ MonoBehaviour:
   - {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
   - {fileID: 1594576687291401600, guid: 3f4a91237892ba7468bbbe7c9a6a8be7, type: 3}
   player: {fileID: 3325762445165478924}
-  tfCharacterManager: {fileID: 581862330}
+  tfCharacterManager: {fileID: 0}
   arrowPrefab: {fileID: 5137242729789617109, guid: dcf941ae9c2e5f74ebd90e4a5b749f15, type: 3}
   FarFromPlayerMin: 4
   FarFromPlayerMax: 10
@@ -1933,64 +1934,6 @@ MonoBehaviour:
   BotUI: {fileID: 841581694}
   ChatText: {fileID: 1836827988}
   TimeShowText: 0.05
---- !u!1 &618944114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 618944116}
-  - component: {fileID: 618944115}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &618944115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618944114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0fa26f85dcc76242b66bd0fd581decd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Mass: 0100000000000000140000000000000028000000000000005000000000000000b400000000000000dc05000000000000d007000000000000b80b000000000000a08601000000000040420f00000000008096980000000000
-  Guide: {fileID: 344220592}
-  MassText: {fileID: 1915455094}
-  player: {fileID: 211834571}
-  bts:
-  - {fileID: 241560362}
-  - {fileID: 1888755422}
-  - {fileID: 659557145}
-  - {fileID: 1238073051}
-  PauseUI: {fileID: 1133225803}
-  TutorUI: {fileID: 65410068}
-  NameTxt: {fileID: 1960691530}
-  EvoluTxt: {fileID: 879103838}
-  EvoluSlider: {fileID: 368642066}
---- !u!4 &618944116
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618944114}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &644853582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,6 +3021,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &990856181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990856183}
+  - component: {fileID: 990856182}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &990856182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990856181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0fa26f85dcc76242b66bd0fd581decd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mass: 0100000000000000140000000000000028000000000000005000000000000000b400000000000000dc05000000000000d007000000000000b80b000000000000a08601000000000040420f00000000008096980000000000
+  Guide: {fileID: 344220592}
+  MassText: {fileID: 1915455094}
+  player: {fileID: 211834571}
+  bts:
+  - {fileID: 241560362}
+  - {fileID: 1888755422}
+  - {fileID: 659557145}
+  - {fileID: 1238073051}
+  PauseUI: {fileID: 1133225803}
+  TutorUI: {fileID: 65410068}
+  NameTxt: {fileID: 1960691530}
+  EvoluTxt: {fileID: 879103838}
+  EvoluSlider: {fileID: 368642066}
+--- !u!4 &990856183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990856181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068286331
 GameObject:
   m_ObjectHideFlags: 3
@@ -5491,7 +5492,6 @@ GameObject:
   - component: {fileID: 9212076658043548270}
   - component: {fileID: 9212076658043548272}
   - component: {fileID: 9212076658043548273}
-  - component: {fileID: 9212076658043548274}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5747,18 +5747,6 @@ MonoBehaviour:
   lineToCenter: {fileID: 9212076658043548272}
   TimeConnect: 0
   timeLimit: 3
---- !u!114 &9212076658043548274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6772659483532777773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecde017294691bd49b04c4f99a4de9f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5770,4 +5758,4 @@ SceneRoots:
   - {fileID: 771132784}
   - {fileID: 581862330}
   - {fileID: 1090917939}
-  - {fileID: 618944116}
+  - {fileID: 990856183}

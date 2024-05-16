@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public enum CharacterType
 {
@@ -37,10 +39,13 @@ public class Character : MonoBehaviour
     public Vector2 mainVelocity;
     public bool isPlayer;
     public bool canControl;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] GameObject canvar;
 
     protected virtual void Start()
     {
         OnInit();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void OnInit()
@@ -56,6 +61,10 @@ public class Character : MonoBehaviour
         mainVelocity = velocity + externalVelocity;
         rb.velocity = mainVelocity;
 
+        tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
+
+        if (canvar != null)
+            canvar.transform.rotation = Quaternion.identity;
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -75,6 +84,13 @@ public class Character : MonoBehaviour
                     HandleCollision(this, character);
                 }
             }
+        }
+
+        if (collision.gameObject.tag != "Player")
+        {
+            spriteRenderer.enabled = false;
+            canControl = false;
+            StartCoroutine(TeleNewPos());
         }
     }
 
@@ -136,5 +152,23 @@ public class Character : MonoBehaviour
         {
             generalityType = GeneralityType.BlackHole;
         }
+    }
+
+
+    private IEnumerator TeleNewPos()
+    {
+        yield return new WaitForSeconds(2f);
+        RespawnPlace();
+        spriteRenderer.enabled = true;
+        canControl = true;
+    }
+    private void RespawnPlace()
+    {
+        Vector2 newPos = new Vector2(0,0);
+
+        newPos.x = Random.Range(-200f, 200f);
+        newPos.y = Random.Range(-200f, 200f);
+
+        transform.position = newPos;
     }
 }
