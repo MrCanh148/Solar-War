@@ -275,9 +275,10 @@ MonoBehaviour:
   characterLayer:
     serializedVersion: 2
     m_Bits: 0
-  velocity: {x: 2, y: 0}
+  velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
+  isPlayer: 0
 --- !u!114 &4298866619803219257
 MonoBehaviour:
   m_ObjectHideFlags: 0

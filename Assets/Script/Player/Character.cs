@@ -12,13 +12,23 @@ public enum CharacterType
     NeutronStar = 7,
     BlackHole = 8,
     BigCrunch = 9,
-    BigBang = 10
+    BigBang = 10,
+
 };
 
+
+public enum GeneralityType
+{
+    Asteroid = 0,
+    Planet = 1,
+    Star = 3,
+    BlackHole = 4,
+};
 
 public class Character : MonoBehaviour
 {
     public CharacterType characterType;
+    public GeneralityType generalityType;
     public Rigidbody2D rb;
     public Transform tf;
     [SerializeField] protected LayerMask characterLayer;
@@ -55,7 +65,11 @@ public class Character : MonoBehaviour
         {
             if (characterType == CharacterType.Asteroid)
             {
-                if (this.GetInstanceID() > character.GetInstanceID())
+                if (isPlayer)
+                {
+                    HandleCollision(this, character);
+                }
+                else if (this.GetInstanceID() > character.GetInstanceID())
                 {
                     HandleCollision(this, character);
                 }
@@ -91,6 +105,7 @@ public class Character : MonoBehaviour
     {
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
+        SpawnPlanets.instance.ActiveCharacter(c2);
         if (c1.isPlayer)
         {
             ShowUI.instance.UpdateInfo();
@@ -100,5 +115,25 @@ public class Character : MonoBehaviour
     protected virtual void ResetExternalVelocity()
     {
         externalVelocity = Vector2.zero;
+    }
+
+    public void EvolutionCharacter()
+    {
+        if (characterType == CharacterType.SmallPlanet)
+        {
+            generalityType = GeneralityType.Asteroid;
+        }
+        else if (characterType == CharacterType.SmallPlanet || characterType == CharacterType.LifePlanet || characterType == CharacterType.GasGiantPlanet)
+        {
+            generalityType = GeneralityType.Planet;
+        }
+        else if (characterType == CharacterType.SmallStar || characterType == CharacterType.MediumStar || characterType == CharacterType.NeutronStar)
+        {
+            generalityType = GeneralityType.Star;
+        }
+        else if (characterType == CharacterType.BlackHole || characterType == CharacterType.BigCrunch || characterType == CharacterType.BigBang)
+        {
+            generalityType = GeneralityType.BlackHole;
+        }
     }
 }

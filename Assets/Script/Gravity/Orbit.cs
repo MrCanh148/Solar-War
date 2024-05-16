@@ -31,7 +31,7 @@ public class Orbit : MonoBehaviour
         {
             orbitPosition = CalculateOrbitPosition();
 
-            if (center != null) 
+            if (center != null)
             {
                 transform.position = orbitPosition;
 
@@ -70,7 +70,7 @@ public class Orbit : MonoBehaviour
         if (planet2 == null)
             return;
 
-        if (planet2.rb.mass >= planet1.rb.mass)
+        if (planet2.generalityType == planet1.generalityType + 1)
         {
             center = planet2.transform;
             isConnecting = true;
@@ -91,7 +91,7 @@ public class Orbit : MonoBehaviour
     private IEnumerator SpawnNewPlayer(float time)
     {
         yield return new WaitForSeconds(time);
-        center = null; 
+        center = null;
         isConnecting = false;
     }
 }
