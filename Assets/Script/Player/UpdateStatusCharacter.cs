@@ -33,7 +33,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         if (character.characterType == CharacterType.Asteroid)
         {
-            character.tf.DOScale(character.tf.localScale + 0.01f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
+            character.tf.DOScale(character.tf.localScale + 0.0002f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
         }
         foreach (var c in SpawnPlanets.instance.CharacterInfos)
         {

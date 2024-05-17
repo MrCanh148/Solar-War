@@ -348,7 +348,6 @@ MonoBehaviour:
   mainVelocity: {x: 0, y: 0}
   isPlayer: 0
   canControl: 0
-  spriteRenderer: {fileID: 0}
   canvar: {fileID: 4896486070763567436}
 --- !u!114 &6940409706170718321
 MonoBehaviour:
@@ -371,7 +370,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6359258016561016704}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

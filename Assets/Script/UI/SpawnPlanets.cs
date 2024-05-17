@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPlanets : FastSingleton<SpawnPlanets>
 {
     public List<CharacterInfo> CharacterInfos;
-    [SerializeField] private List<Character> Planets;
+    [SerializeField] private List<Character> Planets; //Cho spawn bằng nút
     [SerializeField] private Transform player;
     [SerializeField] private Transform tfCharacterManager;
     [SerializeField] private GameObject arrowPrefab;
@@ -92,8 +92,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         xPos = RamdomValue(xPos);
         yPos = RamdomValue(yPos);
         character.tf.localPosition = new Vector2(player.position.x + xPos, player.position.y + yPos);
-        //Debug.Log(xPos + " " + yPos);
-        //Debug.Log(player.tf.position);
     }
 
     public float RamdomValue(float n)

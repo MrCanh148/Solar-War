@@ -17,10 +17,7 @@ public class Attractor : MonoBehaviour
         if (otherAttractor != null && rb != null)
         {
             Attract(rb, otherAttractor);
-            //Debug.Log("Attractor");
         }
-
-
     }
 
     private void Attract(Character attractor, Character target)
@@ -37,7 +34,6 @@ public class Attractor : MonoBehaviour
 
             Vector3 force = direction.normalized * forceMagnitude;
             target.externalVelocity = force;
-            Debug.Log(force);
         }
 
     }

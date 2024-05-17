@@ -39,8 +39,8 @@ public class Character : MonoBehaviour
     public bool canControl; 
     private SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
-
-
+    [SerializeField] private float distanceTele;
+    private Vector2 currentPos;
 
     protected virtual void Start()
     {
@@ -62,7 +62,8 @@ public class Character : MonoBehaviour
         mainVelocity = velocity + externalVelocity;
         rb.velocity = mainVelocity;
 
-        tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
+        if (characterType == CharacterType.Asteroid)
+            tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
 
         if (canvar != null)
             canvar.transform.rotation = Quaternion.identity;
@@ -75,21 +76,22 @@ public class Character : MonoBehaviour
 
         if (character == null)
             return;
-        // Nếu 2 plant là Asteroid thì sẽ Đẩy hoặc Hợp nhất
-        if (character.characterType == CharacterType.Asteroid)
+       
+        if (character.generalityType == this.generalityType) 
         {
-            if (characterType == CharacterType.Asteroid)
+            if (character.characterType == CharacterType.Asteroid && characterType == CharacterType.Asteroid) // Nếu 2 plant là Asteroid thì sẽ Đẩy hoặc Hợp nhất
             {
                 if (isPlayer)
                 {
                     HandleCollision(this, character);
                 }
-                else if (this.GetInstanceID() > character.GetInstanceID())
-                {
-                    HandleCollision(this, character);
-                }
+            }
+            else if (this.GetInstanceID() > character.GetInstanceID())
+            {
+                HandleCollision(this, character);
             }
         }
+ 
 
         // Nếu 2 plant Khác hệ thì destroy cái bé
         if (character.generalityType > this.generalityType && isPlayer)
@@ -98,6 +100,7 @@ public class Character : MonoBehaviour
             {
                 spriteRenderer.enabled = false;
                 canControl = false;
+                currentPos = transform.position;
                 StartCoroutine(TeleNewPos());
             }
             else
@@ -160,9 +163,12 @@ public class Character : MonoBehaviour
     {
         Vector2 newPos = new Vector2(0, 0);
 
-        newPos.x = Random.Range(-200f, 200f);
-        newPos.y = Random.Range(-200f, 200f);
+        newPos.x = Random.Range(-distanceTele, distanceTele) + currentPos.x;
+        newPos.y = Random.Range(-distanceTele, distanceTele) + currentPos.y;
 
         transform.position = newPos;
     }
+
+   
+
 }
