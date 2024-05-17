@@ -36,10 +36,9 @@ public class Character : MonoBehaviour
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
-    public bool canControl;
+    public bool canControl; 
     private SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
-
 
 
 
@@ -73,6 +72,10 @@ public class Character : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character character = collision.gameObject.GetComponent<Character>();
+
+        if (character == null)
+            return;
+        // Nếu 2 plant là Asteroid thì sẽ Đẩy hoặc Hợp nhất
         if (character.characterType == CharacterType.Asteroid)
         {
             if (characterType == CharacterType.Asteroid)
@@ -88,12 +91,21 @@ public class Character : MonoBehaviour
             }
         }
 
-        /*if (collision.gameObject.tag != "Player")
+        // Nếu 2 plant Khác hệ thì destroy cái bé
+        if (character.generalityType > this.generalityType && isPlayer)
         {
-            spriteRenderer.enabled = false;
-            canControl = false;
-            StartCoroutine(TeleNewPos());
-        }*/
+            if (isPlayer) //Nếu plant là Player
+            {
+                spriteRenderer.enabled = false;
+                canControl = false;
+                StartCoroutine(TeleNewPos());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
     public void HandleCollision(Character c1, Character c2)
@@ -126,9 +138,6 @@ public class Character : MonoBehaviour
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
-
-
-
     }
 
     protected virtual void ResetExternalVelocity()
@@ -139,7 +148,7 @@ public class Character : MonoBehaviour
 
 
 
-
+    // Sử lý Player khi bị destroy
     private IEnumerator TeleNewPos()
     {
         yield return new WaitForSeconds(2f);
