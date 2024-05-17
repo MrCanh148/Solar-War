@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public enum CharacterType
 {
     Asteroid = 0,
@@ -37,15 +35,19 @@ public class Character : MonoBehaviour
     public Vector2 velocity;
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
-    public bool isPlayer; // Là Player thì tick 
-    public bool canControl; // bien chp phep dieu khien input
-    public SpriteRenderer spriteRenderer;
+    public bool isPlayer;
+    public bool canControl;
+    private SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
+
+
+
 
     protected virtual void Start()
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     protected virtual void OnInit()
@@ -71,11 +73,9 @@ public class Character : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character character = collision.gameObject.GetComponent<Character>();
-
-        // Trường hợp 2planet cùng 1 hệ thì va chạm sẽ đẩy nhau 
-        if (character.generalityType == this.generalityType)
+        if (character.characterType == CharacterType.Asteroid)
         {
-            if (this.characterType == CharacterType.Asteroid && character.characterType == CharacterType.Asteroid)
+            if (characterType == CharacterType.Asteroid)
             {
                 if (isPlayer)
                 {
@@ -86,13 +86,14 @@ public class Character : MonoBehaviour
                     HandleCollision(this, character);
                 }
             }
-
         }
 
-        if (character.generalityType < this.generalityType)
+        /*if (collision.gameObject.tag != "Player")
         {
-            Destroy(character.gameObject);
-        }
+            spriteRenderer.enabled = false;
+            canControl = false;
+            StartCoroutine(TeleNewPos());
+        }*/
     }
 
     public void HandleCollision(Character c1, Character c2)
@@ -117,6 +118,7 @@ public class Character : MonoBehaviour
             Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
             c1.velocity = new Vector2(velocityS.x, velocityS.y);
         }
+
     }
 
     public void MergeCharacter(Character c1, Character c2)
@@ -124,6 +126,9 @@ public class Character : MonoBehaviour
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
+
+
+
     }
 
     protected virtual void ResetExternalVelocity()
@@ -131,23 +136,24 @@ public class Character : MonoBehaviour
         externalVelocity = Vector2.zero;
     }
 
-    public void EvolutionCharacter()
+
+
+
+
+    private IEnumerator TeleNewPos()
     {
-        if (characterType == CharacterType.SmallPlanet)
-        {
-            generalityType = GeneralityType.Asteroid;
-        }
-        else if (characterType == CharacterType.SmallPlanet || characterType == CharacterType.LifePlanet || characterType == CharacterType.GasGiantPlanet)
-        {
-            generalityType = GeneralityType.Planet;
-        }
-        else if (characterType == CharacterType.SmallStar || characterType == CharacterType.MediumStar || characterType == CharacterType.NeutronStar)
-        {
-            generalityType = GeneralityType.Star;
-        }
-        else if (characterType == CharacterType.BlackHole || characterType == CharacterType.BigCrunch || characterType == CharacterType.BigBang)
-        {
-            generalityType = GeneralityType.BlackHole;
-        }
+        yield return new WaitForSeconds(2f);
+        RespawnPlace();
+        spriteRenderer.enabled = true;
+        canControl = true;
+    }
+    private void RespawnPlace()
+    {
+        Vector2 newPos = new Vector2(0, 0);
+
+        newPos.x = Random.Range(-200f, 200f);
+        newPos.y = Random.Range(-200f, 200f);
+
+        transform.position = newPos;
     }
 }
