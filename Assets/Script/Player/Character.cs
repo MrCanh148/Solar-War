@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-
 public enum CharacterType
 {
     Asteroid = 0,
@@ -41,11 +40,14 @@ public class Character : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
 
+
+
+
     protected virtual void Start()
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        EvolutionCharacter();
+
     }
 
     protected virtual void OnInit()
@@ -124,11 +126,9 @@ public class Character : MonoBehaviour
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
-        c1.EvolutionCharacter();
-        if (c1.isPlayer)
-        {
-            ShowUI.instance.UpdateInfo();
-        }
+
+
+
     }
 
     protected virtual void ResetExternalVelocity()
@@ -136,25 +136,8 @@ public class Character : MonoBehaviour
         externalVelocity = Vector2.zero;
     }
 
-    public void EvolutionCharacter()
-    {
-        if (characterType == CharacterType.SmallPlanet)
-        {
-            generalityType = GeneralityType.Asteroid;
-        }
-        else if (characterType == CharacterType.SmallPlanet || characterType == CharacterType.LifePlanet || characterType == CharacterType.GasGiantPlanet)
-        {
-            generalityType = GeneralityType.Planet;
-        }
-        else if (characterType == CharacterType.SmallStar || characterType == CharacterType.MediumStar || characterType == CharacterType.NeutronStar)
-        {
-            generalityType = GeneralityType.Star;
-        }
-        else if (characterType == CharacterType.BlackHole || characterType == CharacterType.BigCrunch || characterType == CharacterType.BigBang)
-        {
-            generalityType = GeneralityType.BlackHole;
-        }
-    }
+
+
 
 
     private IEnumerator TeleNewPos()

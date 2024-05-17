@@ -17,7 +17,7 @@ public class Attractor : MonoBehaviour
         if (otherAttractor != null && rb != null)
         {
             Attract(rb, otherAttractor);
-            Debug.Log("Attractor");
+            //Debug.Log("Attractor");
         }
 
 

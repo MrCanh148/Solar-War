@@ -861,7 +861,7 @@ MonoBehaviour:
   velocity: {x: 3, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
-  isPlayer: 0
+  isPlayer: 1
   canControl: 0
   canvar: {fileID: 0}
   moveSpeed: 0
@@ -6087,6 +6087,7 @@ GameObject:
   - component: {fileID: 9212076658043548270}
   - component: {fileID: 9212076658043548272}
   - component: {fileID: 9212076658043548273}
+  - component: {fileID: 9212076658043548274}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6342,6 +6343,19 @@ MonoBehaviour:
   lineToCenter: {fileID: 9212076658043548272}
   TimeConnect: 0
   timeLimit: 3
+--- !u!114 &9212076658043548274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772659483532777773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705923926f344d0469ad7139f03aedfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 211834571}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
