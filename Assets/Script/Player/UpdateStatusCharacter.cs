@@ -5,8 +5,14 @@ public class UpdateStatusCharacter : MonoBehaviour
 {
     public Character owner;
     int currentMass;
+    CharacterInfo characterInfo;
 
     private void Start()
+    {
+        OnInit();
+    }
+
+    private void OnInit()
     {
         currentMass = (int)owner.rb.mass;
         if (owner.isPlayer)
@@ -14,13 +20,14 @@ public class UpdateStatusCharacter : MonoBehaviour
             ShowUI.instance.UpdateInfo();
         }
 
-        UpdateInfoCharacter(owner);
+        //UpdateInfoCharacter(owner);
         EvolutionCharacter(owner);
+
     }
 
     private void Update()
     {
-        OnChangeData((int)owner.rb.mass);
+        OnChangeMass((int)owner.rb.mass);
     }
     public void UpdateInfoCharacter(Character character)
     {
@@ -28,12 +35,21 @@ public class UpdateStatusCharacter : MonoBehaviour
         {
             character.tf.DOScale(character.tf.localScale + 0.01f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
         }
-
+        foreach (var c in SpawnPlanets.instance.CharacterInfos)
+        {
+            if (character.characterType == c.characterType - 1)
+            {
+                if (character.rb.mass == c.requiredMass)
+                {
+                    character.characterType = c.characterType;
+                }
+            }
+        }
     }
 
     public void EvolutionCharacter(Character character)
     {
-        if (character.characterType == CharacterType.SmallPlanet)
+        if (character.characterType == CharacterType.Asteroid)
         {
             character.generalityType = GeneralityType.Asteroid;
         }
@@ -51,19 +67,24 @@ public class UpdateStatusCharacter : MonoBehaviour
         }
     }
 
-    public void OnChangeData(int newMass)
+    public void OnChangeMass(int newMass)
     {
         if (currentMass != newMass)
         {
+            UpdateInfoCharacter(owner);
+            Debug.Log("1");
+            EvolutionCharacter(owner);
+            Debug.Log("2");
             if (owner.isPlayer)
             {
                 ShowUI.instance.UpdateInfo();
             }
 
-            UpdateInfoCharacter(owner);
-            EvolutionCharacter(owner);
+
         }
 
         currentMass = newMass;
     }
+
+
 }

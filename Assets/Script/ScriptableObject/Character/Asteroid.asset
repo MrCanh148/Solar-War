@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: Asteroid
   m_EditorClassIdentifier: 
+  id: 0
   characterType: 0
   requiredMass: 1
+  characterPrefab: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}

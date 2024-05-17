@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: GasGiantPlanet
   m_EditorClassIdentifier: 
+  id: 3
   characterType: 3
   requiredMass: 80
+  characterPrefab: {fileID: 8694100981238886532, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}

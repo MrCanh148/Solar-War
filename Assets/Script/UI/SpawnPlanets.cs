@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpawnPlanets : FastSingleton<SpawnPlanets>
 {
+    public List<CharacterInfo> CharacterInfos;
     [SerializeField] private List<Character> Planets;
     [SerializeField] private Transform player;
     [SerializeField] private Transform tfCharacterManager;
