@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: MediumStar
   m_EditorClassIdentifier: 
+  id: 5
   characterType: 5
   requiredMass: 1500
+  characterPrefab: {fileID: -8290093958724739382, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}

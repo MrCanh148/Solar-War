@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: BigStar
   m_EditorClassIdentifier: 
+  id: 6
   characterType: 6
   requiredMass: 2000
+  characterPrefab: {fileID: 7453806933414085857, guid: f99e3ba012de2e14eac8a26cf66619d0, type: 3}

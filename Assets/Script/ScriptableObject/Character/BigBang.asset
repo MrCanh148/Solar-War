@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: BigBang
   m_EditorClassIdentifier: 
-  id: 0
+  id: 10
   characterType: 10
   requiredMass: 10000000
   characterPrefab: {fileID: 0}

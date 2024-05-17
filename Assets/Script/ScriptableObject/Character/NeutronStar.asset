@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: NeutronStar
   m_EditorClassIdentifier: 
+  id: 7
   characterType: 7
   requiredMass: 3000
+  characterPrefab: {fileID: -411917550344471460, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}

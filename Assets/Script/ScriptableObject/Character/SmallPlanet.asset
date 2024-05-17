@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc13de541cce05d4e93965790fb3ed8f, type: 3}
   m_Name: SmallPlanet
   m_EditorClassIdentifier: 
+  id: 1
   characterType: 1
   requiredMass: 20
+  characterPrefab: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}

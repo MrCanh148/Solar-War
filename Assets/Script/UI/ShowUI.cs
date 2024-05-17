@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ShowUI : FastSingleton<ShowUI>
 {
-    public long[] Mass = { 1, 20, 40, 80, 180, 1500, 2000, 3000, 100000, 1000000, 10000000 };
+
     [SerializeField] private TextMeshProUGUI Guide, MassText;
     [SerializeField] private Character player;
 
@@ -85,6 +85,14 @@ public class ShowUI : FastSingleton<ShowUI>
         SetNameTxt(player.characterType.ToString());
         SetMassTxt((int)player.rb.mass);
         SetEvoluTxt((player.characterType + 1).ToString());
-        SetEvoluSlider((long)player.rb.mass, Mass[(int)player.characterType + 1]);
+        int nestMass = 0;
+        foreach (var c in SpawnPlanets.instance.CharacterInfos)
+        {
+            if (c.characterType == player.characterType + 1)
+            {
+                nestMass = c.requiredMass;
+            }
+        }
+        SetEvoluSlider((long)player.rb.mass, nestMass);
     }
 }
