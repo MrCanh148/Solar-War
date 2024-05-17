@@ -37,9 +37,9 @@ public class Character : MonoBehaviour
     public Vector2 velocity;
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
-    public bool isPlayer;
-    public bool canControl;
-    private SpriteRenderer spriteRenderer;
+    public bool isPlayer; // Là Player thì tick 
+    public bool canControl; // bien chp phep dieu khien input
+    public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
 
     protected virtual void Start()
@@ -71,9 +71,11 @@ public class Character : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character character = collision.gameObject.GetComponent<Character>();
-        if (character.characterType == CharacterType.Asteroid)
+
+        // Trường hợp 2planet cùng 1 hệ thì va chạm sẽ đẩy nhau 
+        if (character.generalityType == this.generalityType)
         {
-            if (characterType == CharacterType.Asteroid)
+            if (this.characterType == CharacterType.Asteroid && character.characterType == CharacterType.Asteroid)
             {
                 if (isPlayer)
                 {
@@ -84,13 +86,12 @@ public class Character : MonoBehaviour
                     HandleCollision(this, character);
                 }
             }
+
         }
 
-        if (collision.gameObject.tag != "Player")
+        if (character.generalityType < this.generalityType)
         {
-            spriteRenderer.enabled = false;
-            canControl = false;
-            StartCoroutine(TeleNewPos());
+            Destroy(character.gameObject);
         }
     }
 
@@ -123,10 +124,6 @@ public class Character : MonoBehaviour
         c1.rb.mass++;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
-        if (c1.isPlayer)
-        {
-            ShowUI.instance.UpdateInfo();
-        }
     }
 
     protected virtual void ResetExternalVelocity()
@@ -152,23 +149,5 @@ public class Character : MonoBehaviour
         {
             generalityType = GeneralityType.BlackHole;
         }
-    }
-
-
-    private IEnumerator TeleNewPos()
-    {
-        yield return new WaitForSeconds(2f);
-        RespawnPlace();
-        spriteRenderer.enabled = true;
-        canControl = true;
-    }
-    private void RespawnPlace()
-    {
-        Vector2 newPos = new Vector2(0,0);
-
-        newPos.x = Random.Range(-200f, 200f);
-        newPos.y = Random.Range(-200f, 200f);
-
-        transform.position = newPos;
     }
 }

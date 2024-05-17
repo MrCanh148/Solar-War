@@ -145,5 +145,37 @@ public class Player : Character
         velocityMoveLeft = 0;
         velocityMoveRight = 0;
     }
-    
+
+
+    // Su ly player bi Destroy
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character character = collision.gameObject.GetComponent<Character>();
+
+        // Trường hợp planet2 lớn hơn 1 hệ => Player Bị Phá Hủy 
+        if (character.generalityType >= this.generalityType + 1)
+        {
+            spriteRenderer.enabled = false;
+            canControl = false;
+ 
+            StartCoroutine(TeleNewPos());
+        }
+    }
+
+    private IEnumerator TeleNewPos()
+    {
+        yield return new WaitForSeconds(1.5f);
+        RespawnPlace();
+        spriteRenderer.enabled = true;
+        canControl = true;
+    }
+    private void RespawnPlace()
+    {
+        Vector2 newPos = new Vector2(0, 0);
+
+        newPos.x = Random.Range(-200f, 200f);
+        newPos.y = Random.Range(-200f, 200f);
+
+        transform.position = newPos;
+    }
 }

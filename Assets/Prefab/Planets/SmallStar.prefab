@@ -402,7 +402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc936e4fa2cfd48815b078a1457e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
+  characterType: 4
+  generalityType: 3
   rb: {fileID: 2149441544727676347}
   tf: {fileID: 1659789751335299402}
   characterLayer:
@@ -411,6 +412,9 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
+  isPlayer: 0
+  canControl: 0
+  spriteRenderer: {fileID: 0}
   canvar: {fileID: 5603819336115826068}
 --- !u!114 &-8120897560692530304
 MonoBehaviour:

@@ -281,6 +281,7 @@ MonoBehaviour:
   mainVelocity: {x: 0, y: 0}
   isPlayer: 0
   canControl: 0
+  spriteRenderer: {fileID: 0}
   canvar: {fileID: 863610445395194257}
 --- !u!114 &4298866619803219257
 MonoBehaviour:
@@ -294,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0
+  G: 0.01
 --- !u!120 &-4740987572406462871
 LineRenderer:
   serializedVersion: 2
