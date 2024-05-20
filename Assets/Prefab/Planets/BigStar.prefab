@@ -349,6 +349,7 @@ MonoBehaviour:
   isPlayer: 0
   canControl: 0
   canvar: {fileID: 4896486070763567436}
+  distanceTele: 0
 --- !u!114 &6940409706170718321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,8 +406,8 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 17.539856, y: -9.509291, z: 0}
-  - {x: 17.019445, y: -8.655375, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -478,11 +479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec66ab1183f50c4984442d2545b70b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2
-  rotationSpeed: 50
   lineToCenter: {fileID: 3669896744753246576}
-  TimeConnect: 0
-  timeLimit: 3
+  timeLimit: 2
+  numberOrbit: 0
 --- !u!1 &6377482054849216260
 GameObject:
   m_ObjectHideFlags: 0

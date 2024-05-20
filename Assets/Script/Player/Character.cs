@@ -85,11 +85,12 @@ public class Character : MonoBehaviour
                 {
                     HandleCollision(this, character);
                 }
+                else if (this.GetInstanceID() > character.GetInstanceID())
+                {
+                    HandleCollision(this, character);
+                }
             }
-            else if (this.GetInstanceID() > character.GetInstanceID())
-            {
-                HandleCollision(this, character);
-            }
+
         }
  
 

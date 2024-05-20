@@ -5851,7 +5851,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6772659483532777773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5959,11 +5959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec66ab1183f50c4984442d2545b70b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  rotationSpeed: 50
   lineToCenter: {fileID: 9212076658043548272}
-  TimeConnect: 0
-  timeLimit: 3
 --- !u!114 &9212076658043548274
 MonoBehaviour:
   m_ObjectHideFlags: 0

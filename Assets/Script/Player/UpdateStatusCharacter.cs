@@ -72,9 +72,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         if (currentMass != newMass)
         {
             UpdateInfoCharacter(owner);
-            Debug.Log("1");
             EvolutionCharacter(owner);
-            Debug.Log("2");
             if (owner.isPlayer)
             {
                 ShowUI.instance.UpdateInfo();
