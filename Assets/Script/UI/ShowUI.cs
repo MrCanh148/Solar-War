@@ -11,6 +11,7 @@ public class ShowUI : FastSingleton<ShowUI>
     [Header("Bt0: Continue / Bt1: Tutor / Bt2: Exit")]
     [SerializeField] private Button[] bts;
     [SerializeField] private GameObject PauseUI, TutorUI;
+    [SerializeField] GameObject SettingUI;
 
     [SerializeField] TextMeshProUGUI NameTxt;
     [SerializeField] TextMeshProUGUI EvoluTxt;
@@ -94,5 +95,21 @@ public class ShowUI : FastSingleton<ShowUI>
             }
         }
         SetEvoluSlider((long)player.rb.mass, nestMass);
+    }
+
+    public void ShowSettingUI()
+    {
+        bool active = SettingUI.activeSelf;
+        if (active)
+        {
+            SettingUI.SetActive(!active);
+            GameManager.instance.ChangeState(GameState.Play);
+        }
+        else
+        {
+            SettingUI.SetActive(!active);
+            GameManager.instance.ChangeState(GameState.Menu);
+        }
+
     }
 }

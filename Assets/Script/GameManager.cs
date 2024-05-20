@@ -1,7 +1,37 @@
+using UnityEngine;
+
+public enum GameState
+{
+    Menu,
+    Play
+};
+
 public class GameManager : FastSingleton<GameManager>
 {
     public Status status;
+    public GameState gameCurrentState;
+
+    public void ChangeState(GameState gameState)
+    {
+        gameCurrentState = gameState;
+    }
+    public bool IsState(GameState gameState)
+    {
+        if (gameCurrentState == gameState)
+            return true;
+        else
+            return false;
+    }
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ShowUI.instance.ShowSettingUI();
+        }
+
+
+    }
 
 }
