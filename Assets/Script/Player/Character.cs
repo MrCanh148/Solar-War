@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public enum CharacterType
 {
@@ -36,11 +38,15 @@ public class Character : MonoBehaviour
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
-    public bool canControl; 
+    public bool canControl;
     private SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     [SerializeField] private float distanceTele;
     private Vector2 currentPos;
+    public List<Character> satellites;
+
+
+
 
     protected virtual void Start()
     {
@@ -52,7 +58,9 @@ public class Character : MonoBehaviour
     protected virtual void OnInit()
     {
 
+
     }
+
 
     protected virtual void FixedUpdate()
     {
@@ -76,8 +84,8 @@ public class Character : MonoBehaviour
 
         if (character == null)
             return;
-       
-        if (character.generalityType == this.generalityType) 
+
+        if (character.generalityType == this.generalityType)
         {
             if (character.characterType == CharacterType.Asteroid && characterType == CharacterType.Asteroid) // Nếu 2 plant là Asteroid thì sẽ Đẩy hoặc Hợp nhất
             {
@@ -85,13 +93,14 @@ public class Character : MonoBehaviour
                 {
                     HandleCollision(this, character);
                 }
+                else if (this.GetInstanceID() > character.GetInstanceID())
+                {
+                    HandleCollision(this, character);
+                }
             }
-            else if (this.GetInstanceID() > character.GetInstanceID())
-            {
-                HandleCollision(this, character);
-            }
+
         }
- 
+
 
         // Nếu 2 plant Khác hệ thì destroy cái bé
         if (character.generalityType > this.generalityType && isPlayer)
@@ -169,6 +178,35 @@ public class Character : MonoBehaviour
         transform.position = newPos;
     }
 
-   
+    public void AbsorbCharacter(Character host, Character character)
+    {
+        //character.tf.position = Vector3.Lerp(character.tf.position, tf.position, 0.8f);
+        /*character.tf.DOScale(Vector3.zero, 0.5f)
+                     .OnComplete(() =>
+                     {
+                         // Vô hiệu hóa vật B
+                         character.tf.gameObject.SetActive(false);
+                     });*/
+        character.tf.DOMove(host.tf.position, 1f);
+    }
 
+    public Character GetCharacterWithMinimumMass()
+    {
+        Debug.Log(satellites.Count);
+        Character character = null;
+        if (satellites.Count > 0)
+        {
+            character = satellites[0];
+            foreach (var c in satellites)
+            {
+                if (c.rb.mass < character.rb.mass)
+                {
+                    character = c;
+                }
+            }
+            satellites.Remove(character);
+        }
+        return character;
+
+    }
 }

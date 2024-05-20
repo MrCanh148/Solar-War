@@ -63,6 +63,18 @@ public class Player : Character
         else { isMovingRight = false; }
 
         miniCam.transform.rotation = Quaternion.identity;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Character character = GetCharacterWithMinimumMass();
+            if (character != null)
+            {
+                Debug.Log(character);
+                AbsorbCharacter(this, character);
+                rb.mass += character.rb.mass;
+            }
+
+        }
     }
 
     protected override void FixedUpdate()
@@ -145,5 +157,5 @@ public class Player : Character
         velocityMoveRight = 0;
     }
 
-    
+
 }
