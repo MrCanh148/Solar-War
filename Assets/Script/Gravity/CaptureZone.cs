@@ -5,17 +5,30 @@ public class CaptureZone : MonoBehaviour
     public Character owner;
     public float timer;
     public bool onZone;
-    Character character;
+    Character ortherCharacter;
+
+    private void Start()
+    {
+        ortherCharacter = null;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        character = Cache.GetCharacterCollider(collision);
+        Character character = collision.GetComponent<Character>();
+        if (character != null)
+        {
+            ortherCharacter = character;
+        }
+        Debug.Log(character);
         // Character character = collision.GetComponent<Character>();
-        if (character != null && owner != null && (owner.generalityType == character.generalityType + 1) && character.host == null)
+        if (ortherCharacter != null && owner != null && (owner.generalityType == ortherCharacter.generalityType + 1) && ortherCharacter.host == null)
         {
             onZone = true;
             timer = 0f;
-
+        }
+        else
+        {
+            onZone = false;
         }
     }
 
@@ -29,9 +42,12 @@ public class CaptureZone : MonoBehaviour
         }
         if (timer > GameManager.instance.status.timeToCapture)
         {
-            BecomeSatellite(character);
-            timer = 0f;
-            onZone = false;
+            if (ortherCharacter != null)
+            {
+                BecomeSatellite(ortherCharacter);
+                timer = 0f;
+                onZone = false;
+            }
         }
 
     }
@@ -108,9 +124,9 @@ public class CaptureZone : MonoBehaviour
         }
 
         //character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-        //character.radius = direction.magnitude;
+        character.radius = direction.magnitude;
         character.spinSpeed = 1f;
-        character.radius = 3f;
+        //character.radius = 3f;
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
         character.velocity = Vector2.zero;
     }
