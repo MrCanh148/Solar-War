@@ -45,6 +45,13 @@ public class Character : MonoBehaviour
     private Vector2 currentPos;
     public List<Character> satellites;
 
+    //Orbit
+    public Character host;
+    public float radius; // Bán kính quỹ đạo
+    public float spinSpeed; // Tốc độ quay
+    public float angle;
+    public bool isCapture;
+    public LineRenderer lineRenderer;
 
 
 
@@ -61,6 +68,32 @@ public class Character : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (isCapture)
+        {
+            Debug.Log("test");
+            // Tính toán vị trí mới dựa trên góc quay và bán kính
+            float x = Mathf.Cos(angle) * radius;
+            float y = Mathf.Sin(angle) * radius;
+
+            // Cập nhật vị trí của đối tượng
+            tf.position = host.tf.position + new Vector3(x, y, 0f);
+            //transform.RotateAround(host.tf.position, Vector3.forward, angle);
+
+            // Tăng góc quay theo tốc độ
+            angle += spinSpeed * Time.deltaTime;
+            if (host != null && tf != null)
+            {
+                lineRenderer.SetPosition(1, tf.position);
+                lineRenderer.SetPosition(0, host.tf.position);
+            }
+
+
+        }
+
+
+    }
 
     protected virtual void FixedUpdate()
     {
@@ -94,6 +127,7 @@ public class Character : MonoBehaviour
             else if (this.GetInstanceID() > character.GetInstanceID())
             {
                 HandleCollision(this, character);
+                Debug.Log("Va cham");
             }
 
 
@@ -121,7 +155,8 @@ public class Character : MonoBehaviour
     public void HandleCollision(Character c1, Character c2)
     {
 
-        float gravitational = (c1.mainVelocity * c1.rb.mass - c2.mainVelocity * c2.rb.mass).magnitude;
+        float gravitational = (c1.mainVelocity - c2.mainVelocity).magnitude;
+        Debug.Log("gravitational = " + gravitational);
         if (gravitational <= GameManager.instance.status.minimumMergeForce)
         {
             Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);

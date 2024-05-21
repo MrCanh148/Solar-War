@@ -3,20 +3,18 @@
 public class Attractor : MonoBehaviour
 {
     public float G = 6.674f;
-    private Character rb, otherAttractor;
+    public Character owner;
+    Character otherAttractor;
 
-    private void Start()
-    {
-        rb = GetComponent<Character>();
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         otherAttractor = collision.GetComponent<Character>();
 
-        if (otherAttractor != null && rb != null)
+        if (otherAttractor != null && owner != null)
         {
-            Attract(rb, otherAttractor);
+            Attract(owner, otherAttractor);
         }
     }
 
@@ -30,12 +28,17 @@ public class Attractor : MonoBehaviour
 
                 Vector3 direction = attractor.transform.position - target.transform.position;
                 float distance = direction.magnitude;
+                if (distance <= 0.1f)
+                {
+                    return;
+                }
 
                 float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
                 float forceMagnitude = G * unScaledforceManguite;
 
                 Vector3 force = direction.normalized * forceMagnitude;
                 target.externalVelocity = force;
+                Debug.Log(force);
             }
         }
 

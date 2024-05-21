@@ -12,4 +12,6 @@ public class Status : ScriptableObject
 
     public float coefficientActiveGameObject;  //hệ số khoảng cách gameobject hoạt động
     public float coefficientAttractive;   //hệ số hấp dẫn
+
+    public float timeToCapture;
 }

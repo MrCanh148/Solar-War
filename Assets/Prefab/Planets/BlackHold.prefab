@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 726689616112988236}
   - component: {fileID: -3676052940744468643}
   - component: {fileID: -8313089608593628643}
+  - component: {fileID: 6950931898857315630}
   m_Layer: 0
   m_Name: BlackHold
   m_TagString: Planet
@@ -177,8 +178,15 @@ MonoBehaviour:
   mainVelocity: {x: 0, y: 0}
   isPlayer: 0
   canControl: 0
-  spriteRenderer: {fileID: 0}
   canvar: {fileID: 7833504254054102869}
+  distanceTele: 0
+  satellites: []
+  host: {fileID: 0}
+  radius: 0
+  spinSpeed: 0
+  angle: 0
+  isCapture: 0
+  lineRenderer: {fileID: 0}
 --- !u!114 &-8313089608593628643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +200,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   G: 0.0000001
+--- !u!114 &6950931898857315630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703456355523802025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9eb09188add3d8448d0dec2970a26c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: -3676052940744468643}
+  timer: 0
+  onZone: 0
 --- !u!1 &2004665523626693517
 GameObject:
   m_ObjectHideFlags: 0
