@@ -87,17 +87,15 @@ public class Character : MonoBehaviour
 
         if (character.generalityType == this.generalityType)
         {
-            if (character.characterType == CharacterType.Asteroid && characterType == CharacterType.Asteroid) // Nếu 2 plant là Asteroid thì sẽ Đẩy hoặc Hợp nhất
+            if (isPlayer)
             {
-                if (isPlayer)
-                {
-                    HandleCollision(this, character);
-                }
-                else if (this.GetInstanceID() > character.GetInstanceID())
-                {
-                    HandleCollision(this, character);
-                }
+                HandleCollision(this, character);
             }
+            else if (this.GetInstanceID() > character.GetInstanceID())
+            {
+                HandleCollision(this, character);
+            }
+
 
         }
 
@@ -138,9 +136,12 @@ public class Character : MonoBehaviour
         }
         else
         {
-            MergeCharacter(c1, c2);
-            Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
-            c1.velocity = new Vector2(velocityS.x, velocityS.y);
+            if (c1.generalityType == GeneralityType.Asteroid)
+            {
+                MergeCharacter(c1, c2);
+                Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
+                c1.velocity = new Vector2(velocityS.x, velocityS.y);
+            }
         }
 
     }
