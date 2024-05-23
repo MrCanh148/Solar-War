@@ -157,27 +157,55 @@ public class Character : MonoBehaviour
 
         float gravitational = (c1.mainVelocity - c2.mainVelocity).magnitude;
         Debug.Log("gravitational = " + gravitational);
-        if (gravitational <= GameManager.instance.status.minimumMergeForce)
+        if (c1.generalityType == GeneralityType.Asteroid)
         {
-            Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
+            if (gravitational <= GameManager.instance.status.minimumMergeForce)
+            {
+                Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
 
-            Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
+                Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
 
-            c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
-            c1.ResetExternalVelocity();
+                c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
+                c1.ResetExternalVelocity();
 
-            c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
-            c2.ResetExternalVelocity();
-        }
-        else
-        {
-            if (c1.generalityType == GeneralityType.Asteroid)
+                c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
+                c2.ResetExternalVelocity();
+            }
+            else
             {
                 MergeCharacter(c1, c2);
                 Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
                 c1.velocity = new Vector2(velocityS.x, velocityS.y);
             }
         }
+        else
+        {
+            c1.rb.mass -= (int)c2.rb.mass / 10;
+            Debug.Log((int)c2.rb.mass / 10);
+            c2.rb.mass -= (int)c1.rb.mass / 10;
+            Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
+            Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
+            if (c1.rb.mass > SpawnPlanets.instance.GetRequiredMass(c1.characterType))
+            {
+                c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
+                c1.ResetExternalVelocity();
+            }
+            else
+            {
+                c1.gameObject.SetActive(false);
+            }
+
+            if (c2.rb.mass > SpawnPlanets.instance.GetRequiredMass(c2.characterType))
+            {
+                c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
+                c2.ResetExternalVelocity();
+            }
+            else
+            {
+                c2.gameObject.SetActive(false);
+            }
+        }
+
 
     }
 

@@ -45,6 +45,7 @@ public class CaptureZone : MonoBehaviour
             if (ortherCharacter != null)
             {
                 BecomeSatellite(ortherCharacter);
+                owner.satellites.Add(ortherCharacter);
                 timer = 0f;
                 onZone = false;
             }

@@ -129,4 +129,17 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         return new Vector2(randomX, randomY);
     }
 
+    public int GetRequiredMass(CharacterType characterType)
+    {
+        int mass = 0;
+        foreach (var c in SpawnPlanets.instance.CharacterInfos)
+        {
+            if (c.characterType == characterType)
+            {
+                mass = c.requiredMass;
+            }
+        }
+        return mass;
+    }
+
 }
