@@ -6,6 +6,8 @@ public class CaptureZone : MonoBehaviour
     public float timer;
     public bool onZone;
     Character ortherCharacter;
+    public float limitedRadius = 2f;
+
 
     private void Start()
     {
@@ -20,18 +22,34 @@ public class CaptureZone : MonoBehaviour
             ortherCharacter = character;
         }
         Debug.Log(character);
+        //Debug.Log("owner.generalityType = " + owner.generalityType + " ortherCharacter.generalityType" + ortherCharacter.generalityType);
         // Character character = collision.GetComponent<Character>();
+        if (ortherCharacter != null)
+        {
+            Debug.Log("owner.generalityType = " + owner.generalityType + "| ortherCharacter.generalityType = " + ortherCharacter.generalityType);
+        }
+
+
         if (ortherCharacter != null && owner != null && (owner.generalityType == ortherCharacter.generalityType + 1) && ortherCharacter.host == null)
         {
             onZone = true;
             timer = 0f;
+            Debug.Log("Vao vong");
         }
-        else
-        {
-            onZone = false;
-        }
+
+
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Character character = collision.GetComponent<Character>();
+        if (ortherCharacter == character)
+        {
+            onZone = false;
+            ortherCharacter = null;
+            Debug.Log("ra khoi vong");
+        }
+    }
 
 
     private void Update()
@@ -124,9 +142,9 @@ public class CaptureZone : MonoBehaviour
             }
         }
 
-        //character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+        character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
         character.radius = direction.magnitude;
-        character.spinSpeed = 1f;
+        //character.spinSpeed = 1f;
         //character.radius = 3f;
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
         character.velocity = Vector2.zero;
@@ -153,5 +171,12 @@ public class CaptureZone : MonoBehaviour
             return v1;
         }
         return projV1OnV2;
+    }
+
+    public float SetRadius(Character character)
+    {
+
+        float radius = limitedRadius + character.GetComponent<CircleCollider2D>().radius + (character.GetComponent<CircleCollider2D>().radius * 2 + 1);
+        return radius;
     }
 }

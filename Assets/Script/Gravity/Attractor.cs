@@ -2,7 +2,7 @@
 
 public class Attractor : MonoBehaviour
 {
-    public float G = 6.674f;
+    float G = 0.03337f;
     public Character owner;
     Character otherAttractor;
 
@@ -24,6 +24,19 @@ public class Attractor : MonoBehaviour
         {
             if (attractor.characterType >= target.characterType)
             {
+                int coefficient = 1;
+                if (attractor.generalityType - target.generalityType > 0)
+                {
+                    coefficient = attractor.generalityType - target.generalityType;
+                }
+                else
+                {
+                    coefficient = 1;
+                }
+
+
+
+
                 float massProduct = attractor.rb.mass * target.rb.mass;
 
                 Vector3 direction = attractor.transform.position - target.transform.position;
@@ -34,8 +47,9 @@ public class Attractor : MonoBehaviour
                 }
 
                 float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
-                float forceMagnitude = G * GameManager.instance.status.GravitationalConstant * unScaledforceManguite;
-
+                //float forceMagnitude = G * GameManager.instance.status.GravitationalConstant * unScaledforceManguite;
+                float forceMagnitude = (G * coefficient) / Mathf.Pow(distance, 2);
+                //Debug.Log(G * GameManager.instance.status.GravitationalConstant * massProduct);
                 Vector3 force = direction.normalized * forceMagnitude;
                 target.externalVelocity += (Vector2)force;
 
