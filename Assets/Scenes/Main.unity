@@ -2964,8 +2964,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dbacf14bd30a9f246b79c582ade9f7e4, type: 2}
   Planets:
   - {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
-  - {fileID: 6238116557087275231, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
   - {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+  - {fileID: 6238116557087275231, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
   - {fileID: 8694100981238886532, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
   - {fileID: 1594576687291401600, guid: 3f4a91237892ba7468bbbe7c9a6a8be7, type: 3}
   - {fileID: -8290093958724739382, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}
@@ -2978,7 +2978,7 @@ MonoBehaviour:
   FarFromPlayerMin: 4
   FarFromPlayerMax: 10
   destroyDistance: 2.5
-  quantityAsteroid: 0
+  quantityAsteroid: 6
   quantityPlanet: 0
 --- !u!114 &581862332
 MonoBehaviour:
@@ -8611,7 +8611,7 @@ MonoBehaviour:
   owner: {fileID: 211834571}
   timer: 0
   onZone: 0
-  limitedRadius: 2
+  limitedRadius: 1
 --- !u!1 &2024962503
 GameObject:
   m_ObjectHideFlags: 0

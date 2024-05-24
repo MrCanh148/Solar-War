@@ -68,7 +68,6 @@ public class Player : Character
             Character character = GetCharacterWithMinimumMass();
             if (character != null)
             {
-                Debug.Log(character);
                 AbsorbCharacter(this, character);
                 rb.mass += character.rb.mass;
             }

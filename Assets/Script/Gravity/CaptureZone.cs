@@ -78,8 +78,6 @@ public class CaptureZone : MonoBehaviour
         character.host = owner;
         SetSatellite(character);
         character.MoveNewPosition();
-        //character.isCapture = true;
-        //Debug.Log(character.angle);
 
     }
 
@@ -88,64 +86,6 @@ public class CaptureZone : MonoBehaviour
         Vector2 direction = owner.tf.position - character.tf.position;
         Vector2 dirVeloc = CalculateProjection(character.mainVelocity, direction);
 
-        /* if (direction.x <= 0 && direction.y <= 0)  // Goc I
-         {
-
-             if (dirVeloc.y > 0 || dirVeloc.x < 0)
-             {
-                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-             else if (dirVeloc.y < 0 || dirVeloc.x > 0)
-             {
-                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-         }
-         else if (direction.x >= 0 && direction.y <= 0)  // Goc II
-         {
-
-             if (dirVeloc.y < 0 || dirVeloc.x < 0)
-             {
-                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-             else if (dirVeloc.y > 0 || dirVeloc.x > 0)
-             {
-                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-         }
-         else if (direction.x >= 0 && direction.y >= 0)  // Goc III
-         {
-
-             if (dirVeloc.y < 0 || dirVeloc.x > 0)
-             {
-                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-             else if (dirVeloc.y > 0 || dirVeloc.x < 0)
-             {
-                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-         }
-         else if (direction.x <= 0 && direction.y >= 0)  // Goc IV
-         {
-
-             if (dirVeloc.y > 0 || dirVeloc.x > 0)
-             {
-                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-             else if (dirVeloc.y < 0 || dirVeloc.x < 0)
-             {
-                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                 //Debug.Log(character.spinSpeed);
-             }
-         }*/
-
-        //character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
         character.radius = SetRadius(character);
         character.spinSpeed = RamdomSpinSpeed(Random.Range(0.5f, 1.5f));
         //character.radius = 3f;
