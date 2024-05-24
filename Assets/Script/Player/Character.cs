@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum CharacterType
@@ -75,17 +74,23 @@ public class Character : MonoBehaviour
 
             // Cập nhật vị trí của đối tượng
             tf.position = host.tf.position + new Vector3(x, y, 0f);
+            //tf.position = Vector3.Lerp(tf.position, host.tf.position + new Vector3(x, y, 0f), 0.5f);
+
             //transform.RotateAround(host.tf.position, Vector3.forward, angle);
 
             // Tăng góc quay theo tốc độ
             angle += spinSpeed * Time.deltaTime;
-            if (host != null && tf != null)
-            {
-                lineRenderer.SetPosition(1, tf.position);
-                lineRenderer.SetPosition(0, host.tf.position);
-            }
+
+        }
+
+        if (host != null && tf != null)
+        {
+            lineRenderer.SetPosition(1, tf.position);
+            lineRenderer.SetPosition(0, host.tf.position);
         }
     }
+
+
 
     protected virtual void FixedUpdate()
     {
@@ -231,6 +236,24 @@ public class Character : MonoBehaviour
             satellites.Remove(character);
         }
         return character;
+
+    }
+
+    public void MoveNewPosition()
+    {
+        // Tính toán vị trí mới dựa trên góc quay và bán kính
+        float x = Mathf.Cos(angle) * radius;
+        float y = Mathf.Sin(angle) * radius;
+
+        // Cập nhật vị trí của đối tượng
+        if (host != null)
+        {
+            tf.DOMove(host.tf.position + new Vector3(x, y, 0f), 0.3f)
+                .OnComplete(() =>
+                {
+                    isCapture = true;
+                });
+        }
 
     }
 }

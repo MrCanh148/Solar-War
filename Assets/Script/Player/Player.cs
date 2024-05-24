@@ -142,7 +142,7 @@ public class Player : Character
 
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
-        externalVelocity = new(velocityVertical, velocityHorizontal);
+        velocity = new(velocityVertical, velocityHorizontal);
         miniCam.transform.rotation = Quaternion.identity;
 
         base.FixedUpdate();

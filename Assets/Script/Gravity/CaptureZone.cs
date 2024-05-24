@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CaptureZone : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class CaptureZone : MonoBehaviour
     public float timer;
     public bool onZone;
     Character ortherCharacter;
-    public float limitedRadius = 2f;
+    public float limitedRadius = 0.5f;
 
 
     private void Start()
@@ -66,6 +67,7 @@ public class CaptureZone : MonoBehaviour
                 owner.satellites.Add(ortherCharacter);
                 timer = 0f;
                 onZone = false;
+                ortherCharacter = null;
             }
         }
 
@@ -74,10 +76,11 @@ public class CaptureZone : MonoBehaviour
     public void BecomeSatellite(Character character)
     {
         character.host = owner;
-        character.isCapture = true;
         SetSatellite(character);
-
+        character.MoveNewPosition();
+        //character.isCapture = true;
         //Debug.Log(character.angle);
+
     }
 
     public void SetSatellite(Character character)
@@ -85,66 +88,66 @@ public class CaptureZone : MonoBehaviour
         Vector2 direction = owner.tf.position - character.tf.position;
         Vector2 dirVeloc = CalculateProjection(character.mainVelocity, direction);
 
-        if (direction.x <= 0 && direction.y <= 0)  // Goc I
-        {
+        /* if (direction.x <= 0 && direction.y <= 0)  // Goc I
+         {
 
-            if (dirVeloc.y > 0 || dirVeloc.x < 0)
-            {
-                character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-            else if (dirVeloc.y < 0 || dirVeloc.x > 0)
-            {
-                character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-        }
-        else if (direction.x >= 0 && direction.y <= 0)  // Goc II
-        {
+             if (dirVeloc.y > 0 || dirVeloc.x < 0)
+             {
+                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+             else if (dirVeloc.y < 0 || dirVeloc.x > 0)
+             {
+                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+         }
+         else if (direction.x >= 0 && direction.y <= 0)  // Goc II
+         {
 
-            if (dirVeloc.y < 0 || dirVeloc.x < 0)
-            {
-                character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-            else if (dirVeloc.y > 0 || dirVeloc.x > 0)
-            {
-                character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-        }
-        else if (direction.x >= 0 && direction.y >= 0)  // Goc III
-        {
+             if (dirVeloc.y < 0 || dirVeloc.x < 0)
+             {
+                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+             else if (dirVeloc.y > 0 || dirVeloc.x > 0)
+             {
+                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+         }
+         else if (direction.x >= 0 && direction.y >= 0)  // Goc III
+         {
 
-            if (dirVeloc.y < 0 || dirVeloc.x > 0)
-            {
-                character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-            else if (dirVeloc.y > 0 || dirVeloc.x < 0)
-            {
-                character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-        }
-        else if (direction.x <= 0 && direction.y >= 0)  // Goc IV
-        {
+             if (dirVeloc.y < 0 || dirVeloc.x > 0)
+             {
+                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+             else if (dirVeloc.y > 0 || dirVeloc.x < 0)
+             {
+                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+         }
+         else if (direction.x <= 0 && direction.y >= 0)  // Goc IV
+         {
 
-            if (dirVeloc.y > 0 || dirVeloc.x > 0)
-            {
-                character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-            else if (dirVeloc.y < 0 || dirVeloc.x < 0)
-            {
-                character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-                Debug.Log(character.spinSpeed);
-            }
-        }
+             if (dirVeloc.y > 0 || dirVeloc.x > 0)
+             {
+                 character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+             else if (dirVeloc.y < 0 || dirVeloc.x < 0)
+             {
+                 character.spinSpeed = -CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+                 //Debug.Log(character.spinSpeed);
+             }
+         }*/
 
-        character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
-        character.radius = direction.magnitude;
-        //character.spinSpeed = 1f;
+        //character.spinSpeed = CalculateMagnitudeV1Perpendicular(character.mainVelocity, direction);
+        character.radius = SetRadius(character);
+        character.spinSpeed = RamdomSpinSpeed(Random.Range(0.5f, 1.5f));
         //character.radius = 3f;
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
         character.velocity = Vector2.zero;
@@ -175,8 +178,29 @@ public class CaptureZone : MonoBehaviour
 
     public float SetRadius(Character character)
     {
-
-        float radius = limitedRadius + character.GetComponent<CircleCollider2D>().radius + (character.GetComponent<CircleCollider2D>().radius * 2 + 1);
+        float radius = limitedRadius + character.GetComponent<CircleCollider2D>().radius * 0.1f + owner.satellites.Count * (character.GetComponent<CircleCollider2D>().radius * 0.1f * 2 + 0.1f);
+        Debug.Log(character.GetComponent<CircleCollider2D>().radius);
+        Debug.Log(radius);
         return radius;
+    }
+
+    public float RamdomSpinSpeed(float n)
+    {
+        float number = n;
+        int randomValue = Random.Range(0, 2);
+        if (randomValue == 0)
+        {
+            number = -n;
+        }
+        else if (randomValue == 1)
+        {
+            number = n;
+        }
+        return number;
+    }
+
+    private IEnumerator WaitChangePosition()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }
