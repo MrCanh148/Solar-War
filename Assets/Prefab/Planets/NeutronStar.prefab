@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.0002
   owner: {fileID: -411917550344471460}
 --- !u!1 &1676779730062705862
 GameObject:
@@ -383,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 7
-  generalityType: 3
+  generalityType: 2
   rb: {fileID: 4479781775158896990}
   tf: {fileID: 7160390813267532901}
   characterLayer:
@@ -396,7 +395,6 @@ MonoBehaviour:
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 4332789100569739233}
-  distanceTele: 0
   satellites: []
   host: {fileID: 0}
   radius: 0
@@ -445,7 +443,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -591,6 +589,7 @@ MonoBehaviour:
   owner: {fileID: -411917550344471460}
   timer: 0
   onZone: 0
+  limitedRadius: 2
 --- !u!1 &4332789100569739233
 GameObject:
   m_ObjectHideFlags: 0

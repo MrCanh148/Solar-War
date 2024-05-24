@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReSpawnPlayer : MonoBehaviour
 {
@@ -8,16 +9,30 @@ public class ReSpawnPlayer : MonoBehaviour
     [SerializeField] private float distanceTele;
 
     private Character character;
+    private Player player;
     private Vector2 currentPos;
+    private bool resetVelocity = false;
 
     private void Start()
     {
+
         Instance = this;
         character = GetComponent<Character>();
+        player = GetComponent<Player>();
         if (character == null)
         {
             Debug.LogError("Character component not found on the GameObject.");
         }
+    }
+
+    private void Update()
+    {
+        if (resetVelocity)
+        {
+            player.ResetVelocity();
+            resetVelocity = false;
+        }
+     
     }
 
     private IEnumerator TeleNewPos()
@@ -26,6 +41,7 @@ public class ReSpawnPlayer : MonoBehaviour
         RespawnPlace();
         character.spriteRenderer.enabled = true;
         character.canControl = true;
+        resetVelocity = true;
     }
 
     private void RespawnPlace()
@@ -54,7 +70,7 @@ public class ReSpawnPlayer : MonoBehaviour
     }
 
     public void ResPlayer()
-    {
+    {     
         character.spriteRenderer.enabled = false;
         character.canControl = false;
         currentPos = transform.position;

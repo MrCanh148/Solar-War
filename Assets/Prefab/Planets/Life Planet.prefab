@@ -538,7 +538,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 15
 --- !u!114 &3232430484209148092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -551,7 +551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.01
   owner: {fileID: 6238116557087275231}
 --- !u!1 &8556294392186359412
 GameObject:
@@ -636,6 +635,7 @@ MonoBehaviour:
   owner: {fileID: 6238116557087275231}
   timer: 0
   onZone: 0
+  limitedRadius: 2
 --- !u!1 &8805419360225620633
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +782,6 @@ MonoBehaviour:
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 4033417834790607751}
-  distanceTele: 0
   satellites: []
   host: {fileID: 0}
   radius: 0
@@ -831,7 +830,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -943,6 +942,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSpacePrefab:
   - {fileID: 5627386560112711568, guid: e7954ba85a93ffb48a1a425902e4dcfd, type: 3}
-  PlaceSpawn: {fileID: 8685987781213061351}
   spawnInterval: 8
   maxShips: 4

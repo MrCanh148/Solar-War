@@ -83,6 +83,7 @@ MonoBehaviour:
   owner: {fileID: 7764996312339137584}
   timer: 0
   onZone: 0
+  limitedRadius: 2
 --- !u!1 &4477795811306885580
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +253,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 15
 --- !u!114 &2740005004880128014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.05
   owner: {fileID: 7764996312339137584}
 --- !u!1 &6007950560580628284
 GameObject:
@@ -647,7 +647,6 @@ MonoBehaviour:
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 4477795811306885580}
-  distanceTele: 0
   satellites: []
   host: {fileID: 0}
   radius: 0
@@ -696,7 +695,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}

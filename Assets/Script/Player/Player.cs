@@ -15,9 +15,7 @@ public class Player : Character
     private float velocityMoveLeft;
     private float velocityMoveRight;
 
-    List<Character> characters = new();
     [SerializeField] private Camera miniCam;
-
 
     protected override void Start()
     {
@@ -62,8 +60,9 @@ public class Player : Character
         }
         else { isMovingRight = false; }
 
-        miniCam.transform.rotation = Quaternion.identity;
+        miniCam.transform.rotation = Quaternion.identity; // Lock miniCamera
 
+        // Nhan SPACE de Observe Orbit
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Character character = GetCharacterWithMinimumMass();
@@ -142,7 +141,7 @@ public class Player : Character
 
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
-        externalVelocity = new(velocityVertical, velocityHorizontal);
+        velocity = new(velocityVertical, velocityHorizontal);
         miniCam.transform.rotation = Quaternion.identity;
 
         base.FixedUpdate();
@@ -156,6 +155,16 @@ public class Player : Character
         velocityMoveLeft = 0;
         velocityMoveRight = 0;
     }
+
+    public void ResetVelocity()
+    {
+        velocityMoveUp = 0;
+        velocityMoveDown = 0;
+        velocityMoveLeft = 0;
+        velocityMoveRight = 0;
+        externalVelocity = Vector2.zero;
+    }
+
 
 
 }

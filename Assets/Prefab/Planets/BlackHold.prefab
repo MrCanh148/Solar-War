@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 8
-  generalityType: 4
+  generalityType: 3
   rb: {fileID: 8711889904679413240}
   tf: {fileID: 5691377956253586852}
   characterLayer:
@@ -179,7 +179,6 @@ MonoBehaviour:
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 7833504254054102869}
-  distanceTele: 0
   satellites: []
   host: {fileID: 0}
   radius: 0
