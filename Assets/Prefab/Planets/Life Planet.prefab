@@ -942,7 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpacePrefab:
-  - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
+  - {fileID: 5627386560112711568, guid: e7954ba85a93ffb48a1a425902e4dcfd, type: 3}
   PlaceSpawn: {fileID: 8685987781213061351}
-  spawnInterval: 4
+  spawnInterval: 8
   maxShips: 4

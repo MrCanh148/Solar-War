@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   characterType: 5
+  namePlanet: Medium Star
   requiredMass: 1500
   sprite: {fileID: 21300000, guid: c135213a5c54f2f4984eaa105cc33b20, type: 3}
   characterPrefab: {fileID: -8290093958724739382, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}

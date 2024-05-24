@@ -10,6 +10,7 @@ TagManager:
   - Star
   - BlackHole
   - AirSpace1
+  - Bullet
   layers:
   - Default
   - TransparentFX

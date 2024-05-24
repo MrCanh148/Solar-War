@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   characterType: 3
+  namePlanet: Gas Gaint Planet
   requiredMass: 80
   sprite: {fileID: 21300000, guid: 4a868e28be12a6349a2742aa1909ed42, type: 3}
   characterPrefab: {fileID: 8694100981238886532, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}

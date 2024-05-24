@@ -23,8 +23,8 @@ public enum GeneralityType
 {
     Asteroid = 0,
     Planet = 1,
-    Star = 3,
-    BlackHole = 4,
+    Star = 2,
+    BlackHole = 3,
 };
 
 public class Character : MonoBehaviour
@@ -41,8 +41,6 @@ public class Character : MonoBehaviour
     public bool canControl;
     public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
-    [SerializeField] private float distanceTele;
-    private Vector2 currentPos;
     public List<Character> satellites;
 
     //Orbit
@@ -54,7 +52,6 @@ public class Character : MonoBehaviour
     public LineRenderer lineRenderer;
 
 
-
     protected virtual void Start()
     {
         OnInit();
@@ -64,7 +61,6 @@ public class Character : MonoBehaviour
 
     protected virtual void OnInit()
     {
-
 
     }
 
@@ -88,11 +84,7 @@ public class Character : MonoBehaviour
                 lineRenderer.SetPosition(1, tf.position);
                 lineRenderer.SetPosition(0, host.tf.position);
             }
-
-
         }
-
-
     }
 
     protected virtual void FixedUpdate()
@@ -105,6 +97,8 @@ public class Character : MonoBehaviour
 
         if (characterType == CharacterType.Asteroid)
             tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
+        else
+            tf.rotation = Quaternion.identity;
 
         if (canvar != null)
             canvar.transform.rotation = Quaternion.identity;
@@ -129,26 +123,11 @@ public class Character : MonoBehaviour
                 HandleCollision(this, character);
                 Debug.Log("Va cham");
             }
-
-
         }
-
 
         // Nếu 2 plant Khác hệ thì destroy cái bé
-        if (character.generalityType > this.generalityType && isPlayer)
-        {
-            if (isPlayer) //Nếu plant là Player
-            {
-                spriteRenderer.enabled = false;
-                canControl = false;
-                currentPos = transform.position;
-                StartCoroutine(TeleNewPos());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        if (character.generalityType > this.generalityType && !isPlayer)
+            Destroy(gameObject);
 
     }
 
@@ -192,7 +171,8 @@ public class Character : MonoBehaviour
             }
             else
             {
-                c1.gameObject.SetActive(false);
+                if (!c1.isPlayer)
+                    c1.gameObject.SetActive(false);
             }
 
             if (c2.rb.mass > SpawnPlanets.instance.GetRequiredMass(c2.characterType))
@@ -202,7 +182,8 @@ public class Character : MonoBehaviour
             }
             else
             {
-                c2.gameObject.SetActive(false);
+                if (!c2.isPlayer)
+                    c2.gameObject.SetActive(false);
             }
         }
 
@@ -219,27 +200,6 @@ public class Character : MonoBehaviour
     protected virtual void ResetExternalVelocity()
     {
         externalVelocity = Vector2.zero;
-    }
-
-
-
-
-    // Sử lý Player khi bị destroy
-    private IEnumerator TeleNewPos()
-    {
-        yield return new WaitForSeconds(2f);
-        RespawnPlace();
-        spriteRenderer.enabled = true;
-        canControl = true;
-    }
-    private void RespawnPlace()
-    {
-        Vector2 newPos = new Vector2(0, 0);
-
-        newPos.x = Random.Range(-distanceTele, distanceTele) + currentPos.x;
-        newPos.y = Random.Range(-distanceTele, distanceTele) + currentPos.y;
-
-        transform.position = newPos;
     }
 
     public void AbsorbCharacter(Character host, Character character)

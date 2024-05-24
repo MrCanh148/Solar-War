@@ -4,16 +4,19 @@ using System.Collections.Generic;
 public class TestSpawnBot : MonoBehaviour
 {
     [SerializeField] private GameObject[] shipSpacePrefab;
-    public Transform PlaceSpawn;
+    [SerializeField] private float spawnInterval = 4f;
+    [SerializeField] private int maxShips = 4;
 
+    private float spawnTimer;
+    private Transform PlaceSpawn;
+    private Character character;
     private List<GameObject> spawnedShips = new List<GameObject>();
 
-    [SerializeField] private float spawnInterval = 4f;
-    private float spawnTimer;
-    [SerializeField] private int maxShips = 4;
 
     private void Start()
     {
+        PlaceSpawn = GetComponent<Transform>();
+        character = GetComponent<Character>();
         // Thêm Planet vào danh sách spawnedShips
         if (PlaceSpawn != null)
         {
@@ -28,7 +31,7 @@ public class TestSpawnBot : MonoBehaviour
 
         if (spawnTimer <= 0f)
         {
-            if (spawnedShips.Count < maxShips)
+            if (spawnedShips.Count < maxShips && character.characterType == CharacterType.LifePlanet)
             {
                 SpawnShip();
             }

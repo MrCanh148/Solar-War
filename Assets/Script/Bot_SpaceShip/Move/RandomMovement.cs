@@ -7,9 +7,6 @@ public class RandomMovement : MonoBehaviour
     [SerializeField] private float changeDirectionInterval = 2f; // Thời gian để thay đổi hướng di chuyển
     [SerializeField] private float rotationSpeed = 50f; // Tốc độ quay của đối tượng
 
-    [SerializeField] private float detectionRadius = 5f; // Bán kính vùng phát hiện
-    [SerializeField] private float detectionAngle = 20f; // Góc phía trước
-
     private Transform centerPoint;
     private Vector2 targetPosition;
     private Vector2 currentDirection;
@@ -72,6 +69,12 @@ public class RandomMovement : MonoBehaviour
         {
             SetRandomTargetPosition();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject != gameObject && timeNotDie > 2f)
+            Destroy(gameObject);
     }
 
 }

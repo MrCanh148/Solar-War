@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   characterType: 4
+  namePlanet: Small Star
   requiredMass: 180
   sprite: {fileID: 21300000, guid: ef1bf2ecc16140f4195ed991ac4136c1, type: 3}
   characterPrefab: {fileID: 1594576687291401600, guid: 3f4a91237892ba7468bbbe7c9a6a8be7, type: 3}

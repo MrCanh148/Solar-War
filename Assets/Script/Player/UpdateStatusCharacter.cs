@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class UpdateStatusCharacter : MonoBehaviour
@@ -6,10 +7,13 @@ public class UpdateStatusCharacter : MonoBehaviour
     public Character owner;
     int currentMass;
     CharacterInfo characterInfo;
+    [SerializeField] private GameObject Minimap;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         OnInit();
+        spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
     }
 
     private void OnInit()
@@ -33,7 +37,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         if (character.characterType == CharacterType.Asteroid)
         {
-            character.tf.DOScale(character.tf.localScale + 0.0002f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
+            character.tf.DOScale(character.tf.localScale + 0.00017f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
         }
         foreach (var c in SpawnPlanets.instance.CharacterInfos)
         {
@@ -43,6 +47,7 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     character.characterType = c.characterType;
                     character.spriteRenderer.sprite = c.sprite;
+                    spriteRenderer.sprite = character.spriteRenderer.sprite;
                 }
             }
         }

@@ -83,7 +83,7 @@ public class ShowUI : FastSingleton<ShowUI>
 
     public void UpdateInfo()
     {
-        SetNameTxt(player.characterType.ToString());
+        SetNameTxt(SpawnPlanets.instance.GetNamePlanet(player.characterType));
         SetMassTxt((int)player.rb.mass);
         SetEvoluTxt((player.characterType + 1).ToString());
         /*int nestMass = 0;

@@ -132,7 +132,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public int GetRequiredMass(CharacterType characterType)
     {
         int mass = 0;
-        foreach (var c in SpawnPlanets.instance.CharacterInfos)
+        foreach (var c in CharacterInfos)
         {
             if (c.characterType == characterType)
             {
@@ -140,6 +140,17 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             }
         }
         return mass;
+    }
+
+    public string GetNamePlanet(CharacterType characterType)
+    {
+        string name = "";
+        foreach (var c in CharacterInfos)
+        {
+            if (c.characterType == characterType)
+                name = c.namePlanet;
+        }
+        return name;
     }
 
 }
