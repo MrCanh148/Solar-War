@@ -15,4 +15,6 @@ MonoBehaviour:
   id: 10
   characterType: 10
   requiredMass: 10000000
+  sprite: {fileID: 21300000, guid: 7d2d52905e45ae247b3390d0f42fdc49, type: 3}
   characterPrefab: {fileID: 0}
+  collisionCoefficient: 0

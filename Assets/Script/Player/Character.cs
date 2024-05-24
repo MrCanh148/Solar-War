@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
     public Vector2 mainVelocity;
     public bool isPlayer;
     public bool canControl;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     [SerializeField] private float distanceTele;
     private Vector2 currentPos;

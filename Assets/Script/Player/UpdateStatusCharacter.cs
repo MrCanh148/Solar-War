@@ -42,6 +42,7 @@ public class UpdateStatusCharacter : MonoBehaviour
                 if (character.rb.mass == c.requiredMass)
                 {
                     character.characterType = c.characterType;
+                    character.spriteRenderer.sprite = c.sprite;
                 }
             }
         }

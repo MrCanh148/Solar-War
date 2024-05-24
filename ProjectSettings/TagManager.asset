@@ -9,6 +9,7 @@ TagManager:
   - Planet
   - Star
   - BlackHole
+  - AirSpace1
   layers:
   - Default
   - TransparentFX
