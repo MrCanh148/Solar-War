@@ -22,9 +22,9 @@ public class Attractor : MonoBehaviour
     {
         if (attractor.characterType > CharacterType.Asteroid)
         {
-            if (attractor.characterType >= target.characterType && target.host != null)
+            if (attractor.characterType >= target.characterType && target.host == null)
             {
-                int coefficient = 1;
+                int coefficient;
                 if (attractor.generalityType - target.generalityType > 0)
                 {
                     coefficient = attractor.generalityType - target.generalityType;
@@ -53,7 +53,7 @@ public class Attractor : MonoBehaviour
                 Vector3 force = direction.normalized * forceMagnitude;
                 target.externalVelocity += (Vector2)force;
 
-                //Debug.Log(force);
+                Debug.Log(force);
             }
         }
 
