@@ -22,7 +22,7 @@ public class Attractor : MonoBehaviour
     {
         if (attractor.characterType > CharacterType.Asteroid)
         {
-            if (attractor.characterType >= target.characterType)
+            if (attractor.characterType >= target.characterType && target.host != null)
             {
                 int coefficient = 1;
                 if (attractor.generalityType - target.generalityType > 0)

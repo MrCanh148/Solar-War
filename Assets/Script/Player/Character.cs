@@ -98,7 +98,45 @@ public class Character : MonoBehaviour
         velocity.y -= velocity.y * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
         velocity = new Vector2(velocity.x, velocity.y);
         mainVelocity = velocity + externalVelocity;
-        rb.velocity = mainVelocity;
+        if (this.host == null)
+        {
+            rb.velocity = mainVelocity;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            Vector2 direction = host.tf.position - tf.position;
+
+            Vector2 tmp;
+            if (spinSpeed >= 0f)
+            {
+
+                if (tf.position.y >= host.tf.position.y)
+                {
+                    tmp = new Vector2(-spinSpeed, 0);
+                }
+                else
+                {
+                    tmp = new Vector2(spinSpeed, 0);
+                }
+            }
+            else
+            {
+                if (tf.position.y >= host.tf.position.y)
+                {
+                    tmp = new Vector2(spinSpeed, 0);
+                }
+                else
+                {
+                    tmp = new Vector2(-spinSpeed, 0);
+                }
+            }
+            Vector2 dirVeloc = CalculateProjection(tmp, direction);
+
+            velocity = dirVeloc.normalized * spinSpeed;
+            //Debug.Log(velocity);
+        }
+
 
         if (characterType == CharacterType.Asteroid)
             tf.Rotate(Vector3.forward, 100 * Time.deltaTime);
@@ -255,5 +293,19 @@ public class Character : MonoBehaviour
                 });
         }
 
+    }
+
+    private Vector2 CalculateProjection(Vector2 v1, Vector2 v2)
+    {
+        // Tính phép chiếu vector v1 lên v2
+        Vector2 projV1OnV2 = Vector2.Dot(v1, v2.normalized) * v2.normalized;
+
+        // Tính vector vuông góc với v2
+        Vector2 orthogonalV2 = new Vector2(-v2.y, v2.x);
+
+        // Tính phép chiếu vector v1 lên vector vuông góc với v2
+        Vector2 projV1OnOrthogonalV2 = Vector2.Dot(v1, orthogonalV2.normalized) * orthogonalV2.normalized;
+
+        return projV1OnOrthogonalV2;
     }
 }
