@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ReSpawnPlayer : MonoBehaviour
 {
@@ -19,10 +18,6 @@ public class ReSpawnPlayer : MonoBehaviour
         Instance = this;
         character = GetComponent<Character>();
         player = GetComponent<Player>();
-        if (character == null)
-        {
-            Debug.LogError("Character component not found on the GameObject.");
-        }
     }
 
     private void Update()
@@ -48,10 +43,11 @@ public class ReSpawnPlayer : MonoBehaviour
     {
         Vector2 newPos = new Vector2(0, 0);
 
-        newPos.x = Random.Range(-distanceTele, distanceTele) + currentPos.x;
-        newPos.y = Random.Range(-distanceTele, distanceTele) + currentPos.y;
+        newPos.x = (Random.value > 0.5f ? distanceTele : -distanceTele) + currentPos.x;
+        newPos.y = (Random.value > 0.5f ? distanceTele : -distanceTele) + currentPos.y;
 
         transform.position = newPos;
+        Debug.Log(transform.position);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -74,6 +70,7 @@ public class ReSpawnPlayer : MonoBehaviour
         character.spriteRenderer.enabled = false;
         character.canControl = false;
         currentPos = transform.position;
+        Debug.Log(currentPos);
         StartCoroutine(TeleNewPos());
     }
 }
