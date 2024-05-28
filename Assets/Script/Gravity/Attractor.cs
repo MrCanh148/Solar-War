@@ -51,7 +51,15 @@ public class Attractor : MonoBehaviour
                 float forceMagnitude = (G * coefficient) / Mathf.Pow(distance, 2);
                 //Debug.Log(G * GameManager.instance.status.GravitationalConstant * massProduct);
                 Vector3 force = direction.normalized * forceMagnitude;
-                target.externalVelocity += (Vector2)force;
+                if (target.isPlayer)
+                {
+                    target.velocity += (Vector2)force;
+                }
+                else
+                {
+                    target.externalVelocity += (Vector2)force;
+                }
+
 
                 Debug.Log(force);
             }
