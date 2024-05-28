@@ -16,19 +16,17 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Player")
-        {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
-        }
-        
-        if (collision.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-            ReSpawnPlayer.Instance.ResPlayer();
-        }
+        Character character = collision.gameObject.GetComponent<Character>();
+        if (character == null) return;
 
+        if (character.generalityType == GeneralityType.Asteroid || character.generalityType == GeneralityType.Planet)
+        {
+            if (collision.gameObject.tag == "Player")
+                ReSpawnPlayer.Instance.ResPlayer();
+            else
+                Destroy(collision.gameObject);
 
+            Destroy(gameObject);
+        }
     }
-
 }

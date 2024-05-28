@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class RandomMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3f; // Tốc độ di chuyển của bot
-    [SerializeField] private float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
+    [SerializeField] public float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
     [SerializeField] private float changeDirectionInterval = 2f; // Thời gian để thay đổi hướng di chuyển
     [SerializeField] private float rotationSpeed = 50f; // Tốc độ quay của đối tượng
 
-    private Transform centerPoint;
-    private Vector2 targetPosition;
-    private Vector2 currentDirection;
+    [HideInInspector] public Transform centerPoint;
+    [HideInInspector] public Vector2 targetPosition;
+    [HideInInspector] public Vector2 currentDirection;
     private Rigidbody2D rb;
     private float changeDirectionTimer;
 
-    private float timeNotDie = 0f;
+    //private float timeNotDie = 0f;
 
     void Start()
     {
@@ -33,9 +34,7 @@ public class RandomMovement : MonoBehaviour
         }
 
         MoveTowardsTarget();
-        timeNotDie += Time.deltaTime;
-
-
+        //timeNotDie += Time.deltaTime;
     }
 
     public void SetCenterPoint(Transform newCenterPoint)
@@ -55,7 +54,7 @@ public class RandomMovement : MonoBehaviour
         targetPosition = (Vector2)centerPoint.position + randomDirection;
     }
 
-    void MoveTowardsTarget()
+    public void MoveTowardsTarget()
     {
         Vector2 targetDirection = (targetPosition - (Vector2)transform.position).normalized;
         currentDirection = Vector2.Lerp(currentDirection, targetDirection, Time.deltaTime * moveSpeed);
@@ -71,10 +70,15 @@ public class RandomMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void AvoidObstacle()
     {
-        if (collision.gameObject != gameObject && timeNotDie > 2f)
-            Destroy(gameObject);
+        float ZPos = Random.Range(20, 360);
+        currentDirection = Quaternion.Euler(0, 0, ZPos) * currentDirection;
+        rb.velocity = currentDirection * moveSpeed;
+
+        float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
 }
