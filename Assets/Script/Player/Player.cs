@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : Character
 {
@@ -140,7 +139,7 @@ public class Player : Character
 
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
-        velocity = new(velocityVertical, velocityHorizontal);
+        externalVelocity = new(velocityVertical, velocityHorizontal);
         miniCam.transform.rotation = Quaternion.identity;
 
         base.FixedUpdate();

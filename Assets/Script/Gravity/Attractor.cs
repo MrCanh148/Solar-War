@@ -22,9 +22,9 @@ public class Attractor : MonoBehaviour
     {
         if (attractor.characterType > CharacterType.Asteroid)
         {
-            if (attractor.characterType >= target.characterType)
+            if (attractor.characterType >= target.characterType && target.host == null)
             {
-                int coefficient = 1;
+                int coefficient;
                 if (attractor.generalityType - target.generalityType > 0)
                 {
                     coefficient = attractor.generalityType - target.generalityType;
@@ -51,9 +51,17 @@ public class Attractor : MonoBehaviour
                 float forceMagnitude = (G * coefficient) / Mathf.Pow(distance, 2);
                 //Debug.Log(G * GameManager.instance.status.GravitationalConstant * massProduct);
                 Vector3 force = direction.normalized * forceMagnitude;
-                target.externalVelocity += (Vector2)force;
+                if (target.isPlayer)
+                {
+                    target.velocity += (Vector2)force;
+                }
+                else
+                {
+                    target.externalVelocity += (Vector2)force;
+                }
 
-                //Debug.Log(force);
+
+                Debug.Log(force);
             }
         }
 
