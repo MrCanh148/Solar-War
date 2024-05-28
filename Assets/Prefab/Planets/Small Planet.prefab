@@ -67,7 +67,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 20
 --- !u!114 &4260644406131555014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 40
 --- !u!114 &2740005004880128014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +648,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 4477795811306885580}
   satellites: []
+  circleCollider2D: {fileID: 3068643122381640042}
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0

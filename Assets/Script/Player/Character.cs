@@ -41,6 +41,7 @@ public class Character : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     public List<Character> satellites;
+    public CircleCollider2D circleCollider2D;
 
     //Orbit
     public Character host;
@@ -247,24 +248,8 @@ public class Character : MonoBehaviour
 
     public void AbsorbCharacter(Character host, Character character)
     {
-
         float x = Mathf.Cos(character.angle) * 1;
         float y = Mathf.Sin(character.angle) * 1;
-
-        /*    Vector3 newPosotion = host.tf.position + new Vector3(x, y, 0f);
-            character.tf.DOScale(Vector3.zero, 1f)
-                .OnUpdate(() =>
-                {
-                    character.tf.DOMove(newPosotion, 0.3f);
-
-                })
-                .OnComplete(() =>
-                {
-                    character.tf.gameObject.SetActive(false);
-                    host.satellites.Remove(character);
-                    character.lineRenderer.enabled = false;
-                });*/
-
         DOTween.To(() => character.radius, x => character.radius = x, 1, 0.3f)
 
            .OnComplete(() =>
@@ -296,23 +281,7 @@ public class Character : MonoBehaviour
 
     }
 
-    public void MoveNewPosition()
-    {
-        // Tính toán vị trí mới dựa trên góc quay và bán kính
-        float x = Mathf.Cos(angle) * radius;
-        float y = Mathf.Sin(angle) * radius;
 
-        // Cập nhật vị trí của đối tượng
-        if (host != null)
-        {
-            tf.DOMove(host.tf.position + new Vector3(x, y, 0f), 0.3f)
-                .OnComplete(() =>
-                {
-                    isCapture = true;
-                });
-        }
-
-    }
 
     private Vector2 CalculateProjection(Vector2 v1, Vector2 v2)
     {
@@ -326,5 +295,14 @@ public class Character : MonoBehaviour
         Vector2 projV1OnOrthogonalV2 = Vector2.Dot(v1, orthogonalV2.normalized) * orthogonalV2.normalized;
 
         return projV1OnOrthogonalV2;
+    }
+
+    public void ResetRadiusSatellite(Character owner)
+    {
+        for (int i = 0; i < owner.satellites.Count; i++)
+        {
+            Character character = owner.satellites[i];
+            character.radius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+        }
     }
 }

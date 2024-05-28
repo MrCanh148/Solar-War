@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class CaptureZone : MonoBehaviour
@@ -68,18 +68,18 @@ public class CaptureZone : MonoBehaviour
     {
         character.host = owner;
         SetSatellite(character);
-        character.MoveNewPosition();
+
 
     }
 
     public void SetSatellite(Character character)
     {
-
-        character.radius = SetRadius(character);
+        float distance = (character.tf.position - owner.tf.position).magnitude;
+        character.radius = distance;
+        character.isCapture = true;
+        DOTween.To(() => character.radius, x => character.radius = x, SetRadius(character), 0.3f).Play();
         character.spinSpeed = RamdomSpinSpeed(Random.Range(0.5f, 1.5f));
-
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
-
     }
 
     private float CalculateMagnitudeV1Perpendicular(Vector2 v1, Vector2 v2)
@@ -107,9 +107,8 @@ public class CaptureZone : MonoBehaviour
 
     public float SetRadius(Character character)
     {
-        float radius = limitedRadius + character.GetComponent<CircleCollider2D>().radius * 0.1f + owner.satellites.Count * (character.GetComponent<CircleCollider2D>().radius * 0.1f * 2 + 0.1f);
-        Debug.Log(character.GetComponent<CircleCollider2D>().radius);
-        Debug.Log(radius);
+        float radius = limitedRadius + character.circleCollider2D.radius * 0.1f + owner.satellites.Count * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+
         return radius;
     }
 
@@ -128,8 +127,4 @@ public class CaptureZone : MonoBehaviour
         return number;
     }
 
-    private IEnumerator WaitChangePosition()
-    {
-        yield return new WaitForSeconds(1f);
-    }
 }
