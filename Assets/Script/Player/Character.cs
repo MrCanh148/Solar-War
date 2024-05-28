@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
 
     protected virtual void OnInit()
     {
-
+        //lineRenderer.enabled = false;
     }
 
     private void Update()
@@ -80,10 +80,10 @@ public class Character : MonoBehaviour
 
             // Tăng góc quay theo tốc độ
             angle += spinSpeed * Time.deltaTime;
-
+            //lineRenderer.enabled = true;
         }
 
-        if (host != null && tf != null)
+        if (host != null && tf != null && lineRenderer.enabled == true)
         {
             lineRenderer.SetPosition(1, tf.position);
             lineRenderer.SetPosition(0, host.tf.position);
@@ -247,14 +247,33 @@ public class Character : MonoBehaviour
 
     public void AbsorbCharacter(Character host, Character character)
     {
-        //character.tf.position = Vector3.Lerp(character.tf.position, tf.position, 0.8f);
-        /*character.tf.DOScale(Vector3.zero, 0.5f)
-                     .OnComplete(() =>
-                     {
-                         // Vô hiệu hóa vật B
-                         character.tf.gameObject.SetActive(false);
-                     });*/
-        character.tf.DOMove(host.tf.position, 1f);
+
+        float x = Mathf.Cos(character.angle) * 1;
+        float y = Mathf.Sin(character.angle) * 1;
+
+        /*    Vector3 newPosotion = host.tf.position + new Vector3(x, y, 0f);
+            character.tf.DOScale(Vector3.zero, 1f)
+                .OnUpdate(() =>
+                {
+                    character.tf.DOMove(newPosotion, 0.3f);
+
+                })
+                .OnComplete(() =>
+                {
+                    character.tf.gameObject.SetActive(false);
+                    host.satellites.Remove(character);
+                    character.lineRenderer.enabled = false;
+                });*/
+
+        DOTween.To(() => character.radius, x => character.radius = x, 1, 0.3f)
+
+           .OnComplete(() =>
+           {
+               character.tf.gameObject.SetActive(false);
+               host.satellites.Remove(character);
+               character.lineRenderer.enabled = false;
+           })
+           .Play();
     }
 
     public Character GetCharacterWithMinimumMass()
