@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817dc112e96bc3c448067a95c1f1ed14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 0.01
   owner: {fileID: -6489732090044767875}
 --- !u!1 &3203132349341816512
 GameObject:
@@ -364,8 +363,8 @@ MonoBehaviour:
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 863610445395194257}
-  distanceTele: 0
   satellites: []
+  circleCollider2D: {fileID: 6674750565518439553}
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -928,3 +927,4 @@ MonoBehaviour:
   owner: {fileID: -6489732090044767875}
   timer: 0
   onZone: 0
+  limitedRadius: 0.5

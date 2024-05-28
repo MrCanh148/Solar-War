@@ -69,6 +69,7 @@ public class Player : Character
             {
                 AbsorbCharacter(this, character);
                 rb.mass += character.rb.mass;
+                ResetRadiusSatellite(this);
             }
 
         }

@@ -179,6 +179,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6698141689749281196}
   canvar: {fileID: 7833504254054102869}
   satellites: []
+  circleCollider2D: {fileID: 726689616112988236}
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -634,7 +635,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 16.44
+  m_Radius: 50
 --- !u!1 &7833504254054102869
 GameObject:
   m_ObjectHideFlags: 0
