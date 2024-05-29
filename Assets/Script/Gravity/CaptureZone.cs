@@ -17,7 +17,7 @@ public class CaptureZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Character character = collision.GetComponent<Character>();
+        Character character = Cache.GetCharacterCollider(collision);
         if (character != null)
         {
             ortherCharacter = character;
@@ -34,7 +34,7 @@ public class CaptureZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Character character = collision.GetComponent<Character>();
+        Character character = Cache.GetCharacterCollider(collision);
         if (ortherCharacter == character)
         {
             onZone = false;

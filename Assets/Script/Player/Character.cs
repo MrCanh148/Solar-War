@@ -248,8 +248,7 @@ public class Character : MonoBehaviour
 
     public void AbsorbCharacter(Character host, Character character)
     {
-        float x = Mathf.Cos(character.angle) * 1;
-        float y = Mathf.Sin(character.angle) * 1;
+
         DOTween.To(() => character.radius, x => character.radius = x, 1, 0.3f)
 
            .OnComplete(() =>
