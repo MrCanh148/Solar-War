@@ -10,4 +10,5 @@ public class CharacterInfo : ScriptableObject
     public Sprite sprite;
     public Character characterPrefab;
     public float collisionCoefficient;
+    public Vector3 scale;
 }

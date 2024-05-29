@@ -257,6 +257,7 @@ public class Character : MonoBehaviour
                character.tf.gameObject.SetActive(false);
                host.satellites.Remove(character);
                character.lineRenderer.enabled = false;
+               ResetRadiusSatellite(host);
            })
            .Play();
     }
@@ -302,7 +303,9 @@ public class Character : MonoBehaviour
         for (int i = 0; i < owner.satellites.Count; i++)
         {
             Character character = owner.satellites[i];
-            character.radius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+            float tmpRadius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+            DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
+
         }
     }
 }
