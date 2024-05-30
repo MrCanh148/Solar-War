@@ -8,11 +8,13 @@ public class UpdateStatusCharacter : MonoBehaviour
     CharacterInfo characterInfo;
     [SerializeField] private GameObject Minimap;
     private SpriteRenderer spriteRenderer;
+    int requiredMass;
 
     private void Start()
     {
         OnInit();
         spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
+        requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
     }
 
     private void OnInit()
@@ -34,17 +36,14 @@ public class UpdateStatusCharacter : MonoBehaviour
     }
     public void UpdateInfoCharacter(Character character)
     {
-        int requiredMass = 0;
+
         if (character.characterType == CharacterType.Asteroid)
         {
             character.tf.DOScale(new Vector3(0.05f, 0.05f, 0.05f) + 0.0015f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
         }
         foreach (var c in SpawnPlanets.instance.CharacterInfos)
         {
-            if (character.characterType == c.characterType)
-            {
-                requiredMass = c.requiredMass;
-            }
+
 
             if (character.characterType == c.characterType - 1)
             {
@@ -59,6 +58,7 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             if (character.characterType == c.characterType + 1)
             {
+                Debug.Log("character.characterType: " + character.characterType + " c.characterType: " + c.characterType);
                 if (character.rb.mass < requiredMass)
                 {
                     character.characterType = c.characterType;
@@ -66,6 +66,12 @@ public class UpdateStatusCharacter : MonoBehaviour
                     spriteRenderer.sprite = character.spriteRenderer.sprite;
                     character.tf.DOScale(c.scale, 0f);
                 }
+            }
+
+            if (character.characterType == c.characterType)
+            {
+                requiredMass = c.requiredMass;
+                Debug.Log(requiredMass);
             }
         }
     }

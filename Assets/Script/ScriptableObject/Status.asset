@@ -17,4 +17,4 @@ MonoBehaviour:
   minimumMergeForce: 5
   coefficientActiveGameObject: 2
   coefficientAttractive: 1
-  timeToCapture: 2
+  timeToCapture: 1

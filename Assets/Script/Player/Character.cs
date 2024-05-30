@@ -287,17 +287,16 @@ public class Character : MonoBehaviour
                 }
             }
             Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
-            Debug.Log(SpawnPlanets.instance.GetRequiredMass(character.characterType) + character.name);
-            Debug.Log(character.rb.mass + character.name);
+
             if (character.rb.mass >= SpawnPlanets.instance.GetRequiredMass(character.characterType))
             {
-                Debug.Log("khong chet " + character.name);
+
                 character.velocity = new Vector2(velocity.x, velocity.y);
                 character.ResetExternalVelocity();
             }
             else
             {
-                Debug.Log("chet" + character.name);
+
                 if (!character.isPlayer)
                 {
                     //SpawnPlanets.instance.ActiveCharacter(character);
