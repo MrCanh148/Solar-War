@@ -10,7 +10,7 @@ public class Attractor : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        otherAttractor = collision.GetComponent<Character>();
+        otherAttractor = Cache.GetCharacterCollider(collision);
 
         if (otherAttractor != null && owner != null)
         {
@@ -61,7 +61,7 @@ public class Attractor : MonoBehaviour
                 }
 
 
-                Debug.Log(force);
+                //Debug.Log(force);
             }
         }
 

@@ -248,8 +248,7 @@ public class Character : MonoBehaviour
 
     public void AbsorbCharacter(Character host, Character character)
     {
-        float x = Mathf.Cos(character.angle) * 1;
-        float y = Mathf.Sin(character.angle) * 1;
+
         DOTween.To(() => character.radius, x => character.radius = x, 1, 0.3f)
 
            .OnComplete(() =>
@@ -257,6 +256,7 @@ public class Character : MonoBehaviour
                character.tf.gameObject.SetActive(false);
                host.satellites.Remove(character);
                character.lineRenderer.enabled = false;
+               ResetRadiusSatellite(host);
            })
            .Play();
     }
@@ -302,7 +302,9 @@ public class Character : MonoBehaviour
         for (int i = 0; i < owner.satellites.Count; i++)
         {
             Character character = owner.satellites[i];
-            character.radius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+            float tmpRadius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+            DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
+
         }
     }
 }

@@ -58,5 +58,6 @@ public class TestSpawnBot : MonoBehaviour
         {
             shootTarget.SetIgnoredTargets(spawnedShips);
         }
+
     }
 }

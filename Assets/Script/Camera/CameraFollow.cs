@@ -2,29 +2,27 @@
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    private Character plant;
+    public Character plant;
     [SerializeField] Vector3 offset;
     [SerializeField] float smoothSpeed = 0.125f;
     private Vector3 targetPosition;
+    [SerializeField] private Camera m_Camera;
 
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        plant = player.GetComponent<Character>();
-        targetPosition = transform.position;
-    }
 
     void FixedUpdate()
     {
         if (plant.canControl)
         {
-            Vector3 desiredPosition = player.transform.position + offset;
+            Vector3 desiredPosition = plant.tf.position + offset;
             targetPosition = desiredPosition;
         }
 
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
+        if (m_Camera != null)
+        {
+            m_Camera.orthographicSize = 6f + (int)plant.characterType * 0.2f;
+        }
     }
 }

@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class RandomMovement : MonoBehaviour
+public class RandomMovement : BotAirSpace
 {
-    [SerializeField] private float moveSpeed = 3f; // Tốc độ di chuyển của bot
-    [SerializeField] public float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
+    [SerializeField] private float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
     [SerializeField] private float changeDirectionInterval = 2f; // Thời gian để thay đổi hướng di chuyển
-    [SerializeField] private float rotationSpeed = 50f; // Tốc độ quay của đối tượng
-
+    public AirSpaceType type;
+    public float heart; // Máu airspace
     [HideInInspector] public Transform centerPoint;
-    [HideInInspector] public Vector2 targetPosition;
-    [HideInInspector] public Vector2 currentDirection;
-    private Rigidbody2D rb;
     private float changeDirectionTimer;
-
-    //private float timeNotDie = 0f;
-
-    void Start()
+   
+    protected override void InitializeBot()
     {
-        rb = GetComponent<Rigidbody2D>();
         SetRandomTargetPosition();
         currentDirection = (targetPosition - (Vector2)transform.position).normalized;
     }
@@ -33,28 +25,23 @@ public class RandomMovement : MonoBehaviour
             changeDirectionTimer = changeDirectionInterval;
         }
 
-        MoveTowardsTarget();
-        //timeNotDie += Time.deltaTime;
-    }
-
-    public void SetCenterPoint(Transform newCenterPoint)
-    {
-        centerPoint = newCenterPoint;
+        Move();
     }
 
     void SetRandomTargetPosition()
     {
         if (centerPoint == null)
         {
-            Destroy(gameObject);
-            return;
+            targetPosition = (Vector2)transform.position + Random.insideUnitCircle.normalized * wanderRadius;
         }
-
-        Vector2 randomDirection = Random.insideUnitCircle * wanderRadius;
-        targetPosition = (Vector2)centerPoint.position + randomDirection;
+        else
+        {
+            Vector2 randomDirection = Random.insideUnitCircle * wanderRadius;
+            targetPosition = (Vector2)centerPoint.position + randomDirection;
+        }
     }
 
-    public void MoveTowardsTarget()
+    protected override void Move()
     {
         Vector2 targetDirection = (targetPosition - (Vector2)transform.position).normalized;
         currentDirection = Vector2.Lerp(currentDirection, targetDirection, Time.deltaTime * moveSpeed);
@@ -70,15 +57,18 @@ public class RandomMovement : MonoBehaviour
         }
     }
 
+    public void SetCenterPoint(Transform newCenterPoint)
+    {
+        centerPoint = newCenterPoint;
+    }
+
     public void AvoidObstacle()
     {
-        float ZPos = Random.Range(20, 360);
-        currentDirection = Quaternion.Euler(0, 0, ZPos) * currentDirection;
+        currentDirection = Quaternion.Euler(0, 0, 60) * currentDirection;
         rb.velocity = currentDirection * moveSpeed;
 
         float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
-
 }

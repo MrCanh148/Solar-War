@@ -19,3 +19,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 1869fb7484aa0c143afc697469c77982, type: 3}
   characterPrefab: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
   collisionCoefficient: 0
+  scale: {x: 0.05, y: 0.05, z: 0.05}

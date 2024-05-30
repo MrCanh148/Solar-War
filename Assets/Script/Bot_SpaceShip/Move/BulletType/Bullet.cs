@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed;
+    [SerializeField] private float speed;
+    [SerializeField] private float TimeLimit = 2f;
+    [SerializeField] private int damage;
     private float timeAppear = 0f;
 
     private void Update()
     {
         timeAppear += Time.deltaTime;
-        if (timeAppear > 2f)
+        if (timeAppear > TimeLimit)
             Destroy(gameObject);
 
         transform.Translate(Vector2.up * speed * Time.deltaTime);

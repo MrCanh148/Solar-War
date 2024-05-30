@@ -3,7 +3,7 @@ using UnityEngine;
 public class GenerateGalaxy : MonoBehaviour
 {
     [SerializeField] private Transform player, BG1, BG2, BG3, BG4;
-    [SerializeField] private float size;
+    [SerializeField] private Vector2 size;
 
     private Vector3 BG1TargetPos = new Vector3();
     private Vector3 BG2TargetPos = new Vector3();
@@ -14,35 +14,35 @@ public class GenerateGalaxy : MonoBehaviour
     {
         if (transform.position.y >= BG2.position.y && transform.position.x >= BG2.position.x)
         {
-            BG1.position = SetPos(BG1TargetPos, BG1.position.x, BG2.position.y + size, BG1.position.z);
-            BG3.position = SetPos(BG3TargetPos, BG2.position.x + size, BG2.position.y + size, BG1.position.z);
-            BG4.position = SetPos(BG4TargetPos, BG2.position.x + size, BG4.position.y, BG1.position.z);
+            BG1.position = SetPos(BG1TargetPos, BG1.position.x, BG2.position.y + size.y, BG1.position.z);
+            BG3.position = SetPos(BG3TargetPos, BG2.position.x + size.x, BG2.position.y + size.y, BG1.position.z);
+            BG4.position = SetPos(BG4TargetPos, BG2.position.x + size.x, BG4.position.y, BG1.position.z);
             SwitchingBG();
             SwitchBg2();
 
         }
         if (transform.position.y < BG2.position.y && transform.position.x >= BG2.position.x)
         {
-            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y - size, BG1.position.z);
-            BG3.position = SetPos(BG3TargetPos, BG2.position.x + size, BG2.position.y - size, BG1.position.z);
-            BG4.position = SetPos(BG4TargetPos, BG2.position.x + size, BG4.position.y, BG1.position.z);
+            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y - size.y, BG1.position.z);
+            BG3.position = SetPos(BG3TargetPos, BG2.position.x + size.x, BG2.position.y - size.y, BG1.position.z);
+            BG4.position = SetPos(BG4TargetPos, BG2.position.x + size.x, BG4.position.y, BG1.position.z);
             SwitchBg5();
             SwitchBg6();
-      
+
         }
         if (transform.position.y > BG2.position.y && transform.position.x < BG2.position.x)
         {
-            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y + size, BG1.position.z);
-            BG3.position = SetPos(BG3TargetPos, BG2.position.x - size, BG2.position.y + size, BG1.position.z);
-            BG4.position = SetPos(BG4TargetPos, BG2.position.x - size, BG4.position.y, BG1.position.z);
+            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y + size.y, BG1.position.z);
+            BG3.position = SetPos(BG3TargetPos, BG2.position.x - size.x, BG2.position.y + size.y, BG1.position.z);
+            BG4.position = SetPos(BG4TargetPos, BG2.position.x - size.x, BG4.position.y, BG1.position.z);
             SwitchBg3();
             SwitchBg4();
         }
         if (transform.position.y < BG2.position.y && transform.position.x < BG2.position.x)
         {
-            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y - size, BG1.position.z);
-            BG3.position = SetPos(BG3TargetPos, BG2.position.x - size, BG2.position.y - size, BG1.position.z);
-            BG4.position = SetPos(BG4TargetPos, BG2.position.x - size, BG4.position.y, BG1.position.z);
+            BG1.position = SetPos(BG2TargetPos, BG1.position.x, BG2.position.y - size.y, BG1.position.z);
+            BG3.position = SetPos(BG3TargetPos, BG2.position.x - size.x, BG2.position.y - size.y, BG1.position.z);
+            BG4.position = SetPos(BG4TargetPos, BG2.position.x - size.x, BG4.position.y, BG1.position.z);
             SwitchBg3();
             SwitchBg4();
         }

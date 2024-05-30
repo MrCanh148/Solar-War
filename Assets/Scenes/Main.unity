@@ -949,8 +949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8defec7b11f6b0e4d83309e9d5242298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
-  generalityType: 0
+  characterType: 2
+  generalityType: 1
   rb: {fileID: 8549888146538814806}
   tf: {fileID: 3325762445165478924}
   characterLayer:
@@ -964,6 +964,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 0}
   satellites: []
+  circleCollider2D: {fileID: 0}
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -2277,7 +2278,7 @@ MonoBehaviour:
   BG2: {fileID: 330491685}
   BG3: {fileID: 1185248196}
   BG4: {fileID: 814148581}
-  size: 40.96
+  size: {x: 40.96, y: 40.96}
 --- !u!114 &362457831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,9 +2309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec21bcbec6eadde4f883a24fa3e69fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6772659483532777773}
+  plant: {fileID: 211834571}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 0.125
+  m_Camera: {fileID: 362457825}
 --- !u!1 &368642064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3364,7 +3366,7 @@ Transform:
   m_GameObject: {fileID: 644853582}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.09}
+  m_LocalPosition: {x: -19.4, y: -20.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8545,7 +8547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1998827406
 Transform:
   m_ObjectHideFlags: 0
@@ -8595,7 +8597,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 20
 --- !u!114 &1998827408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8931,7 +8933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2130347328
 Transform:
   m_ObjectHideFlags: 0
@@ -8981,7 +8983,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 40
 --- !u!114 &2130347330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9177,9 +9179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpacePrefab:
-  - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
-  spawnInterval: 5
-  maxShips: 3
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  spawnInterval: 1
+  maxShips: 5
 --- !u!114 &9212076658043548276
 MonoBehaviour:
   m_ObjectHideFlags: 0

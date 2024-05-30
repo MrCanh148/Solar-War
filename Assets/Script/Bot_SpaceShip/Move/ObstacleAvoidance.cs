@@ -17,4 +17,5 @@ public class ObstacleAvoidance : MonoBehaviour
             parentRandomMovement.AvoidObstacle();
         }
     }
+
 }
