@@ -949,8 +949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8defec7b11f6b0e4d83309e9d5242298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
-  generalityType: 0
+  characterType: 1
+  generalityType: 1
   rb: {fileID: 8549888146538814806}
   tf: {fileID: 3325762445165478924}
   characterLayer:
@@ -964,6 +964,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 0}
   satellites: []
+  circleCollider2D: {fileID: 0}
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -2277,7 +2278,7 @@ MonoBehaviour:
   BG2: {fileID: 330491685}
   BG3: {fileID: 1185248196}
   BG4: {fileID: 814148581}
-  size: 40.96
+  size: {x: 40.96, y: 40.96}
 --- !u!114 &362457831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,9 +2309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec21bcbec6eadde4f883a24fa3e69fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6772659483532777773}
+  plant: {fileID: 211834571}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 0.125
+  m_Camera: {fileID: 362457825}
 --- !u!1 &368642064
 GameObject:
   m_ObjectHideFlags: 0
@@ -8595,7 +8597,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 20
 --- !u!114 &1998827408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8981,7 +8983,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 40
 --- !u!114 &2130347330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9100,7 +9102,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

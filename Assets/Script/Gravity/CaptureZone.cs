@@ -22,7 +22,7 @@ public class CaptureZone : MonoBehaviour
         {
             ortherCharacter = character;
         }
-        if (ortherCharacter != null && owner != null && (owner.generalityType == ortherCharacter.generalityType + 1) && ortherCharacter.host == null)
+        if (ortherCharacter != null && owner != null && (owner.generalityType == ortherCharacter.generalityType + 1) && ortherCharacter.host == null && !ortherCharacter.isPlayer)
         {
             onZone = true;
             timer = 0f;
