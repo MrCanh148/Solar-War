@@ -152,35 +152,26 @@ public class Character : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character character = collision.gameObject.GetComponent<Character>();
-
         if (character == null)
             return;
-
-        if (character.generalityType == this.generalityType)
+        /*if (isPlayer)
         {
-            if (isPlayer)
-            {
-                HandleCollision(this, character);
-            }
-            else if (this.GetInstanceID() > character.GetInstanceID())
-            {
-                HandleCollision(this, character);
-                Debug.Log("Va cham");
-            }
+            HandleCollision(this, character);
         }
-
-        // Nếu 2 plant Khác hệ thì destroy cái bé
-        if (character.generalityType > this.generalityType && !isPlayer)
-            Destroy(gameObject);
-
+        else if (this.GetInstanceID() > character.GetInstanceID())
+        {
+            HandleCollision(this, character);
+            Debug.Log("Va cham");
+        }*/
+        HandleCollision2(character);
     }
 
     public void HandleCollision(Character c1, Character c2)
     {
 
         float gravitational = (c1.mainVelocity - c2.mainVelocity).magnitude;
-        Debug.Log("gravitational = " + gravitational);
-        if (c1.generalityType == GeneralityType.Asteroid)
+        //Debug.Log("gravitational = " + gravitational);
+        if (c1.generalityType == GeneralityType.Asteroid && c2.generalityType == GeneralityType.Asteroid)
         {
             if (gravitational <= GameManager.instance.status.minimumMergeForce)
             {
@@ -201,9 +192,18 @@ public class Character : MonoBehaviour
                 c1.velocity = new Vector2(velocityS.x, velocityS.y);
             }
         }
-        else
+
+        if (c1.characterType != c2.characterType)
         {
-            c1.rb.mass -= (int)c2.rb.mass / 10;
+            if (c2.characterType == CharacterType.Asteroid)
+            {
+                c1.rb.mass -= (int)c2.rb.mass;
+            }
+            else
+            {
+                c1.rb.mass -= (int)c2.rb.mass / 10;
+            }
+
             Debug.Log((int)c2.rb.mass / 10);
             c2.rb.mass -= (int)c1.rb.mass / 10;
             Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
@@ -232,6 +232,75 @@ public class Character : MonoBehaviour
         }
 
 
+    }
+
+    public void HandleCollision2(Character character)
+    {
+        float gravitational = (mainVelocity - character.mainVelocity).magnitude;
+        //Debug.Log("gravitational = " + gravitational);
+        if (generalityType == GeneralityType.Asteroid && character.generalityType == GeneralityType.Asteroid)
+        {
+            if (gravitational <= GameManager.instance.status.minimumMergeForce)
+            {
+                Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
+                character.velocity = new Vector2(velocity.x, velocity.y);
+                character.ResetExternalVelocity();
+            }
+            else
+            {
+                if (this.isPlayer)
+                {
+                    MergeCharacter(this, character);
+                    Vector2 velocityS = (character.rb.mass * character.velocity + rb.mass * velocity) / (rb.mass + character.rb.mass);
+                    velocity = new Vector2(velocityS.x, velocityS.y);
+                }
+                if (this.GetInstanceID() > character.GetInstanceID())
+                {
+                    MergeCharacter(this, character);
+                    Vector2 velocityS = (character.rb.mass * character.velocity + rb.mass * velocity) / (rb.mass + character.rb.mass);
+                    velocity = new Vector2(velocityS.x, velocityS.y);
+                }
+            }
+        }
+        if (characterType != character.characterType)
+        {
+            if (characterType == CharacterType.Asteroid)
+            {
+                character.rb.mass -= (int)rb.mass;
+
+            }
+            else
+            {
+                if (generalityType > character.generalityType)
+                {
+                    character.gameObject.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(character.characterType + 1) / 10;
+                }
+            }
+            Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
+            Debug.Log(SpawnPlanets.instance.GetRequiredMass(character.characterType) + character.name);
+            Debug.Log(character.rb.mass + character.name);
+            if (character.rb.mass >= SpawnPlanets.instance.GetRequiredMass(character.characterType))
+            {
+                Debug.Log("khong chet " + character.name);
+                character.velocity = new Vector2(velocity.x, velocity.y);
+                character.ResetExternalVelocity();
+            }
+            else
+            {
+                Debug.Log("chet" + character.name);
+                if (!character.isPlayer)
+                {
+                    //SpawnPlanets.instance.ActiveCharacter(character);
+                    character.gameObject.SetActive(false);
+                }
+
+            }
+        }
     }
 
     public void MergeCharacter(Character c1, Character c2)

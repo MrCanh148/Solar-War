@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ReSpawnPlayer : MonoBehaviour
 {
@@ -32,7 +31,7 @@ public class ReSpawnPlayer : MonoBehaviour
             player.ResetVelocity();
             resetVelocity = false;
         }
-     
+
     }
 
     private IEnumerator TeleNewPos()
@@ -65,15 +64,16 @@ public class ReSpawnPlayer : MonoBehaviour
 
         if (character1.generalityType > character.generalityType)
         {
-            ResPlayer();
+            //ResPlayer();
         }
     }
 
     public void ResPlayer()
-    {     
+    {
         character.spriteRenderer.enabled = false;
         character.canControl = false;
         currentPos = transform.position;
+        character.rb.mass = SpawnPlanets.instance.GetRequiredMass(character.characterType) + SpawnPlanets.instance.GetRequiredMass(character.characterType + 1) / 2;
         StartCoroutine(TeleNewPos());
     }
 }

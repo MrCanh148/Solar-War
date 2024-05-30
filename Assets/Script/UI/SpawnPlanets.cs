@@ -120,6 +120,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         character.gameObject.SetActive(true);
         SpawnerCharacter(character);
         character.velocity = RandomInitialVelocity();
+        character.rb.mass = GetRequiredMass(character.characterType) + GetRequiredMass(character.characterType + 1) / 2;
     }
 
     public Vector2 RandomInitialVelocity()
