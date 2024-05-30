@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 
 public class TestSpawnBot : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class TestSpawnBot : MonoBehaviour
         ShootTarget shootTarget = newShip.GetComponent<ShootTarget>();
         if (shootTarget != null)
         {
-            shootTarget.SetIgnoredTargets(spawnedShips);
+            shootTarget.SetIgnoredTargets(spawnedShips, character);
         }
 
     }

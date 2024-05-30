@@ -70,7 +70,6 @@ public class ReSpawnPlayer : MonoBehaviour
         character.spriteRenderer.enabled = false;
         character.canControl = false;
         currentPos = transform.position;
-        Debug.Log(currentPos);
         StartCoroutine(TeleNewPos());
     }
 }

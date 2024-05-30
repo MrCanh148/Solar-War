@@ -272,12 +272,15 @@ public class Character : MonoBehaviour
             {
                 if (generalityType > character.generalityType)
                 {
-                    character.gameObject.SetActive(false);
-                    if (character.host != null)
+                    if (!character.isPlayer)
                     {
-                        character.host.satellites.Remove(character);
+                        character.gameObject.SetActive(false);
+                        if (character.host != null)
+                        {
+                            character.host.satellites.Remove(character);
+                        }
+                        return;
                     }
-                    return;
                 }
                 else
                 {

@@ -14,7 +14,7 @@ public class ShootTarget : MonoBehaviour
     [SerializeField] private float missileFireInterval = 3f; // Thời gian phóng tên lửa
 
     private float nextFireTime = 0f;
-
+    private Character host;
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement botAirSpace;
 
@@ -23,9 +23,10 @@ public class ShootTarget : MonoBehaviour
         botAirSpace = GetComponent<RandomMovement>();
     }
 
-    public void SetIgnoredTargets(List<GameObject> targets)
+    public void SetIgnoredTargets(List<GameObject> targets, Character hostBase)
     {
         ignoredTargets = targets;
+        host = hostBase;
     }
 
     private void Update()
@@ -63,9 +64,12 @@ public class ShootTarget : MonoBehaviour
         {
             if (ignoredTargets.Contains(hit.gameObject)) continue;
 
-            Character target = hit.gameObject.GetComponent<Character>();
+            Character target = hit.gameObject.GetComponent<Character>();          
+
             if ((target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet)) || hit.gameObject.tag == "AirSpace1")
             {
+                if (target.host == host) continue;
+
                 Vector2 directionToTarget = hit.transform.position - transform.position;
                 float angle = Vector2.Angle(transform.up, directionToTarget);
 
