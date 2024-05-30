@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
     public float angle;
     public bool isCapture;
     public LineRenderer lineRenderer;
-
+    public int Kill;
 
     protected virtual void Start()
     {

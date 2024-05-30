@@ -772,9 +772,6 @@ MonoBehaviour:
   generalityType: 1
   rb: {fileID: 1758964528983454393}
   tf: {fileID: 8685987781213061351}
-  characterLayer:
-    serializedVersion: 2
-    m_Bits: 0
   velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
@@ -784,6 +781,7 @@ MonoBehaviour:
   canvar: {fileID: 4033417834790607751}
   satellites: []
   circleCollider2D: {fileID: 7875871697621069019}
+  Kill: 0
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -943,5 +941,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSpacePrefab:
   - {fileID: 5627386560112711568, guid: e7954ba85a93ffb48a1a425902e4dcfd, type: 3}
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
   spawnInterval: 5
-  maxShips: 3

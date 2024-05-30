@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LogicUIPlayer : MonoBehaviour
 {
@@ -7,33 +9,31 @@ public class LogicUIPlayer : MonoBehaviour
     [SerializeField] private GameObject[] UIinfo;
     [SerializeField] private GameObject player;
     [SerializeField] private TextMeshProUGUI numberPlanet;
+    [SerializeField] private Slider EvolutionSlider;
+    [SerializeField] private TextMeshProUGUI numberKill;
     private Character character;
-    private Rigidbody2D rb;
+    private bool isEvolutionInProgress = false;
 
     private void Start()
     {
         character = player.GetComponent<Character>();
-        rb = player.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if (character.characterType == CharacterType.Asteroid || character.characterType == CharacterType.GasGiantPlanet || character.characterType == CharacterType.BlackHole)
-            OffAllUI();
-
-        if (character.characterType == CharacterType.SmallPlanet)
+        if (character.characterType == CharacterType.Asteroid
+            || character.characterType == CharacterType.GasGiantPlanet
+            || character.characterType == CharacterType.BlackHole
+            || character.characterType == CharacterType.SmallPlanet)
         {
             OffAllUI();
-            if (rb.mass >= 40)
-                UIinfo[2].SetActive(true);
         }
 
-        if (character.characterType == CharacterType.LifePlanet)
+        if (character.characterType == CharacterType.LifePlanet && !isEvolutionInProgress)
         {
             OffAllUI();
-            UIinfo[0].SetActive(true);
-            UIinfo[1].SetActive(true);
-            UIinfo[4].SetActive(true);
+            StartCoroutine(EvolveOverTime(20f));
+          
         }
 
         if (character.generalityType == GeneralityType.Star)
@@ -47,6 +47,28 @@ public class LogicUIPlayer : MonoBehaviour
             if (character.characterType == CharacterType.NeutronStar)
                 numberPlanet.text = "0 / 4";
         }
+        numberKill.text = character.Kill.ToString();
+    }
+
+    private IEnumerator EvolveOverTime(float duration)
+    {
+        UIinfo[2].SetActive(true);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            EvolutionSlider.value = Mathf.Clamp01(elapsedTime / duration);
+            yield return null;
+        }
+
+        EvolutionSlider.value = 1f;
+        UIinfo[0].SetActive(true);
+        UIinfo[1].SetActive(true);
+        UIinfo[2].SetActive(false);
+        UIinfo[4].SetActive(true);
+
+        isEvolutionInProgress = true;
     }
 
     private void OffAllUI()
@@ -55,5 +77,6 @@ public class LogicUIPlayer : MonoBehaviour
         {
             go.SetActive(false);
         }
+        EvolutionSlider.value = 0f; 
     }
 }

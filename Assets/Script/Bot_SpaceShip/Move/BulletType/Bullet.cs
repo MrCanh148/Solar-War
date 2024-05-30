@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int damage;
     private float timeAppear = 0f;
 
+
     private void Update()
     {
         timeAppear += Time.deltaTime;
@@ -35,5 +36,7 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
+
+        // neu cham object khac owner thi character chu the tang 
     }
 }

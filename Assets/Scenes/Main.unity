@@ -998,6 +998,7 @@ MonoBehaviour:
   canvar: {fileID: 0}
   satellites: []
   circleCollider2D: {fileID: 0}
+  Kill: 0
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
@@ -2566,7 +2567,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.62
+  m_Value: 0.125
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6216,6 +6217,8 @@ MonoBehaviour:
   - {fileID: 119181389}
   player: {fileID: 6772659483532777773}
   numberPlanet: {fileID: 449280691}
+  EvolutionSlider: {fileID: 1436850671}
+  numberKill: {fileID: 1609757196}
 --- !u!1 &1185248195
 GameObject:
   m_ObjectHideFlags: 0
@@ -10212,7 +10215,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 25
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -10290,8 +10293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSpacePrefab:
   - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
   spawnInterval: 5
-  maxShips: 3
 --- !u!114 &9212076658043548276
 MonoBehaviour:
   m_ObjectHideFlags: 0
