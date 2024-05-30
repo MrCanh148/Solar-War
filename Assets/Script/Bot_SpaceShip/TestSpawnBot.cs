@@ -12,12 +12,10 @@ public class TestSpawnBot : MonoBehaviour
     private Character character;
     private List<GameObject> spawnedShips = new List<GameObject>();
 
-
     private void Start()
     {
         PlaceSpawn = GetComponent<Transform>();
         character = GetComponent<Character>();
-        // Thêm Planet vào danh sách spawnedShips
         if (PlaceSpawn != null)
         {
             spawnedShips.Add(PlaceSpawn.gameObject);
@@ -28,6 +26,9 @@ public class TestSpawnBot : MonoBehaviour
     private void Update()
     {
         spawnTimer -= Time.deltaTime;
+
+        // Xóa các tàu đã bị hủy khỏi danh sách
+        spawnedShips.RemoveAll(ship => ship == null);
 
         if (spawnTimer <= 0f)
         {

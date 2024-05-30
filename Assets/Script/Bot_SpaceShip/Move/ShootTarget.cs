@@ -7,7 +7,7 @@ public class ShootTarget : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float radius = 5f; // Bán kính vùng phát hiện
     [SerializeField] private float fireAngle = 20f; // Góc phía trước
-    [SerializeField] private float NextShootIn = 5f;
+    [SerializeField] private float NextShootIn = 1f; // Thời gian bắn đạn
     private float nextFireTime = 0f;
 
     private List<GameObject> ignoredTargets = new List<GameObject>();
@@ -28,7 +28,7 @@ public class ShootTarget : MonoBehaviour
                 if (ignoredTargets.Contains(hit.gameObject)) continue;
 
                 Character target = hit.gameObject.GetComponent<Character>();
-                if (target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet || target.tag == "AirSpace1"))
+                if ((target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet)) || hit.gameObject.tag == "AirSpace1")
                 {
                     Vector2 directionToTarget = hit.transform.position - transform.position;
                     float angle = Vector2.Angle(transform.up, directionToTarget);
