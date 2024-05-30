@@ -68,7 +68,6 @@ public class Character : MonoBehaviour
     {
         if (isCapture)
         {
-            Debug.Log("test");
             // Tính toán vị trí mới dựa trên góc quay và bán kính
             float x = Mathf.Cos(angle) * radius;
             float y = Mathf.Sin(angle) * radius;

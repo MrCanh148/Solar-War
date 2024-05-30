@@ -26,8 +26,13 @@ public class Bullet : MonoBehaviour
             if (collision.gameObject.tag == "Player")
                 ReSpawnPlayer.Instance.ResPlayer();
             else
+            {
+                if (character.host != null)
+                {
+                    character.host.satellites.Remove(character);
+                }
                 Destroy(collision.gameObject);
-
+            }
             Destroy(gameObject);
         }
     }
