@@ -94,7 +94,7 @@ public class ShowUI : FastSingleton<ShowUI>
                 nestMass = c.requiredMass;
             }
         }*/
-        SetEvoluSlider((long)player.rb.mass, SpawnPlanets.instance.GetRequiredMass(player.characterType + 1));
+        SetEvoluSlider((long)player.rb.mass - SpawnPlanets.instance.GetRequiredMass(player.characterType), SpawnPlanets.instance.GetRequiredMass(player.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(player.characterType));
     }
 
     public void ShowSettingUI()
