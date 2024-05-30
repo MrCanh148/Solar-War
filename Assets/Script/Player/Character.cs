@@ -252,7 +252,7 @@ public class Character : MonoBehaviour
                     Vector2 velocityS = (character.rb.mass * character.velocity + rb.mass * velocity) / (rb.mass + character.rb.mass);
                     velocity = new Vector2(velocityS.x, velocityS.y);
                 }
-                if (this.GetInstanceID() > character.GetInstanceID())
+                else if (this.GetInstanceID() > character.GetInstanceID())
                 {
                     MergeCharacter(this, character);
                     Vector2 velocityS = (character.rb.mass * character.velocity + rb.mass * velocity) / (rb.mass + character.rb.mass);
@@ -314,9 +314,17 @@ public class Character : MonoBehaviour
 
     public void MergeCharacter(Character c1, Character c2)
     {
-        c1.rb.mass++;
+        ChangeMass(c1, (int)c2.rb.mass);
+        //c1.rb.mass += c2.rb.mass;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
+    }
+
+    public void ChangeMass(Character character, int number)
+    {
+        int tmpMass = (int)(character.rb.mass + number);
+        float duration = Mathf.Abs(number) * 0.1f;
+        DOTween.To(() => character.rb.mass, x => character.rb.mass = x, tmpMass, duration);
     }
 
     protected virtual void ResetExternalVelocity()
