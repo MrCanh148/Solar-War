@@ -32,13 +32,12 @@ public class Character : MonoBehaviour
     public GeneralityType generalityType;
     public Rigidbody2D rb;
     public Transform tf;
-    [SerializeField] protected LayerMask characterLayer;
     public Vector2 velocity;
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
     public bool canControl;
-    public SpriteRenderer spriteRenderer;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     public List<Character> satellites;
     public CircleCollider2D circleCollider2D;
