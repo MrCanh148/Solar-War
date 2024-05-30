@@ -1,18 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidGroup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] List<Character> listAsteroid;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        foreach (Character c in listAsteroid)
+        {
+            c.velocity = SpawnPlanets.instance.RandomInitialVelocity();
+        }
     }
 }

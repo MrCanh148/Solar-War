@@ -274,6 +274,10 @@ public class Character : MonoBehaviour
                 if (generalityType > character.generalityType)
                 {
                     character.gameObject.SetActive(false);
+                    if (character.host != null)
+                    {
+                        character.host.satellites.Remove(character);
+                    }
                     return;
                 }
                 else
@@ -297,6 +301,10 @@ public class Character : MonoBehaviour
                 {
                     //SpawnPlanets.instance.ActiveCharacter(character);
                     character.gameObject.SetActive(false);
+                    if (character.host != null)
+                    {
+                        character.host.satellites.Remove(character);
+                    }
                 }
 
             }
