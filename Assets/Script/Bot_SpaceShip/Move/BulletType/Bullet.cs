@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float TimeLimit = 2f;
     [SerializeField] private int damage;
     private float timeAppear = 0f;
-
+    [HideInInspector] public Character characterOwner;
 
     private void Update()
     {
@@ -19,24 +19,28 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Character character = collision.gameObject.GetComponent<Character>();
-        if (character == null) return;
+        Character target = collision.gameObject.GetComponent<Character>();
+        if (target == null) return;
 
-        if (character.generalityType == GeneralityType.Asteroid || character.generalityType == GeneralityType.Planet)
+        if (target.generalityType == GeneralityType.Asteroid || target.generalityType == GeneralityType.Planet)
         {
-            if (collision.gameObject.tag == "Player")
-                ReSpawnPlayer.Instance.ResPlayer();
-            else
+            if (target != characterOwner)
             {
-                if (character.host != null)
+                characterOwner.Kill++;
+
+                if (collision.gameObject.tag == "Player")
+                    ReSpawnPlayer.Instance.ResPlayer();
+                else
                 {
-                    character.host.satellites.Remove(character);
+                    if (target.host != null)
+                    {
+                        target.host.satellites.Remove(target);
+                    }
+                    Destroy(collision.gameObject);
                 }
-                Destroy(collision.gameObject);
             }
+
             Destroy(gameObject);
         }
-
-        // neu cham object khac owner thi character chu the tang 
     }
 }

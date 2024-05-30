@@ -7,6 +7,7 @@ public class Laser : MonoBehaviour
     private float timeAppear = 0f;
     private GameObject target;
     private Transform firePoint;
+    [HideInInspector] public Character characterOwner;
 
     private void Start()
     {

@@ -64,13 +64,13 @@ public class ShootTarget : MonoBehaviour
         {
             if (ignoredTargets.Contains(hit.gameObject)) continue;
 
-            Character target = hit.gameObject.GetComponent<Character>();          
-            
-            if (target == null) return;
+            Character target = hit.gameObject.GetComponent<Character>();
+
+            //if (target == null) return;
 
             if ((target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet)) || hit.gameObject.tag == "AirSpace1")
             {
-                if (target.host == host) continue;
+                //if (target.host == host) continue;
 
                 Vector2 directionToTarget = hit.transform.position - transform.position;
                 float angle = Vector2.Angle(transform.up, directionToTarget);
@@ -78,21 +78,34 @@ public class ShootTarget : MonoBehaviour
                 if (angle <= fireAngle / 2)
                 {
                     GameObject a = Instantiate(bulletPrefab[bulletIndex], firePoint.position, firePoint.rotation);
+
+                    // Gắn characterOwner của bullet bằng host của ShootTarget
+                    Bullet bullet = a.GetComponent<Bullet>();
+                    if (bullet != null)
+                        bullet.characterOwner = host;
+
                     nextFireTime = Time.time + fireInterval;
 
                     Missile missile = a.GetComponent<Missile>();
                     if (missile != null)
+                    {
                         missile.SetTarget(hit.gameObject);
+                        missile.characterOwner = host;
+                    }                       
 
                     Laser laser = a.GetComponent<Laser>();
                     if (laser != null)
+                    {
                         laser.SetTarget(hit.gameObject, firePoint);
+                        laser.characterOwner = host;
+                    }
 
                     break;
                 }
             }
         }
     }
+
 
     // Vẽ Vùng bắn đạn
     private void OnDrawGizmosSelected()
