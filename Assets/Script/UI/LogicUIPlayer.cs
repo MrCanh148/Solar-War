@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,18 @@ public class LogicUIPlayer : MonoBehaviour
     [Header("0:Shield - 1:Exp - 2:Envolution - 3:Planet - 4:Kill")]
     [SerializeField] private GameObject[] UIinfo;
     [SerializeField] private GameObject player;
+
     [SerializeField] private TextMeshProUGUI numberPlanet;
-    [SerializeField] private Slider EvolutionSlider;
     [SerializeField] private TextMeshProUGUI numberKill;
+
+    [SerializeField] private Slider EvolutionSlider;
+    [SerializeField] private Slider ShieldPlayer;
+    [SerializeField] private Slider ExpPlayer;
+    [SerializeField] private float MaxExp = 36;
+
     private Character character;
     private bool isEvolutionInProgress = false;
+    private Coroutine evolutionCoroutine;
 
     private void Start()
     {
@@ -32,9 +40,11 @@ public class LogicUIPlayer : MonoBehaviour
         if (character.characterType == CharacterType.LifePlanet && !isEvolutionInProgress)
         {
             OffAllUI();
-            StartCoroutine(EvolveOverTime(20f));
-          
+            evolutionCoroutine = StartCoroutine(EvolveOverTime(20f));
         }
+
+        if (character.characterType != CharacterType.LifePlanet)
+            isEvolutionInProgress = false;
 
         if (character.generalityType == GeneralityType.Star)
         {
@@ -48,6 +58,9 @@ public class LogicUIPlayer : MonoBehaviour
                 numberPlanet.text = "0 / 4";
         }
         numberKill.text = character.Kill.ToString();
+
+        ExpPlayer.value = character.Kill / MaxExp;
+        ShieldPlayer.value = character.Shield / character.MaxShield;
     }
 
     private IEnumerator EvolveOverTime(float duration)
@@ -57,6 +70,12 @@ public class LogicUIPlayer : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            if (character.characterType != CharacterType.LifePlanet)
+            {
+                ResetEvolutionUI();
+                yield break;
+            }
+
             elapsedTime += Time.deltaTime;
             EvolutionSlider.value = Mathf.Clamp01(elapsedTime / duration);
             yield return null;
@@ -71,12 +90,19 @@ public class LogicUIPlayer : MonoBehaviour
         isEvolutionInProgress = true;
     }
 
+    private void ResetEvolutionUI()
+    {
+        UIinfo[2].SetActive(false);
+        EvolutionSlider.value = 0f;
+        isEvolutionInProgress = false;
+    }
+
     private void OffAllUI()
     {
         foreach (GameObject go in UIinfo)
         {
             go.SetActive(false);
         }
-        EvolutionSlider.value = 0f; 
+        EvolutionSlider.value = 0f;
     }
 }

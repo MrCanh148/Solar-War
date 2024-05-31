@@ -5121,7 +5121,6 @@ MonoBehaviour:
   wanderRadius: 5
   changeDirectionInterval: 4
   type: 0
-  heart: 10
   centerPoint: {fileID: 0}
 --- !u!114 &1068116942302675089
 MonoBehaviour:
@@ -5145,6 +5144,8 @@ MonoBehaviour:
   bulletFireInterval: 0.1
   laserFireInterval: 2
   missileFireInterval: 3
+  heart: 5
+  host: {fileID: 0}
 --- !u!1 &6468803801050066721
 GameObject:
   m_ObjectHideFlags: 0

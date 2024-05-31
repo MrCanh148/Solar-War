@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: -1632637548447218304}
   - component: {fileID: 7875871697621069019}
   - component: {fileID: 3519994644223952885}
+  - component: {fileID: 7386851702675137779}
   m_Layer: 0
   m_Name: Life Planet
   m_TagString: Planet
@@ -781,13 +782,17 @@ MonoBehaviour:
   canvar: {fileID: 4033417834790607751}
   satellites: []
   circleCollider2D: {fileID: 7875871697621069019}
-  Kill: 0
   host: {fileID: 0}
   radius: 0
   spinSpeed: 0
   angle: 0
   isCapture: 0
   lineRenderer: {fileID: -1632637548447218304}
+  Kill: 0
+  Shield: 0
+  MaxShield: 10
+  EvolutionDone: 0
+  IsKill: 0
 --- !u!120 &-1632637548447218304
 LineRenderer:
   serializedVersion: 2
@@ -944,3 +949,17 @@ MonoBehaviour:
   - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
   - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
   spawnInterval: 5
+--- !u!114 &7386851702675137779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805419360225620633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705923926f344d0469ad7139f03aedfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 6238116557087275231}
+  Minimap: {fileID: 0}

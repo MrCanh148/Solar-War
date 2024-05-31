@@ -168,12 +168,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   rotationSpeed: 20
-  heart: 20
-  type: 1
   wanderRadius: 5
   changeDirectionInterval: 4
+  type: 1
   centerPoint: {fileID: 0}
-  targetPosition: {x: 0, y: 0}
 --- !u!114 &3983244933364597713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +194,8 @@ MonoBehaviour:
   bulletFireInterval: 1
   laserFireInterval: 2
   missileFireInterval: 3
+  heart: 7
+  host: {fileID: 0}
 --- !u!1 &6166463642243614276
 GameObject:
   m_ObjectHideFlags: 0

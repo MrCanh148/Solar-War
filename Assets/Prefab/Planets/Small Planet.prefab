@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 7764996312339137584}
   - component: {fileID: 1172948982493763337}
   - component: {fileID: 3068643122381640042}
+  - component: {fileID: -9176210974703387588}
   m_Layer: 0
   m_Name: Small Planet
   m_TagString: Planet
@@ -637,9 +638,6 @@ MonoBehaviour:
   generalityType: 1
   rb: {fileID: 4034527734867974287}
   tf: {fileID: 2892627947799192805}
-  characterLayer:
-    serializedVersion: 2
-    m_Bits: 0
   velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
@@ -655,6 +653,11 @@ MonoBehaviour:
   angle: 0
   isCapture: 0
   lineRenderer: {fileID: 1172948982493763337}
+  Kill: 0
+  Shield: 0
+  MaxShield: 10
+  EvolutionDone: 0
+  IsKill: 0
 --- !u!120 &1172948982493763337
 LineRenderer:
   serializedVersion: 2
@@ -794,6 +797,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
+--- !u!114 &-9176210974703387588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378639861866745267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705923926f344d0469ad7139f03aedfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 7764996312339137584}
+  Minimap: {fileID: 0}
 --- !u!1 &8719416065609066486
 GameObject:
   m_ObjectHideFlags: 0

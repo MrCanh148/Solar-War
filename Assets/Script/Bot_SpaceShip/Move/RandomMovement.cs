@@ -5,7 +5,6 @@ public class RandomMovement : BotAirSpace
     [SerializeField] private float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
     [SerializeField] private float changeDirectionInterval = 2f; // Thời gian để thay đổi hướng di chuyển
     public AirSpaceType type;
-    public float heart; // Máu airspace
     [HideInInspector] public Transform centerPoint;
     private float changeDirectionTimer;
    

@@ -13,8 +13,9 @@ public class ShootTarget : MonoBehaviour
     [SerializeField] private float laserFireInterval = 2f; // Thời gian bắn laser
     [SerializeField] private float missileFireInterval = 3f; // Thời gian phóng tên lửa
 
+    public float heart; // Máu airspace
     private float nextFireTime = 0f;
-    public Character host;
+    [HideInInspector] public Character host;
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement botAirSpace;
 
@@ -66,11 +67,9 @@ public class ShootTarget : MonoBehaviour
 
             Character target = hit.gameObject.GetComponent<Character>();
 
-            //if (target == null) return;
-
             if ((target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet)) || hit.gameObject.tag == "AirSpace1")
             {
-                //if (target.host == host) continue;
+                if (target != null && target.host == host) continue;
 
                 Vector2 directionToTarget = hit.transform.position - transform.position;
                 float angle = Vector2.Angle(transform.up, directionToTarget);
@@ -79,12 +78,10 @@ public class ShootTarget : MonoBehaviour
                 {
                     GameObject a = Instantiate(bulletPrefab[bulletIndex], firePoint.position, firePoint.rotation);
 
-                    // Gắn characterOwner của bullet bằng host của ShootTarget
+                    // Gắn các thuộc tính cần thiết cho các loại đạn
                     Bullet bullet = a.GetComponent<Bullet>();
                     if (bullet != null)
                         bullet.characterOwner = host;
-
-                    nextFireTime = Time.time + fireInterval;
 
                     Missile missile = a.GetComponent<Missile>();
                     if (missile != null)
@@ -100,6 +97,7 @@ public class ShootTarget : MonoBehaviour
                         laser.characterOwner = host;
                     }
 
+                    nextFireTime = Time.time + fireInterval;
                     break;
                 }
             }

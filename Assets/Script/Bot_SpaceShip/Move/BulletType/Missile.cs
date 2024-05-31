@@ -5,10 +5,10 @@ public class Missile : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed = 200f; // Tốc độ quay của tên lửa để điều chỉnh hướng
     [SerializeField] private float TimeLimit = 3f;
-    [SerializeField] private int damage;
     private float timeAppear = 0f;
     private GameObject target;
     [HideInInspector] public Character characterOwner;
+    public int damage;
 
     private void Update()
     {
@@ -40,23 +40,24 @@ public class Missile : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character target = collision.gameObject.GetComponent<Character>();
+        Rigidbody2D rbTarget = collision.gameObject.GetComponent<Rigidbody2D>();
+
         if (target == null) return;
 
         if (target.generalityType == GeneralityType.Asteroid || target.generalityType == GeneralityType.Planet)
         {
             if (target != characterOwner)
             {
-                characterOwner.Kill++;
-
-                if (collision.gameObject.tag == "Player")
-                    ReSpawnPlayer.Instance.ResPlayer();
-                else
+                rbTarget.mass -= damage;
+                if (target.IsKill)
                 {
-                    if (target.host != null)
-                    {
+                    characterOwner.Kill++;
+
+                    if (collision.gameObject.tag == "Player")
+                        ReSpawnPlayer.Instance.ResPlayer();
+
+                    else if (target.host != null)
                         target.host.satellites.Remove(target);
-                    }
-                    Destroy(collision.gameObject);
                 }
             }
 

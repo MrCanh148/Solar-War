@@ -8,6 +8,7 @@ public class Laser : MonoBehaviour
     private GameObject target;
     private Transform firePoint;
     [HideInInspector] public Character characterOwner;
+    private bool isShoot = false;
 
     private void Start()
     {
@@ -36,7 +37,14 @@ public class Laser : MonoBehaviour
                 if (hit.collider.gameObject.tag == "Player")
                     ReSpawnPlayer.Instance.ResPlayer();
                 else
-                    Destroy(hit.collider.gameObject); 
+                    Destroy(hit.collider.gameObject);
+
+                if (!isShoot)
+                {
+                    characterOwner.Kill++;
+                    isShoot = true;
+                }
+                
             }
         }
     }
