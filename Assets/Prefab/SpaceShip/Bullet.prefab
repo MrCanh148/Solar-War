@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   TimeLimit: 2
-  damage: 1
+  damage: 2
   characterOwner: {fileID: 0}
 --- !u!1 &4940929110200531603
 GameObject:

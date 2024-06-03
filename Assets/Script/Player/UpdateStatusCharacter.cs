@@ -124,8 +124,12 @@ public class UpdateStatusCharacter : MonoBehaviour
         if (currentGenerateType > newType)
         {
             owner.IsKill = true;
-            owner.gameObject.SetActive(false);
-            owner.killer.Kill++;
+
+            if (!owner.isPlayer)
+                owner.gameObject.SetActive(false);
+
+            if (owner.killer != null)
+                owner.killer.Kill++;
         }
             
         currentGenerateType = newType;

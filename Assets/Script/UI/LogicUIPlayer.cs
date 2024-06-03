@@ -17,6 +17,7 @@ public class LogicUIPlayer : MonoBehaviour
     [SerializeField] private Slider ShieldPlayer;
     [SerializeField] private Slider ExpPlayer;
     [SerializeField] private float MaxExp = 36;
+    [SerializeField] private float TimeEvolutionGO = 5f;
 
     private Character character;
     private bool isEvolutionInProgress = false;
@@ -40,7 +41,7 @@ public class LogicUIPlayer : MonoBehaviour
         if (character.characterType == CharacterType.LifePlanet && !isEvolutionInProgress)
         {
             OffAllUI();
-            evolutionCoroutine = StartCoroutine(EvolveOverTime(20f));
+            evolutionCoroutine = StartCoroutine(EvolveOverTime(TimeEvolutionGO));
         }
 
         if (character.characterType != CharacterType.LifePlanet)

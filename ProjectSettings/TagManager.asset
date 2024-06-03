@@ -11,6 +11,7 @@ TagManager:
   - BlackHole
   - AirSpace1
   - Bullet
+  - Shield
   layers:
   - Default
   - TransparentFX

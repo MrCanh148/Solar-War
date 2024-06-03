@@ -30,24 +30,24 @@ public class Bullet : MonoBehaviour
         {
             if (target != characterOwner)
             {
-                rbTarget.mass -= damage;
-                target.killer = characterOwner;
-                //if (!target.gameObject.activeSelf)
-                //{
-                //    //characterOwner.Kill++;
+                if (target.Shield > 0 && target.characterType == CharacterType.LifePlanet)
+                {
+                    target.Shield -= damage;
+                    if (target.Shield <= 0)
+                    {
+                        rbTarget.mass -= damage;
+                        if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                        {
+                            characterOwner.Kill++;
 
-                //    if (collision.gameObject.tag == "Player")
-                //        ReSpawnPlayer.Instance.ResPlayer();
+                            if (collision.gameObject.tag == "Player")
+                                ReSpawnPlayer.Instance.ResPlayer();
 
-                //    else
-                //    {
-                //        if (target.host != null)
-                //        {
-                //            target.host.satellites.Remove(target);
-                //        }
-                //        Destroy(collision.gameObject);
-                //    }
-                //}
+                            else if (target.host != null)
+                                target.host.satellites.Remove(target);
+                        }
+                    }
+                } 
             }
 
             Destroy(gameObject);

@@ -6,6 +6,7 @@ public class LogicSpawnAirSpace : MonoBehaviour
 {
     [SerializeField] private GameObject[] shipSpacePrefab;
     [SerializeField] private float spawnInterval = 4f;
+    [SerializeField] private float TimeEvolutionGO = 5f;
     private int maxShips0, maxShips1, maxShips2;
 
     private float spawnTimer;
@@ -40,7 +41,7 @@ public class LogicSpawnAirSpace : MonoBehaviour
         {
             if (evolutionCoroutine == null)
             {
-                evolutionCoroutine = StartCoroutine(TimeEvolution(20));
+                evolutionCoroutine = StartCoroutine(TimeEvolution(TimeEvolutionGO));
             }
         }
         else

@@ -52,7 +52,9 @@ public class Character : MonoBehaviour
 
     public int Kill;
     public float Shield;
-    public float MaxShield = 10;
+    [SerializeField] private GameObject ShieldObject;
+    public float MaxShield = 20;
+    private float TimeResShield = 0f;
     public bool EvolutionDone = false;
     public bool IsKill = false;
 
@@ -62,7 +64,7 @@ public class Character : MonoBehaviour
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        if (ShieldObject == null) return;
     }
 
     protected virtual void OnInit()
@@ -159,7 +161,25 @@ public class Character : MonoBehaviour
         }
 
         if (characterType != CharacterType.LifePlanet)
-            Shield = 0;
+            Shield = 5;
+          
+        if (Shield > 0 && characterType == CharacterType.LifePlanet && EvolutionDone)
+            ShieldObject.SetActive(true);
+        else if (Shield <= 0 || characterType != CharacterType.LifePlanet)
+            ShieldObject.SetActive(false);
+
+        if (Shield <= 0 && characterType == CharacterType.LifePlanet)
+        {
+            TimeResShield += Time.deltaTime;
+            if (TimeResShield > 5f)
+            {
+                EvolutionDone = true;
+                TimeResShield = 0;
+            }
+            else
+                EvolutionDone = false;
+        }
+         
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 

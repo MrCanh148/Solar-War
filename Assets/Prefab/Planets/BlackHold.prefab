@@ -168,9 +168,6 @@ MonoBehaviour:
   generalityType: 3
   rb: {fileID: 8711889904679413240}
   tf: {fileID: 5691377956253586852}
-  characterLayer:
-    serializedVersion: 2
-    m_Bits: 0
   velocity: {x: 0, y: 0}
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
@@ -186,6 +183,13 @@ MonoBehaviour:
   angle: 0
   isCapture: 0
   lineRenderer: {fileID: 0}
+  Kill: 0
+  Shield: 0
+  ShieldObject: {fileID: 0}
+  MaxShield: 20
+  EvolutionDone: 0
+  IsKill: 0
+  killer: {fileID: 0}
 --- !u!1 &2004665523626693517
 GameObject:
   m_ObjectHideFlags: 0

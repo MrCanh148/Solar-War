@@ -151,4 +151,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 4482642715483658632}
   TimeLimit: 0.2
+  damage: 5
   characterOwner: {fileID: 0}
