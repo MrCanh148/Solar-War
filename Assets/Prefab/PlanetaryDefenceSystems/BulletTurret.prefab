@@ -101,7 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   tf: {fileID: 5715013471899168646}
-  speed: 5
+  speed: 20
+  source: {fileID: 0}
 --- !u!61 &153440963179838866
 BoxCollider2D:
   m_ObjectHideFlags: 0
