@@ -1575,7 +1575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &326301789
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,6 +1593,7 @@ Transform:
   - {fileID: 1412942406}
   - {fileID: 2129160438}
   - {fileID: 1779001079}
+  - {fileID: 525895029}
   m_Father: {fileID: 3325762445165478924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &326301790
@@ -1613,6 +1614,9 @@ MonoBehaviour:
   - {fileID: 1412942408}
   - {fileID: 2129160440}
   - {fileID: 1779001081}
+  missileDefPrefab: {fileID: 2810036784294047795, guid: 4e49619ef35350d4e990d68a79dc6975, type: 3}
+  firePoint: {fileID: 525895029}
+  missiles: []
 --- !u!1 &330491684
 GameObject:
   m_ObjectHideFlags: 0
@@ -3409,6 +3413,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450129308}
   m_CullTransparentMesh: 1
+--- !u!1 &525895028
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525895029}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525895029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525895028}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 326301789}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &581862328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4885,6 +4920,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 7978237678409566544, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -4903,7 +4942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9
+      value: 4.6
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6385,6 +6424,7 @@ MonoBehaviour:
   ShieldPlayer: {fileID: 1012068211}
   ExpPlayer: {fileID: 1383718276}
   MaxExp: 36
+  TimeEvolutionGO: 5
 --- !u!1 &1185248195
 GameObject:
   m_ObjectHideFlags: 0
@@ -7418,9 +7458,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7978237678409566544, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.1
+      value: 4.9
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8779,6 +8823,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7978237678409566544, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -8797,7 +8845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.5
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9161,8 +9209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1831416117}
   - component: {fileID: 1831416119}
-  - component: {fileID: 1831416118}
-  - component: {fileID: 1831416120}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -9185,41 +9231,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3325762445165478924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1831416118
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831416116}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.56
 --- !u!212 &1831416119
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9272,18 +9283,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1831416120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1831416116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcbe0f975d7bac249a73254e647b9071, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1836827987
 GameObject:
   m_ObjectHideFlags: 0
@@ -10561,6 +10560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7978237678409566544, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalScale.x
       value: 20
@@ -10575,7 +10578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 8841590897708765207, guid: 3eaab01f85135284e8ef9468112a4c03, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10934,6 +10937,7 @@ MonoBehaviour:
   - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
   - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
   spawnInterval: 5
+  TimeEvolutionGO: 5
 --- !u!114 &9212076658043548276
 MonoBehaviour:
   m_ObjectHideFlags: 0

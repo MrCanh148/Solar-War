@@ -48,10 +48,11 @@ public class Missile : MonoBehaviour
         {
             if (target != characterOwner)
             {
-                if (target.Shield > 0 && target.characterType == CharacterType.LifePlanet)
+                if (target.characterType == CharacterType.LifePlanet)
                 {
-                    target.Shield -= damage;
-                    if (target.Shield <= 0)
+                    if (target.Shield > 0)
+                        target.Shield -= damage;
+                    else
                     {
                         rbTarget.mass -= damage;
                         if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
@@ -64,6 +65,20 @@ public class Missile : MonoBehaviour
                             else if (target.host != null)
                                 target.host.satellites.Remove(target);
                         }
+                    }
+                }
+                else
+                {
+                    rbTarget.mass -= damage;
+                    if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                    {
+                        characterOwner.Kill++;
+
+                        if (collision.gameObject.tag == "Player")
+                            ReSpawnPlayer.Instance.ResPlayer();
+
+                        else if (target.host != null)
+                            target.host.satellites.Remove(target);
                     }
                 }
             }
