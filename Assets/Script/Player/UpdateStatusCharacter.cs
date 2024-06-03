@@ -9,12 +9,16 @@ public class UpdateStatusCharacter : MonoBehaviour
     [SerializeField] private GameObject Minimap;
     private SpriteRenderer spriteRenderer;
     int requiredMass;
+    int currentGenerateType;
 
     private void Start()
     {
         OnInit();
-        spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
+        if (Minimap != null)
+            spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
+        currentGenerateType = (int)owner.generalityType;
+        
     }
 
     private void OnInit()
@@ -33,7 +37,9 @@ public class UpdateStatusCharacter : MonoBehaviour
     private void Update()
     {
         OnChangeMass((int)owner.rb.mass);
+        OnChangeGenerateType((int)owner.generalityType);
     }
+
     public void UpdateInfoCharacter(Character character)
     {
 
@@ -51,7 +57,8 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     character.characterType = c.characterType;
                     character.spriteRenderer.sprite = c.sprite;
-                    spriteRenderer.sprite = character.spriteRenderer.sprite;
+                    if (Minimap != null)
+                        spriteRenderer.sprite = character.spriteRenderer.sprite;
                     character.tf.DOScale(c.scale, 0f);
                 }
             }
@@ -63,7 +70,8 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     character.characterType = c.characterType;
                     character.spriteRenderer.sprite = c.sprite;
-                    spriteRenderer.sprite = character.spriteRenderer.sprite;
+                    if (Minimap != null)
+                        spriteRenderer.sprite = character.spriteRenderer.sprite;
                     character.tf.DOScale(c.scale, 0f);
                 }
             }
@@ -106,12 +114,21 @@ public class UpdateStatusCharacter : MonoBehaviour
             {
                 ShowUI.instance.UpdateInfo();
             }
-
-
         }
 
         currentMass = newMass;
     }
 
-
+    public void OnChangeGenerateType(int newType)
+    {
+        if (currentGenerateType > newType)
+        {
+            owner.IsKill = true;
+            owner.gameObject.SetActive(false);
+            owner.killer.Kill++;
+        }
+            
+        currentGenerateType = newType;
+        
+    }
 }

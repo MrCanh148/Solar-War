@@ -49,7 +49,14 @@ public class Character : MonoBehaviour
     public float angle;
     public bool isCapture;
     public LineRenderer lineRenderer;
+
     public int Kill;
+    public float Shield;
+    public float MaxShield = 10;
+    public bool EvolutionDone = false;
+    public bool IsKill = false;
+
+    public Character killer;
 
     protected virtual void Start()
     {
@@ -144,6 +151,15 @@ public class Character : MonoBehaviour
 
         if (canvar != null)
             canvar.transform.rotation = Quaternion.identity;
+
+        if (EvolutionDone)
+        {
+            if (Shield < MaxShield)
+                Shield += Time.deltaTime;
+        }
+
+        if (characterType != CharacterType.LifePlanet)
+            Shield = 0;
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class LogicSpawnAirSpace : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class LogicSpawnAirSpace : MonoBehaviour
     private Transform PlaceSpawn;
     private Character character;
     private List<GameObject> spawnedShips = new List<GameObject>();
+    private Queue<GameObject> spawnQueue = new Queue<GameObject>();
+    private Coroutine evolutionCoroutine;
 
     private void Start()
     {
@@ -33,11 +36,29 @@ public class LogicSpawnAirSpace : MonoBehaviour
         // Cập nhật số lượng tàu tối đa dựa trên số lượng kill
         MaxShipBaseKill();
 
+        if (character.characterType == CharacterType.LifePlanet)
+        {
+            if (evolutionCoroutine == null)
+            {
+                evolutionCoroutine = StartCoroutine(TimeEvolution(20));
+            }
+        }
+        else
+        {
+            character.EvolutionDone = false;
+            if (evolutionCoroutine != null)
+            {
+                StopCoroutine(evolutionCoroutine);
+                evolutionCoroutine = null;
+            }
+        }
+
         if (spawnTimer <= 0f)
         {
-            if (character.characterType == CharacterType.LifePlanet)
+            if (character.EvolutionDone)
             {
-                SpawnShips();
+                AddShipsToQueue();
+                SpawnNextShipInQueue();
             }
             spawnTimer = spawnInterval;
         }
@@ -77,27 +98,36 @@ public class LogicSpawnAirSpace : MonoBehaviour
         }
     }
 
-    private void SpawnShips()
+    private void AddShipsToQueue()
     {
         // Đếm số lượng hiện tại của từng loại tàu
         int currentShips0 = CountShipsOfType(0);
         int currentShips1 = CountShipsOfType(1);
         int currentShips2 = CountShipsOfType(2);
 
-        // Spawn tàu nếu số lượng hiện tại nhỏ hơn maxShips tương ứng
-        if (currentShips0 < maxShips0)
+        // Add tàu vào queue nếu số lượng hiện tại nhỏ hơn maxShips tương ứng
+        if (currentShips0 < maxShips0 && !spawnQueue.Contains(shipSpacePrefab[0]))
         {
-            SpawnShip(shipSpacePrefab[0]);
+            spawnQueue.Enqueue(shipSpacePrefab[0]);
         }
 
-        if (currentShips1 < maxShips1)
+        if (currentShips1 < maxShips1 && !spawnQueue.Contains(shipSpacePrefab[1]))
         {
-            SpawnShip(shipSpacePrefab[1]);
+            spawnQueue.Enqueue(shipSpacePrefab[1]);
         }
 
-        if (currentShips2 < maxShips2)
+        if (currentShips2 < maxShips2 && !spawnQueue.Contains(shipSpacePrefab[2]))
         {
-            SpawnShip(shipSpacePrefab[2]);
+            spawnQueue.Enqueue(shipSpacePrefab[2]);
+        }
+    }
+
+    private void SpawnNextShipInQueue()
+    {
+        if (spawnQueue.Count > 0)
+        {
+            GameObject shipPrefab = spawnQueue.Dequeue();
+            SpawnShip(shipPrefab);
         }
     }
 
@@ -132,5 +162,23 @@ public class LogicSpawnAirSpace : MonoBehaviour
         {
             shootTarget.SetIgnoredTargets(spawnedShips, character);
         }
+    }
+
+    private IEnumerator TimeEvolution(float time)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < time)
+        {
+            if (character.characterType != CharacterType.LifePlanet)
+            {
+                character.EvolutionDone = false;
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        character.EvolutionDone = true;
     }
 }
