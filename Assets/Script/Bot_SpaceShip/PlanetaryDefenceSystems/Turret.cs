@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    //ShootTarget target;
+    //public ShootTarget target;
     public Test2 target;
     public List<BulletTurret> bullets;
     [SerializeField] Transform shotPoint;
@@ -86,6 +86,10 @@ public class Turret : MonoBehaviour
             bullets[0].gameObject.SetActive(true);
             bullets[0].transform.position = shotPoint.position;
             bullets[0].target = tg.transform;
+            bullets[0].OnInit();
+            bullets.Remove(bullets[0]);
+
+            Debug.Log(bullets.Count);
 
         }
         else
