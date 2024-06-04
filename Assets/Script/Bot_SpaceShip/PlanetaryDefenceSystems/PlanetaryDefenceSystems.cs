@@ -42,10 +42,9 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (owner.EvolutionDone)
-        {
-            OnChangeKill(owner.Kill);
-        }
+
+        OnChangeKill(owner.Kill);
+
     }
 
     private void FixedUpdate()
@@ -61,32 +60,40 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     {
         if (currentKill != newKill)
         {
-
-            if (newKill == 0)
+            if (owner.EvolutionDone)
             {
-                UpdateQuantityTurret(1);
+                if (newKill == 0)
+                {
+                    UpdateQuantityTurret(1);
+                }
+                else if (newKill == 6)
+                {
+                    UpdateQuantityTurret(2);
+                }
+                else if (newKill == 12)
+                {
+                    UpdateQuantityTurret(2);
+                    isMissile = true;
+                }
+                else if (newKill == 24)
+                {
+                    UpdateQuantityTurret(3);
+                }
+                else if (newKill == 36)
+                {
+                    UpdateQuantityTurret(4);
+                }
+                currentKill = newKill;
             }
-            else if (newKill == 6)
+            else
             {
-                UpdateQuantityTurret(2);
-            }
-            else if (newKill == 12)
-            {
-                UpdateQuantityTurret(2);
-                isMissile = true;
-            }
-            else if (newKill == 24)
-            {
-                UpdateQuantityTurret(3);
-            }
-            else if (newKill == 36)
-            {
-                UpdateQuantityTurret(4);
+                UpdateQuantityTurret(0);
+                currentKill = -1;
             }
 
         }
 
-        currentKill = newKill;
+
     }
 
 

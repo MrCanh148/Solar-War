@@ -1,5 +1,5 @@
+using DG.Tweening;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -13,7 +13,7 @@ public class Turret : MonoBehaviour
 
     public Transform gun;
     public Transform baseGun;
-    Vector2 correctPos;
+    Vector3 correctPos;
     float time = 0;
 
 
@@ -58,11 +58,15 @@ public class Turret : MonoBehaviour
         if (target != null)
         {
             Vector3 directionGun = (target.transform.position - baseGun.position).normalized;
-            gun.up = directionGun;
+            //gun.up = directionGun;
+
+            DOTween.To(() => gun.up, x => gun.up = x, directionGun, 0.5f);
+
         }
         else
         {
-            gun.up = correctPos;
+            //gun.up = correctPos;
+            DOTween.To(() => gun.up, x => gun.up = x, correctPos, 0.5f);
         }
     }
 
