@@ -6,15 +6,20 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     [SerializeField] Character owner;
     [SerializeField] List<Turret> turrets;
 
-    [Header("Missile")]
+    [Header("AOM")]
     [SerializeField] MissileDef missileDefPrefab;
     [SerializeField] Transform firePoint;
     float timeCoolDownMissile;
     int quantityMissile;
-    GameObject targetMissile;
     public List<MissileDef> missiles;
     bool isMissile;
+    GameObject targetMissile;
 
+    [Header("AOC")]
+    public AntiOrbitalCannon antiOrbitalCannon;
+    int quantityAOEC;
+    [SerializeField] bool isAOC;
+    GameObject targetAOC;
 
     int currentKill;
     // Start is called before the first frame update
@@ -27,6 +32,8 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     public void OnInit()
     {
         currentKill = -1;
+
+        //Missile
         timeCoolDownMissile = 0;
         quantityMissile = 1;
         isMissile = false;
@@ -37,6 +44,9 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             missile.gameObject.SetActive(false);
             missile.source = this;
         }
+
+        //AntiOrbitalCannon
+        isAOC = false;
     }
 
     // Update is called once per frame
@@ -54,6 +64,10 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             timeCoolDownMissile += Time.deltaTime;
 
         }
+        if (!owner.EvolutionDone)
+        {
+            currentKill = -1;
+        }
     }
 
     public void OnChangeKill(int newKill)
@@ -65,6 +79,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 if (newKill == 0)
                 {
                     UpdateQuantityTurret(1);
+                    isMissile = false;
                 }
                 else if (newKill == 6)
                 {
@@ -82,13 +97,14 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 else if (newKill == 36)
                 {
                     UpdateQuantityTurret(4);
+                    isAOC = true;
                 }
                 currentKill = newKill;
             }
             else
             {
                 UpdateQuantityTurret(0);
-                currentKill = -1;
+
             }
 
         }
@@ -115,7 +131,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     public void ShotMissile(GameObject target)
     {
-        if (missiles.Count > 0)
+        if (missiles.Count > 0 && targetMissile != null)
         {
             missiles[0].gameObject.SetActive(true);
             missiles[0].SetTarget(target);
@@ -125,17 +141,49 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         }
     }
 
+    public void AvticeAOC(GameObject target)
+    {
+        antiOrbitalCannon.targetObject = target;
+    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         Test2 test = collision.GetComponent<Test2>();
         if (test != null)
         {
-
             if (timeCoolDownMissile > 3f)
             {
-                ShotMissile(test.gameObject);
+                targetMissile = test.gameObject;
+                ShotMissile(targetMissile);
                 timeCoolDownMissile = 0;
+            }
+
+            if (isAOC)
+            {
+                targetAOC = test.gameObject;
+                AvticeAOC(targetAOC);
+
+
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Test2 test = collision.GetComponent<Test2>();
+        if (test != null)
+        {
+            if (targetMissile == test.gameObject)
+            {
+                targetMissile = null;
+                ShotMissile(targetMissile);
+            }
+
+            if (targetAOC == test.gameObject)
+            {
+                targetAOC = null;
+                AvticeAOC(targetAOC);
             }
         }
     }
