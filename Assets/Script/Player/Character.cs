@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum CharacterType
@@ -152,8 +151,8 @@ public class Character : MonoBehaviour
         {
             Kill = 0;
             EvolutionDone = false;
-        }     
-    
+        }
+
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -260,8 +259,9 @@ public class Character : MonoBehaviour
                     velocity = new Vector2(velocityS.x, velocityS.y);
                 }
             }
+            return;
         }
-        if (characterType != character.characterType)
+        if (characterType != character.characterType || characterType == character.characterType)
         {
             if (characterType == CharacterType.Asteroid)
             {

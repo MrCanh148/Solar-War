@@ -146,6 +146,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     public void AvticeAOC(GameObject target)
     {
+        antiOrbitalCannon.OwnerCharacter = owner;
         antiOrbitalCannon.targetObject = target;
     }
 
@@ -170,6 +171,25 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
             }
         }
+        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
+        if (shootTarget != null)
+        {
+            if (timeCoolDownMissile > 3f)
+            {
+                targetMissile = shootTarget.gameObject;
+                ShotMissile(targetMissile);
+                timeCoolDownMissile = 0;
+            }
+
+            if (isAOC)
+            {
+                targetAOC = shootTarget.gameObject;
+                AvticeAOC(targetAOC);
+
+
+            }
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -184,6 +204,22 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             }
 
             if (targetAOC == test.gameObject)
+            {
+                targetAOC = null;
+                AvticeAOC(targetAOC);
+            }
+        }
+
+        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
+        if (shootTarget != null)
+        {
+            if (targetMissile == shootTarget.gameObject)
+            {
+                targetMissile = null;
+                ShotMissile(targetMissile);
+            }
+
+            if (targetAOC == shootTarget.gameObject)
             {
                 targetAOC = null;
                 AvticeAOC(targetAOC);
