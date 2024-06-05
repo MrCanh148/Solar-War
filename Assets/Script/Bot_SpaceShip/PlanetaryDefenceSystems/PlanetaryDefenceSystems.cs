@@ -120,6 +120,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             if (i < quantity)
             {
                 turrets[i].gameObject.SetActive(true);
+                turrets[i].OwnerCharacter = owner;
             }
             else
             {

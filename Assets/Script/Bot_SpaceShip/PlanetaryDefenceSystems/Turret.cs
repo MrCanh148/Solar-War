@@ -10,6 +10,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform shotPoint;
     [SerializeField] BulletTurret bulletPrefab;
     public float timeColdown = 1;
+    public Character OwnerCharacter;
 
     public Transform gun;
     public Transform baseGun;
@@ -22,6 +23,7 @@ public class Turret : MonoBehaviour
         target = null;
         target1 = null;
         correctPos = gun.up;
+
     }
 
 
@@ -116,7 +118,7 @@ public class Turret : MonoBehaviour
             if (test != null)
             {
 
-                if (test.CompareTag(Constant.TAG_AirSpace1))
+                if (test.CompareTag(Constant.TAG_AirSpace1) && test.host != OwnerCharacter)
                 {
                     //target = collision.gameObject.GetComponent<ShootTarget>();                   
                     target1 = test;

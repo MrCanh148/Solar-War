@@ -1,6 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,12 +19,14 @@ public class LogicUIPlayer : MonoBehaviour
     [SerializeField] private float TimeEvolutionGO = 5f;
 
     private Character character;
+    private Shield Shield;
     private bool isEvolutionInProgress = false;
     private Coroutine evolutionCoroutine;
 
     private void Start()
     {
         character = player.GetComponent<Character>();
+        Shield = character.GetComponent<Shield>();
     }
 
     private void Update()
@@ -61,7 +62,7 @@ public class LogicUIPlayer : MonoBehaviour
         numberKill.text = character.Kill.ToString();
 
         ExpPlayer.value = character.Kill / MaxExp;
-        ShieldPlayer.value = character.Shield / character.MaxShield;
+        ShieldPlayer.value = Shield.ShieldPlanet / Shield.MaxShield;
     }
 
     private IEnumerator EvolveOverTime(float duration)

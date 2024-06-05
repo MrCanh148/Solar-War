@@ -123,15 +123,14 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         if (currentGenerateType > newType)
         {
-            owner.IsKill = true;
+            owner.AllWhenDie();
 
             if (!owner.isPlayer)
                 owner.gameObject.SetActive(false);
+            else
+                ReSpawnPlayer.Instance.ResPlayer();
 
-            if (owner.killer != null)
-                owner.killer.Kill++;
-        }
-            
+        }         
         currentGenerateType = newType;
         
     }

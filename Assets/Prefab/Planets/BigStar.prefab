@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 4630829897465738085}
   - component: {fileID: 7453806933414085857}
   - component: {fileID: 3669896744753246576}
+  - component: {fileID: -6071389725560426240}
   m_Layer: 0
   m_Name: BigStar
   m_TagString: Planet
@@ -370,9 +371,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: 3669896744753246576}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 7499087617432071167}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -480,6 +478,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-6071389725560426240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359258016561016704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 7499087617432071167}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0
 --- !u!1 &6377482054849216260
 GameObject:
   m_ObjectHideFlags: 0

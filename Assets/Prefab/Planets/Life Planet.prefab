@@ -736,6 +736,7 @@ GameObject:
   - component: {fileID: 7875871697621069019}
   - component: {fileID: 3519994644223952885}
   - component: {fileID: 7386851702675137779}
+  - component: {fileID: 443096854853448409}
   m_Layer: 0
   m_Name: Life Planet
   m_TagString: Planet
@@ -874,9 +875,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: -1632637548447218304}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 1577871619136603327}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -1033,8 +1031,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSpacePrefab:
   - {fileID: 5627386560112711568, guid: e7954ba85a93ffb48a1a425902e4dcfd, type: 3}
-  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
-  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
+  - {fileID: 532995707652806629, guid: ac0a62d8b738f4143ab2722686c3f4d0, type: 3}
+  - {fileID: 5936262919518486452, guid: 69f1ff2bd46599f4db78eedbcb727b9a, type: 3}
   spawnInterval: 5
   TimeEvolutionGO: 5
 --- !u!114 &7386851702675137779
@@ -1051,3 +1049,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 6238116557087275231}
   Minimap: {fileID: 0}
+--- !u!114 &443096854853448409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8805419360225620633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 1577871619136603327}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0

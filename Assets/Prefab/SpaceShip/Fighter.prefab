@@ -5144,7 +5144,7 @@ MonoBehaviour:
   bulletFireInterval: 0.1
   laserFireInterval: 2
   missileFireInterval: 3
-  heart: 5
+  heart: 15
   host: {fileID: 0}
 --- !u!1 &6468803801050066721
 GameObject:
