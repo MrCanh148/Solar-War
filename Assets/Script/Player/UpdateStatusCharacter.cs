@@ -131,7 +131,11 @@ public class UpdateStatusCharacter : MonoBehaviour
                 ReSpawnPlayer.Instance.ResPlayer();
 
         }         
+        else if (currentGenerateType < newType)
+            owner.AllWhenDie();
+ 
         currentGenerateType = newType;
         
     }
+
 }

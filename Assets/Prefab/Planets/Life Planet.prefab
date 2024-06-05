@@ -1029,9 +1029,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpacePrefab:
-  - {fileID: 5627386560112711568, guid: e7954ba85a93ffb48a1a425902e4dcfd, type: 3}
-  - {fileID: 532995707652806629, guid: ac0a62d8b738f4143ab2722686c3f4d0, type: 3}
-  - {fileID: 5936262919518486452, guid: 69f1ff2bd46599f4db78eedbcb727b9a, type: 3}
+  - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
   spawnInterval: 5
   TimeEvolutionGO: 5
 --- !u!114 &7386851702675137779

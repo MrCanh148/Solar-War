@@ -18,10 +18,12 @@ public class ShootTarget : MonoBehaviour
     [HideInInspector] public Character host;
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement botAirSpace;
+    private SpriteRenderer SpriteRenderer;
 
     private void Start()
     {
         botAirSpace = GetComponent<RandomMovement>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void SetIgnoredTargets(List<GameObject> targets, Character hostBase)
@@ -55,6 +57,16 @@ public class ShootTarget : MonoBehaviour
                 }
                 break;
         }
+
+        if (host == null || !host.gameObject.activeSelf)
+        {
+            host = null;
+            SpriteRenderer.color = Color.white;
+        }
+        else if (host.isPlayer)
+            SpriteRenderer.color = Color.green;
+        else
+            SpriteRenderer.color = Color.red;
     }
 
     private void Shoot(int bulletIndex, float fireInterval)

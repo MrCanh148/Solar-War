@@ -7,7 +7,7 @@ public class RandomMovement : BotAirSpace
     public AirSpaceType type;
     [HideInInspector] public Transform centerPoint;
     private float changeDirectionTimer;
-   
+
     protected override void InitializeBot()
     {
         SetRandomTargetPosition();

@@ -65,8 +65,6 @@ public class Laser : MonoBehaviour
                                     rbTarget.mass -= damage;
                                     if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
                                     {
-                                        characterOwner.Kill++;
-
                                         if (hit.collider.gameObject.tag == "Player")
                                             ReSpawnPlayer.Instance.ResPlayer();
                                         else
