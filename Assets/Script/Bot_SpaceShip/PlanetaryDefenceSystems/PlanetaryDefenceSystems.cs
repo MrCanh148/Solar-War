@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlanetaryDefenceSystems : MonoBehaviour
@@ -165,15 +164,20 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 timeCoolDownMissile = 0;
             }
 
-            if (isAOC)
+            if (targetAOC == null)
             {
-                targetAOC = test.gameObject;
-                AvticeAOC(targetAOC);
-
-
+                if (isAOC)
+                {
+                    targetAOC = test.gameObject;
+                    AvticeAOC(targetAOC);
+                    antiOrbitalCannon.VFXPlay();
+                }
             }
         }
-        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
+
+
+
+        ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
             if (timeCoolDownMissile > 3f)
@@ -209,10 +213,11 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             {
                 targetAOC = null;
                 AvticeAOC(targetAOC);
+                antiOrbitalCannon.VFXStop();
             }
         }
 
-        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
+        ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
             if (targetMissile == shootTarget.gameObject)
@@ -225,6 +230,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             {
                 targetAOC = null;
                 AvticeAOC(targetAOC);
+                antiOrbitalCannon.VFXStop();
             }
         }
     }

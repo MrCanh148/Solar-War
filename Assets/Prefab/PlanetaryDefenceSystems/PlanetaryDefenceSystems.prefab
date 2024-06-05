@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 3711289829240983108}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.8, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -80,6 +80,8 @@ MonoBehaviour:
   targetObject: {fileID: 0}
   laserLineRenderer: {fileID: 2503136105951369878}
   OwnerCharacter: {fileID: 0}
+  startVFX: {fileID: 0}
+  endVFX: {fileID: 0}
 --- !u!120 &2503136105951369878
 LineRenderer:
   serializedVersion: 2
@@ -121,7 +123,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 14.01, z: 1}
@@ -170,7 +172,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -236,6 +238,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  TurretMiniCam:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   turrets:
   - {fileID: 8895579535551867660}
   - {fileID: 2226648679263893555}
@@ -280,7 +287,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 49.97
+  m_Radius: 25
 --- !u!1001 &1394058986563147255
 PrefabInstance:
   m_ObjectHideFlags: 0
