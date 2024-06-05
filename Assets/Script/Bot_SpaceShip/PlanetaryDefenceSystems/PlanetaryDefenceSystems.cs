@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlanetaryDefenceSystems : MonoBehaviour
 {
     [SerializeField] Character owner;
+    //[SerializeField] private GameObject[] TurretMiniCam;
     [SerializeField] List<Turret> turrets;
 
     [Header("AOM")]
@@ -119,13 +120,14 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         {
             if (i < quantity)
             {
+                //TurretMiniCam[i].SetActive(true);
                 turrets[i].gameObject.SetActive(true);
                 turrets[i].OwnerCharacter = owner;
             }
             else
             {
                 turrets[i].gameObject.SetActive(false);
-
+                //TurretMiniCam[i].SetActive(false);
             }
         }
     }

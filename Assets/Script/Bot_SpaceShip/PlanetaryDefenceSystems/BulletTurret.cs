@@ -51,6 +51,15 @@ public class BulletTurret : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*Test2 test = collision.GetComponent<Test2>();
+        if (test != null)
+        {
+            //test.OnHit();
+            gameObject.SetActive(false);
+            source.bullets.Add(this);
+        }*/
+
+
         ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
         if (shootTarget != null)
         {
