@@ -12,6 +12,7 @@ public class Turret : MonoBehaviour
     public float timeColdown = 1;
     public Character OwnerCharacter;
 
+    [SerializeField] private GameObject GunMiniCam;
     public Transform gun;
     public Transform baseGun;
     Vector3 correctPos;
@@ -23,7 +24,6 @@ public class Turret : MonoBehaviour
         target = null;
         target1 = null;
         correctPos = gun.up;
-
     }
 
 
@@ -147,12 +147,16 @@ public class Turret : MonoBehaviour
             //gun.up = directionGun;
 
             DOTween.To(() => gun.up, x => gun.up = x, directionGun, 0.5f);
+            if (GunMiniCam != null)
+                DOTween.To(() => GunMiniCam.transform.up, x => GunMiniCam.transform.up = x, directionGun, 0.5f);
 
         }
         else
         {
             //gun.up = correctPos;
             DOTween.To(() => gun.up, x => gun.up = x, correctPos, 0.5f);
+            if (GunMiniCam != null)
+                DOTween.To(() => GunMiniCam.transform.up, x => GunMiniCam.transform.up = x, correctPos, 0.5f);
         }
     }
 

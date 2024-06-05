@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlanetaryDefenceSystems : MonoBehaviour
 {
     [SerializeField] Character owner;
-    //[SerializeField] private GameObject[] TurretMiniCam;
+    [SerializeField] private GameObject[] TurretMiniCam;
     [SerializeField] List<Turret> turrets;
 
     [Header("AOM")]
@@ -23,7 +24,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     GameObject targetAOC;
 
     int currentKill;
-    // Start is called before the first frame update
     void Start()
     {
 
@@ -50,7 +50,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         isAOC = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -120,14 +119,17 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         {
             if (i < quantity)
             {
-                //TurretMiniCam[i].SetActive(true);
+                if (TurretMiniCam != null && TurretMiniCam.Length > i && TurretMiniCam[i] != null)
+                    TurretMiniCam[i].SetActive(true);
+
                 turrets[i].gameObject.SetActive(true);
                 turrets[i].OwnerCharacter = owner;
             }
             else
             {
                 turrets[i].gameObject.SetActive(false);
-                //TurretMiniCam[i].SetActive(false);
+                if (TurretMiniCam != null && TurretMiniCam.Length > i && TurretMiniCam[i] != null)
+                    TurretMiniCam[i].SetActive(false);
             }
         }
     }

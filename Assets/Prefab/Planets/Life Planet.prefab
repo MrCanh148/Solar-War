@@ -762,6 +762,7 @@ Transform:
   - {fileID: 4444666086134195299}
   - {fileID: 1354541374605735008}
   - {fileID: 242226072765293709}
+  - {fileID: 7649681067369216856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4455344665689010631
@@ -876,8 +877,6 @@ MonoBehaviour:
   lineRenderer: {fileID: -1632637548447218304}
   Kill: 0
   EvolutionDone: 0
-  IsKill: 0
-  killer: {fileID: 0}
 --- !u!120 &-1632637548447218304
 LineRenderer:
   serializedVersion: 2
@@ -1062,8 +1061,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShieldObject: {fileID: 1577871619136603327}
+  ShieldMiniCam: {fileID: 0}
   TimeToFullRecharge: 10
   TimePlanetNotAllowTakeDam: 5
   ShieldPlanet: 0
   MaxShield: 100
   TakeDamage: 0
+--- !u!1001 &6555360173473818228
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8685987781213061351}
+    m_Modifications:
+    - target: {fileID: 2870826557558059462, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: owner
+      value: 
+      objectReference: {fileID: 6238116557087275231}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006100810983236157, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Name
+      value: PlanetaryDefenceSystems
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+--- !u!4 &7649681067369216856 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3517435821071588652, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+  m_PrefabInstance: {fileID: 6555360173473818228}
+  m_PrefabAsset: {fileID: 0}
