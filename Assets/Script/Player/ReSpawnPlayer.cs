@@ -47,7 +47,6 @@ public class ReSpawnPlayer : MonoBehaviour
         newPos.y = (Random.value > 0.5f ? distanceTele : -distanceTele) + currentPos.y;
 
         transform.position = newPos;
-        Debug.Log(transform.position);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -66,7 +65,8 @@ public class ReSpawnPlayer : MonoBehaviour
     }
 
     public void ResPlayer()
-    {     
+    {
+        character.AllWhenDie();
         character.spriteRenderer.enabled = false;
         character.canControl = false;
         currentPos = transform.position;

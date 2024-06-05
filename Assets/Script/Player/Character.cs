@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 public enum CharacterType
 {
     Asteroid = 0,
@@ -42,14 +43,17 @@ public class Character : MonoBehaviour
     public List<Character> satellites;
     public CircleCollider2D circleCollider2D;
 
-    //Orbit
+    [Header("========= Orbit =========")]
     public Character host;
     public float radius; // Bán kính quỹ đạo
     public float spinSpeed; // Tốc độ quay
     public float angle;
     public bool isCapture;
     public LineRenderer lineRenderer;
+    public int NunmberOrbit;
+    public int MaxOrbit;
 
+    [Header("======= Other =======")]
     public int Kill;
     public bool EvolutionDone = false;
 
@@ -151,6 +155,16 @@ public class Character : MonoBehaviour
         {
             Kill = 0;
             EvolutionDone = false;
+        }
+
+        if (generalityType == GeneralityType.Star)
+        {
+            if (characterType == CharacterType.SmallStar)
+                MaxOrbit = 5;
+            else if (characterType == CharacterType.BigStar)
+                MaxOrbit = 8;
+            else if (characterType == CharacterType.NeutronStar)
+                MaxOrbit = 4;
         }
 
     }
@@ -275,11 +289,7 @@ public class Character : MonoBehaviour
                     if (!character.isPlayer)
                     {
                         character.gameObject.SetActive(false);
-                        if (character.host != null)
-                        {
-                            character.host.satellites.Remove(character);
-                        }
-                        AllWhenDie();
+                        character.AllWhenDie();
                         return;
                     }
                 }
@@ -303,11 +313,7 @@ public class Character : MonoBehaviour
                 {
                     //SpawnPlanets.instance.ActiveCharacter(character);
                     character.gameObject.SetActive(false);
-                    if (character.host != null)
-                    {
-                        character.host.satellites.Remove(character);
-                    }
-                    AllWhenDie();
+                    character.AllWhenDie();
                 }
 
             }
@@ -406,7 +412,13 @@ public class Character : MonoBehaviour
                 t.isCapture = false;
                 t.lineRenderer.enabled = false;
             }
-
+            
+        }
+        if (host != null)
+        {
+            host.satellites.Remove(this);
+            if (host.generalityType == GeneralityType.Star)
+                host.NunmberOrbit--;
         }
         satellites.Clear();
     }

@@ -65,13 +65,15 @@ public class Missile : MonoBehaviour
                     rbTarget.mass -= damage;
                     if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
                     {
-                        characterOwner.Kill++;
-
                         if (collision.gameObject.tag == "Player")
                             ReSpawnPlayer.Instance.ResPlayer();
 
-                        else if (target.host != null)
-                            target.host.satellites.Remove(target);
+                        else
+                        {
+                            if (target.host != null)
+                                target.host.satellites.Remove(target);
+                            Destroy(target.gameObject);
+                        }
                     }
                 }
             }

@@ -52,12 +52,7 @@ public class LogicUIPlayer : MonoBehaviour
         {
             OffAllUI();
             UIinfo[3].SetActive(true);
-            if (character.characterType == CharacterType.SmallStar)
-                numberPlanet.text = "0 / 5";
-            if (character.characterType == CharacterType.BigStar)
-                numberPlanet.text = "0 / 8";
-            if (character.characterType == CharacterType.NeutronStar)
-                numberPlanet.text = "0 / 4";
+            numberPlanet.text = character.NunmberOrbit.ToString() + " / " + character.MaxOrbit.ToString();
         }
         numberKill.text = character.Kill.ToString();
 
