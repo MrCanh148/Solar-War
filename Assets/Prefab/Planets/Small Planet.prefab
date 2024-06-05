@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 1172948982493763337}
   - component: {fileID: 3068643122381640042}
   - component: {fileID: -9176210974703387588}
+  - component: {fileID: 1872190135387253115}
   m_Layer: 0
   m_Name: Small Planet
   m_TagString: Planet
@@ -655,9 +656,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: 1172948982493763337}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 8151717851041829240}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -814,6 +812,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 7764996312339137584}
   Minimap: {fileID: 0}
+--- !u!114 &1872190135387253115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378639861866745267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 8151717851041829240}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0
 --- !u!1 &8151717851041829240
 GameObject:
   m_ObjectHideFlags: 0

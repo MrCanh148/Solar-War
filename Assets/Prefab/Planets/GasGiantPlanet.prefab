@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7193216774974268627}
   - component: {fileID: 3468910198529262171}
   - component: {fileID: -3289897901089524515}
+  - component: {fileID: 8531791091034586340}
   m_Layer: 0
   m_Name: GasGiantPlanet
   m_TagString: Planet
@@ -155,9 +156,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: -2952602380615160880}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 2124222768444492905}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -343,6 +341,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 8694100981238886532}
   Minimap: {fileID: 0}
+--- !u!114 &8531791091034586340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882966884363989911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 2124222768444492905}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0
 --- !u!1 &2124222768444492905
 GameObject:
   m_ObjectHideFlags: 0

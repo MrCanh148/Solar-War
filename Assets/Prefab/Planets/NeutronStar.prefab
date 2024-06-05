@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 8115752158164151146}
   - component: {fileID: -411917550344471460}
   - component: {fileID: -7192879367621089010}
+  - component: {fileID: 641372836081296451}
   m_Layer: 0
   m_Name: NeutronStar
   m_TagString: Planet
@@ -402,9 +403,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: -7192879367621089010}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 8573418712310236637}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -512,6 +510,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &641372836081296451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003567711149025007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 8573418712310236637}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0
 --- !u!1 &4193871561359312080
 GameObject:
   m_ObjectHideFlags: 0

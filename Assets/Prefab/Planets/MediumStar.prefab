@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 1420620795772371548}
   - component: {fileID: -8290093958724739382}
   - component: {fileID: 4994849238887314947}
+  - component: {fileID: -238434929509584380}
   m_Layer: 0
   m_Name: MediumStar
   m_TagString: Planet
@@ -506,9 +507,6 @@ MonoBehaviour:
   isCapture: 0
   lineRenderer: {fileID: 4994849238887314947}
   Kill: 0
-  Shield: 0
-  ShieldObject: {fileID: 7819012321668234804}
-  MaxShield: 20
   EvolutionDone: 0
   IsKill: 0
   killer: {fileID: 0}
@@ -616,6 +614,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-238434929509584380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347289635430099732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5c7be49c0c3343b4aafbbec55945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldObject: {fileID: 7819012321668234804}
+  TimeToFullRecharge: 10
+  TimePlanetNotAllowTakeDam: 5
+  ShieldPlanet: 0
+  MaxShield: 100
+  TakeDamage: 0
 --- !u!1 &2610514660682572161
 GameObject:
   m_ObjectHideFlags: 0

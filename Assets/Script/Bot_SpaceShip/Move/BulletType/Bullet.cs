@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
     {
         Character target = collision.gameObject.GetComponent<Character>();
         Rigidbody2D rbTarget = collision.gameObject.GetComponent<Rigidbody2D>();
+        Shield shieldTarget = collision.gameObject.GetComponent<Shield>();
 
         if (target == null) return;
 
@@ -30,24 +31,30 @@ public class Bullet : MonoBehaviour
         {
             if (target != characterOwner)
             {
-                if (target.Shield > 0 && target.characterType == CharacterType.LifePlanet)
+                if (target.characterType == CharacterType.LifePlanet)
                 {
-                    target.Shield -= damage;
-                    if (target.Shield <= 0)
+                    if (shieldTarget.ShieldPlanet > 0)
                     {
-                        rbTarget.mass -= damage;
-                        if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
-                        {
-                            characterOwner.Kill++;
-
-                            if (collision.gameObject.tag == "Player")
-                                ReSpawnPlayer.Instance.ResPlayer();
-
-                            else if (target.host != null)
-                                target.host.satellites.Remove(target);
-                        }
+                        shieldTarget.ShieldPlanet -= damage;
+                        shieldTarget.TakeDamage = true;
                     }
-                } 
+                    else
+                        rbTarget.mass -= damage;
+                }
+                else
+                {
+                    rbTarget.mass -= damage;
+                    if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                    {
+                        characterOwner.Kill++;
+
+                        if (collision.gameObject.tag == "Player")
+                            ReSpawnPlayer.Instance.ResPlayer();
+
+                        else if (target.host != null)
+                            target.host.satellites.Remove(target);
+                    }
+                }
             }
 
             Destroy(gameObject);

@@ -38,10 +38,11 @@ public class Laser : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.gameObject.tag == "Planet")
+                    if (hit.collider.gameObject.tag == "Planet" || hit.collider.gameObject.tag == "Player")
                     {
                         Character targetCharacter = hit.collider.gameObject.GetComponent<Character>();
                         Rigidbody2D rbTarget = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                        Shield shieldTarget = hit.collider.gameObject.GetComponent<Shield>();
 
                         if (targetCharacter == null) continue;
 
@@ -49,20 +50,31 @@ public class Laser : MonoBehaviour
                         {
                             if (targetCharacter != characterOwner)
                             {
-                                rbTarget.mass -= damage;
-                                if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                                if (targetCharacter.characterType == CharacterType.LifePlanet)
                                 {
-                                    characterOwner.Kill++;
-
-                                    if (hit.collider.gameObject.tag == "Player")
-                                        ReSpawnPlayer.Instance.ResPlayer();
-                                    else
+                                    if (shieldTarget.ShieldPlanet > 0)
                                     {
-                                        if (targetCharacter.host != null)
+                                        shieldTarget.ShieldPlanet -= damage;
+                                        shieldTarget.TakeDamage = true;
+                                    }
+                                    else
+                                        rbTarget.mass -= damage;
+                                }
+                                else
+                                {
+                                    rbTarget.mass -= damage;
+                                    if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                                    {
+                                        characterOwner.Kill++;
+
+                                        if (hit.collider.gameObject.tag == "Player")
+                                            ReSpawnPlayer.Instance.ResPlayer();
+                                        else
                                         {
-                                            targetCharacter.host.satellites.Remove(targetCharacter);
+                                            if (targetCharacter.host != null)
+                                                targetCharacter.host.satellites.Remove(targetCharacter);
+                                            Destroy(hit.collider.gameObject);
                                         }
-                                        Destroy(hit.collider.gameObject);
                                     }
                                 }
                             }
@@ -78,8 +90,12 @@ public class Laser : MonoBehaviour
                         if (enermy != null)
                         {
                             enermy.heart -= damage;
-                            if (enermy.heart < 0)
+                            if (enermy.heart <= 0)
+                            {
                                 characterOwner.Kill++;
+                                Destroy(enermy.gameObject);
+                            }
+                                
                         }
 
                         isShoot = true;

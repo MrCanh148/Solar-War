@@ -183,7 +183,7 @@ MonoBehaviour:
   rotationSpeed: 2000
   TimeLimit: 3
   characterOwner: {fileID: 0}
-  damage: 10
+  damage: 30
 --- !u!58 &2547382048724601065
 CircleCollider2D:
   m_ObjectHideFlags: 0

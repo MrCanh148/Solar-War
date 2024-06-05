@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Burst.CompilerServices;
+using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class Missile : MonoBehaviour
     {
         Character target = collision.gameObject.GetComponent<Character>();
         Rigidbody2D rbTarget = collision.gameObject.GetComponent<Rigidbody2D>();
+        Shield shieldTarget = collision.gameObject.GetComponent<Shield>();
 
         if (target == null) return;
 
@@ -50,22 +52,13 @@ public class Missile : MonoBehaviour
             {
                 if (target.characterType == CharacterType.LifePlanet)
                 {
-                    if (target.Shield > 0)
-                        target.Shield -= damage;
-                    else
+                    if (shieldTarget.ShieldPlanet > 0)
                     {
-                        rbTarget.mass -= damage;
-                        if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
-                        {
-                            characterOwner.Kill++;
-
-                            if (collision.gameObject.tag == "Player")
-                                ReSpawnPlayer.Instance.ResPlayer();
-
-                            else if (target.host != null)
-                                target.host.satellites.Remove(target);
-                        }
+                        shieldTarget.ShieldPlanet -= damage;
+                        shieldTarget.TakeDamage = true;
                     }
+                    else
+                        rbTarget.mass -= damage;
                 }
                 else
                 {

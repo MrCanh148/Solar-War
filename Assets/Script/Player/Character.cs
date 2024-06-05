@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum CharacterType
@@ -51,20 +52,12 @@ public class Character : MonoBehaviour
     public LineRenderer lineRenderer;
 
     public int Kill;
-    public float Shield;
-    [SerializeField] private GameObject ShieldObject;
-    public float MaxShield = 20;
-    private float TimeResShield = 0f;
     public bool EvolutionDone = false;
-    public bool IsKill = false;
-
-    public Character killer;
 
     protected virtual void Start()
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (ShieldObject == null) return;
     }
 
     protected virtual void OnInit()
@@ -76,6 +69,7 @@ public class Character : MonoBehaviour
     {
         if (isCapture)
         {
+            lineRenderer.enabled = true;
             // Tính toán vị trí mới dựa trên góc quay và bán kính
             float x = Mathf.Cos(angle) * radius;
             float y = Mathf.Sin(angle) * radius;
@@ -154,32 +148,12 @@ public class Character : MonoBehaviour
         if (canvar != null)
             canvar.transform.rotation = Quaternion.identity;
 
-        if (EvolutionDone)
-        {
-            if (Shield < MaxShield)
-                Shield += Time.deltaTime;
-        }
-
         if (characterType != CharacterType.LifePlanet)
-            Shield = 5;
-          
-        if (Shield > 0 && characterType == CharacterType.LifePlanet && EvolutionDone)
-            ShieldObject.SetActive(true);
-        else if (Shield <= 0 || characterType != CharacterType.LifePlanet)
-            ShieldObject.SetActive(false);
-
-        if (Shield <= 0 && characterType == CharacterType.LifePlanet)
         {
-            TimeResShield += Time.deltaTime;
-            if (TimeResShield > 5f)
-            {
-                EvolutionDone = true;
-                TimeResShield = 0;
-            }
-            else
-                EvolutionDone = false;
-        }
-         
+            Kill = 0;
+            EvolutionDone = false;
+        }     
+    
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -188,15 +162,6 @@ public class Character : MonoBehaviour
         Character character = collision.gameObject.GetComponent<Character>();
         if (character == null)
             return;
-        /*if (isPlayer)
-        {
-            HandleCollision(this, character);
-        }
-        else if (this.GetInstanceID() > character.GetInstanceID())
-        {
-            HandleCollision(this, character);
-            Debug.Log("Va cham");
-        }*/
         HandleCollision2(character);
     }
 
@@ -314,6 +279,7 @@ public class Character : MonoBehaviour
                         {
                             character.host.satellites.Remove(character);
                         }
+                        AllWhenDie();
                         return;
                     }
                 }
@@ -341,6 +307,7 @@ public class Character : MonoBehaviour
                     {
                         character.host.satellites.Remove(character);
                     }
+                    AllWhenDie();
                 }
 
             }
@@ -427,5 +394,20 @@ public class Character : MonoBehaviour
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
 
         }
+    }
+
+    public void AllWhenDie()
+    {
+        foreach (Character t in satellites)
+        {
+            if (t != null)
+            {
+                t.host = null;
+                t.isCapture = false;
+                t.lineRenderer.enabled = false;
+            }
+
+        }
+        satellites.Clear();
     }
 }
