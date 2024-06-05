@@ -76,9 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 506819975bfc98e4fa5c79c4e6be9cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserOrigin: {fileID: 3711289829240983108}
+  laserOrigin: {fileID: 6006100810983236157}
   targetObject: {fileID: 0}
   laserLineRenderer: {fileID: 2503136105951369878}
+  OwnerCharacter: {fileID: 0}
 --- !u!120 &2503136105951369878
 LineRenderer:
   serializedVersion: 2

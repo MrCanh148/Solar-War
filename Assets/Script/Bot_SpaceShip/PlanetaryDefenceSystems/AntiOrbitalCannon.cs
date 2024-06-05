@@ -5,6 +5,7 @@ public class AntiOrbitalCannon : MonoBehaviour
     public GameObject laserOrigin; // GameObject A, nguồn phát laser
     public GameObject targetObject; // GameObject B, đích nhắm  
     public LineRenderer laserLineRenderer;
+    public Character OwnerCharacter;
 
     private void Update()
     {
@@ -26,7 +27,14 @@ public class AntiOrbitalCannon : MonoBehaviour
                 if (h.collider.CompareTag(Constant.TAG_AirSpace1))
                 {
                     Debug.Log("hit");
-                    laserLineRenderer.SetPosition(1, h.point);
+                    Test2 shootTarget = h.collider.GetComponent<Test2>();
+                    {
+                        if (shootTarget != null && shootTarget.owner != OwnerCharacter)
+                        {
+                            laserLineRenderer.SetPosition(1, h.point);
+                        }
+                    }
+
                 }
             }
 

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Test2 : MonoBehaviour
 {
+    public Character owner;
     int hp;
     // Start is called before the first frame update
     private void Start()
