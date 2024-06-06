@@ -18,4 +18,6 @@ MonoBehaviour:
   coefficientActiveGameObject: 2
   coefficientAttractive: 1
   timeToCapture: 1
-  coefficientRadiusCharacter: 80
+  coefficientRadiusPlanet: 3
+  coefficientRadiusStar: 4.5
+  coefficientDistanceCharacter: 3
