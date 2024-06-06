@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class ShowUI : FastSingleton<ShowUI>
     [SerializeField] Slider EvoluSlider;
 
     private bool isPaused = false;
+    private int currentMass;
 
     private void Start()
     {
@@ -26,6 +28,7 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[1].onClick.AddListener(TutorBtFeature);
         bts[2].onClick.AddListener(() => Application.Quit());
         bts[3].onClick.AddListener(BackBtFeature);
+        currentMass = (int)player.rb.mass;
         UpdateInfo();
     }
 
@@ -64,7 +67,18 @@ public class ShowUI : FastSingleton<ShowUI>
 
     public void SetMassTxt(int mass)
     {
-        MassText.text = mass.ToString();
+        float duration = 0;
+        if (mass - currentMass == 1)
+            duration = 0;
+        else
+            duration = 1;
+
+
+        DOTween.To(() => currentMass, x => currentMass = x, mass, duration)
+            .OnUpdate(() =>
+            {
+                MassText.text = currentMass.ToString();
+            });
     }
 
     public void SetEvoluTxt(string CharacterType)

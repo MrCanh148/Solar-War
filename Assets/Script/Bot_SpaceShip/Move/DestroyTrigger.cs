@@ -15,9 +15,9 @@ public class DestroyTrigger : MonoBehaviour
             if (bullet != null)
             {
                 target.heart -= bullet.damage;
-                if (target.heart <= 0)
+                if (target.heart <= 0 )
                 {
-                    if (target.host != bullet.characterOwner)
+                    if (target.host != bullet.characterOwner && bullet.characterOwner != null)
                         bullet.characterOwner.Kill++;
 
                     Destroy(target.gameObject);
@@ -27,9 +27,9 @@ public class DestroyTrigger : MonoBehaviour
             if (missile != null)
             {
                 target.heart -= missile.damage;
-                if (target.heart <= 0)
+                if (target.heart <= 0 )
                 {
-                    if (target.host != missile.characterOwner)
+                    if (target.host != missile.characterOwner && missile.characterOwner != null)
                         missile.characterOwner.Kill++;
 
                     Destroy(target.gameObject);

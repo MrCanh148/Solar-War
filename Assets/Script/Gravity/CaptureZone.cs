@@ -84,8 +84,6 @@ public class CaptureZone : MonoBehaviour
     {
         character.host = owner;
         SetSatellite(character);
-        owner.NunmberOrbit++;
-
     }
 
     public void SetSatellite(Character character)

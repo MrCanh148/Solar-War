@@ -11,7 +11,8 @@ public class ChatBot : MonoBehaviour
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
 
     private int currentIndex = 0; 
-    private bool isDisplayingText = false; 
+    private bool isDisplayingText = false;
+    private bool canPressEnter = false;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class ChatBot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
         {
             if (!isDisplayingText)
             {
@@ -49,6 +50,7 @@ public class ChatBot : MonoBehaviour
             yield return new WaitForSeconds(TimeShowText);
         }
         isDisplayingText = false;
+        canPressEnter = true;
     }
 
     private IEnumerator GameObjectTextDisPlayer()

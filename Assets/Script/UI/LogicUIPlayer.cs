@@ -31,6 +31,8 @@ public class LogicUIPlayer : MonoBehaviour
 
     private void Update()
     {
+        character.NunmberOrbit = character.satellites.Count;
+
         if (character.characterType == CharacterType.Asteroid
             || character.characterType == CharacterType.GasGiantPlanet
             || character.characterType == CharacterType.BlackHole

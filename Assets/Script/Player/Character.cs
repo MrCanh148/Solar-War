@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 public enum CharacterType
 {
@@ -265,17 +266,9 @@ public class Character : MonoBehaviour
 
     public void MergeCharacter(Character c1, Character c2)
     {
-        ChangeMass(c1, (int)c2.rb.mass);
-        //c1.rb.mass += c2.rb.mass;
+        c1.rb.mass += c2.rb.mass;
         c2.gameObject.SetActive(false);
         SpawnPlanets.instance.ActiveCharacter(c2);
-    }
-
-    public void ChangeMass(Character character, int number)
-    {
-        int tmpMass = (int)(character.rb.mass + number);
-        //float duration = Mathf.Abs(number) * 0.1f;
-        DOTween.To(() => character.rb.mass, x => character.rb.mass = x, tmpMass, 2f);
     }
 
     protected virtual void ResetExternalVelocity()
@@ -352,7 +345,7 @@ public class Character : MonoBehaviour
                 limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * owner.tf.localScale.x;
 
             }
-            float tmpRadius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
+            float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
 
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
 
@@ -372,11 +365,7 @@ public class Character : MonoBehaviour
 
         }
         if (host != null)
-        {
             host.satellites.Remove(this);
-            if (host.generalityType == GeneralityType.Star)
-                host.NunmberOrbit--;
-        }
         satellites.Clear();
     }
 }
