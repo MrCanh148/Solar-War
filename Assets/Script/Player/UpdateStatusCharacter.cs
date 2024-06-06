@@ -18,7 +18,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
         currentGenerateType = (int)owner.generalityType;
-        
+
     }
 
     private void OnInit()
@@ -65,7 +65,7 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             if (character.characterType == c.characterType + 1)
             {
-                Debug.Log("character.characterType: " + character.characterType + " c.characterType: " + c.characterType);
+                //Debug.Log("character.characterType: " + character.characterType + " c.characterType: " + c.characterType);
                 if (character.rb.mass < requiredMass)
                 {
                     character.characterType = c.characterType;
@@ -79,7 +79,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             if (character.characterType == c.characterType)
             {
                 requiredMass = c.requiredMass;
-                Debug.Log(requiredMass);
+                //Debug.Log(requiredMass);
             }
         }
     }
@@ -130,12 +130,12 @@ public class UpdateStatusCharacter : MonoBehaviour
             else
                 ReSpawnPlayer.Instance.ResPlayer();
 
-        }         
+        }
         else if (currentGenerateType < newType)
             owner.AllWhenDie();
- 
+
         currentGenerateType = newType;
-        
+
     }
 
 }

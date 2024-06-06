@@ -18,3 +18,4 @@ MonoBehaviour:
   coefficientActiveGameObject: 2
   coefficientAttractive: 1
   timeToCapture: 1
+  coefficientRadiusCharacter: 80

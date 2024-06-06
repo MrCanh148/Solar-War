@@ -72,6 +72,12 @@ public class CaptureZone : MonoBehaviour
             else
                 CanCaptureZone = false;
         }
+
+        if (owner.generalityType == GeneralityType.BlackHole)
+        {
+
+            CanCaptureZone = false;
+        }
     }
 
     public void BecomeSatellite(Character character)
@@ -94,7 +100,17 @@ public class CaptureZone : MonoBehaviour
 
     public float SetRadius(Character character)
     {
-        float radius = limitedRadius + character.circleCollider2D.radius * 0.1f + owner.satellites.Count * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+        if (owner.generalityType == GeneralityType.Planet)
+        {
+            limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * owner.tf.localScale.x;
+
+        }
+        else if (owner.generalityType == GeneralityType.Star)
+        {
+            limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * owner.tf.localScale.x;
+
+        }
+        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
 
         return radius;
     }
