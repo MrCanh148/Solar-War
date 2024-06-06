@@ -4,6 +4,7 @@ public class Player : Character
 {
     public float moveSpeed;
     public float velocityStart;
+    public bool canWASD = false;
 
     private bool isMovingUp;
     private bool isMovingDown;
@@ -35,43 +36,46 @@ public class Player : Character
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow) || (Input.GetKey(KeyCode.W)))
+        if (canWASD)
         {
-            isMovingUp = true;
-        }
-        else { isMovingUp = false; }
-
-        if (Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.S)))
-        {
-            isMovingDown = true;
-        }
-        else { isMovingDown = false; }
-
-        if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.A)))
-        {
-            isMovingLeft = true;
-        }
-        else { isMovingLeft = false; }
-
-        if (Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.D)))
-        {
-            isMovingRight = true;
-        }
-        else { isMovingRight = false; }
-
-        miniCam.transform.rotation = Quaternion.identity; // Lock miniCamera
-
-        // Nhan SPACE de Observe Orbit
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Character character = GetCharacterWithMinimumMass();
-            if (character != null)
+            if (Input.GetKey(KeyCode.UpArrow) || (Input.GetKey(KeyCode.W)))
             {
-                AbsorbCharacter(this, character);
-                rb.mass += character.rb.mass;
+                isMovingUp = true;
+            }
+            else { isMovingUp = false; }
+
+            if (Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.S)))
+            {
+                isMovingDown = true;
+            }
+            else { isMovingDown = false; }
+
+            if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.A)))
+            {
+                isMovingLeft = true;
+            }
+            else { isMovingLeft = false; }
+
+            if (Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.D)))
+            {
+                isMovingRight = true;
+            }
+            else { isMovingRight = false; }
+
+            miniCam.transform.rotation = Quaternion.identity; // Lock miniCamera
+
+            // Nhan SPACE de Observe Orbit
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Character character = GetCharacterWithMinimumMass();
+                if (character != null)
+                {
+                    AbsorbCharacter(this, character);
+                    rb.mass += character.rb.mass;
+
+                }
 
             }
-
         }
     }
 

@@ -95,8 +95,6 @@ public class Character : MonoBehaviour
         }
     }
 
-
-
     protected virtual void FixedUpdate()
     {
         velocity.x -= velocity.x * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
@@ -178,74 +176,6 @@ public class Character : MonoBehaviour
         HandleCollision2(character);
     }
 
-    public void HandleCollision(Character c1, Character c2)
-    {
-
-        float gravitational = (c1.mainVelocity - c2.mainVelocity).magnitude;
-        //Debug.Log("gravitational = " + gravitational);
-        if (c1.generalityType == GeneralityType.Asteroid && c2.generalityType == GeneralityType.Asteroid)
-        {
-            if (gravitational <= GameManager.instance.status.minimumMergeForce)
-            {
-                Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
-
-                Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
-
-                c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
-                c1.ResetExternalVelocity();
-
-                c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
-                c2.ResetExternalVelocity();
-            }
-            else
-            {
-                MergeCharacter(c1, c2);
-                Vector2 velocityS = (c2.rb.mass * c2.velocity + c1.rb.mass * c1.velocity) / (c1.rb.mass + c2.rb.mass);
-                c1.velocity = new Vector2(velocityS.x, velocityS.y);
-            }
-        }
-
-        if (c1.characterType != c2.characterType)
-        {
-            if (c2.characterType == CharacterType.Asteroid)
-            {
-                c1.rb.mass -= (int)c2.rb.mass;
-            }
-            else
-            {
-                c1.rb.mass -= (int)c2.rb.mass / 10;
-            }
-
-            Debug.Log((int)c2.rb.mass / 10);
-            c2.rb.mass -= (int)c1.rb.mass / 10;
-            Vector2 velocityC1 = (2 * c2.rb.mass * c2.mainVelocity + (c1.rb.mass - c2.rb.mass) * c1.mainVelocity) / (c1.rb.mass + c2.rb.mass);
-            Vector2 velocityC2 = (2 * c1.rb.mass * c1.mainVelocity + (c2.rb.mass - c1.rb.mass) * c2.mainVelocity) / (c1.rb.mass + c2.rb.mass);
-            if (c1.rb.mass > SpawnPlanets.instance.GetRequiredMass(c1.characterType))
-            {
-                c1.velocity = new Vector2(velocityC1.x, velocityC1.y);
-                c1.ResetExternalVelocity();
-            }
-            else
-            {
-                if (!c1.isPlayer)
-                    c1.gameObject.SetActive(false);
-            }
-
-            if (c2.rb.mass > SpawnPlanets.instance.GetRequiredMass(c2.characterType))
-            {
-                c2.velocity = new Vector2(velocityC2.x, velocityC2.y);
-                c2.ResetExternalVelocity();
-            }
-            else
-            {
-                if (!c2.isPlayer)
-                    c2.gameObject.SetActive(false);
-            }
-        }
-
-
-    }
-
     public void HandleCollision2(Character character)
     {
         float gravitational = (mainVelocity - character.mainVelocity).magnitude;
@@ -275,6 +205,20 @@ public class Character : MonoBehaviour
             }
             return;
         }
+
+        if (character.generalityType == GeneralityType.BlackHole)
+        {
+            if (generalityType == GeneralityType.BlackHole)
+            {
+                if (this.rb.mass < character.rb.mass)
+                    MergeCharacter(character, this);
+            }
+            else
+                MergeCharacter(character, this);
+
+            return;
+        }
+
         if (characterType != character.characterType || characterType == character.characterType)
         {
             if (characterType == CharacterType.Asteroid)
@@ -331,8 +275,8 @@ public class Character : MonoBehaviour
     public void ChangeMass(Character character, int number)
     {
         int tmpMass = (int)(character.rb.mass + number);
-        float duration = Mathf.Abs(number) * 0.1f;
-        DOTween.To(() => character.rb.mass, x => character.rb.mass = x, tmpMass, duration);
+        //float duration = Mathf.Abs(number) * 0.1f;
+        DOTween.To(() => character.rb.mass, x => character.rb.mass = x, tmpMass, 2f);
     }
 
     protected virtual void ResetExternalVelocity()

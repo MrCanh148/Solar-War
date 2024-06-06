@@ -10,6 +10,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private float FarFromPlayerMin, FarFromPlayerMax;
     [SerializeField] private float destroyDistance;
+    [SerializeField] private Player player1;
     private Character lastSpawnedPlanet;
     private GameObject currentArrow;
     public int quantityAsteroid = 20;
@@ -41,7 +42,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         for (int i = 1; i <= 9; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
+            if (Input.GetKeyDown(KeyCode.Alpha0 + i) && player1.canWASD)
                 SpawnPlanet(i - 1);
         }
 
