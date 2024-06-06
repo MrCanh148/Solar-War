@@ -166,6 +166,4 @@ public class Player : Character
         externalVelocity = Vector2.zero;
     }
 
-
-
 }
