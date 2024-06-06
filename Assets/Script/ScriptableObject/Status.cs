@@ -13,5 +13,8 @@ public class Status : ScriptableObject
     public float coefficientActiveGameObject;  //hệ số khoảng cách gameobject hoạt động
     public float coefficientAttractive;   //hệ số hấp dẫn
 
-    public float timeToCapture;
+    public float timeToCapture;     //thời gian để bắt planet
+    public float coefficientRadiusPlanet;  // hệ số bán kính quay của vật chủ là planet
+    public float coefficientRadiusStar;  // hệ số bán kính quay của vật chủ là star
+    public float coefficientDistanceCharacter;  // hệ số khoảng cách giữa 2 vệ tinh
 }

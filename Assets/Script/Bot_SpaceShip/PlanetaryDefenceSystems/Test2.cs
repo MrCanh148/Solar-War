@@ -9,6 +9,7 @@ public class Test2 : MonoBehaviour
     private void Start()
     {
         hp = 5;
+        Debug.Log(owner.tf.localScale.x);
     }
 
     public void OnHit()

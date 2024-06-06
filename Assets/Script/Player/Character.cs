@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 public enum CharacterType
 {
     Asteroid = 0,
@@ -396,7 +395,21 @@ public class Character : MonoBehaviour
         for (int i = 0; i < owner.satellites.Count; i++)
         {
             Character character = owner.satellites[i];
-            float tmpRadius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+            //float tmpRadius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
+
+            float limitedRadius = 0;
+            if (owner.generalityType == GeneralityType.Planet)
+            {
+                limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * owner.tf.localScale.x;
+
+            }
+            else if (owner.generalityType == GeneralityType.Star)
+            {
+                limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * owner.tf.localScale.x;
+
+            }
+            float tmpRadius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
+
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
 
         }
@@ -412,7 +425,7 @@ public class Character : MonoBehaviour
                 t.isCapture = false;
                 t.lineRenderer.enabled = false;
             }
-            
+
         }
         if (host != null)
         {
