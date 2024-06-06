@@ -5,22 +5,18 @@ using UnityEngine;
 public class ChatBot : MonoBehaviour
 {
     private BotChatText[] BotChatText;
-    [SerializeField] GameObject BotUI;
+    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, InGameUI;
     [SerializeField] TextMeshProUGUI ChatText;
     [SerializeField] private float TimeShowText = 0.01f;
+    [SerializeField] private float TimeDelayShowGameObjectText = 1f;
 
     private int currentIndex = 0; 
     private bool isDisplayingText = false; 
 
-
     private void Start()
     {
-        BotUI.SetActive(true);
+        StartCoroutine(GameObjectTextDisPlayer());
         BotChatText = Resources.LoadAll<BotChatText>("BotChatText");
-        if (BotChatText.Length > 0)
-        {
-            StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
-        }
     }
 
     private void Update()
@@ -38,6 +34,9 @@ public class ChatBot : MonoBehaviour
                     BotUI.SetActive(false);
             }
         }
+
+        if (currentIndex == 2)
+            InGameUI.SetActive(true);
     }
 
     private IEnumerator DisplayTextOverTime(string fullText)
@@ -50,5 +49,15 @@ public class ChatBot : MonoBehaviour
             yield return new WaitForSeconds(TimeShowText);
         }
         isDisplayingText = false;
+    }
+
+    private IEnumerator GameObjectTextDisPlayer()
+    {
+        TextDisplay.SetActive(false);
+        yield return new WaitForSeconds(TimeDelayShowGameObjectText);
+        TextDisplay.SetActive(true);
+        PressEnterText.SetActive(true);
+        if (BotChatText.Length >= 0)
+            StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
     }
 }

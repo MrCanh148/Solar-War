@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class ShowUI : FastSingleton<ShowUI>
 {
 
-    [SerializeField] private TextMeshProUGUI Guide, MassText;
+    [SerializeField] private TextMeshProUGUI MassText;
     [SerializeField] private Character player;
+    [SerializeField] private Player player1;
 
     [Header("Bt0: Continue / Bt1: Tutor / Bt2: Exit")]
     [SerializeField] private Button[] bts;
@@ -17,8 +18,6 @@ public class ShowUI : FastSingleton<ShowUI>
     [SerializeField] TextMeshProUGUI EvoluTxt;
     [SerializeField] Slider EvoluSlider;
 
-
-    private const string Guide1 = "Press <ESC> to see more";
     private bool isPaused = false;
 
     private void Start()
@@ -32,10 +31,7 @@ public class ShowUI : FastSingleton<ShowUI>
 
     private void Update()
     {
-        //MassText.text = player.rb.mass.ToString();
-        Guide.text = Guide1;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && player1.canWASD)
         {
             PauseGame();
         }
