@@ -121,7 +121,7 @@ public class UpdateStatusCharacter : MonoBehaviour
 
     public void OnChangeGenerateType(int newType)
     {
-        if (currentGenerateType > newType)
+        if (currentGenerateType > newType)  // tụt cấp generalityType
         {
             owner.AllWhenDie();
 
@@ -131,9 +131,11 @@ public class UpdateStatusCharacter : MonoBehaviour
                 ReSpawnPlayer.Instance.ResPlayer();
 
         }
-        else if (currentGenerateType < newType)
+        else if (currentGenerateType < newType)  // lên cấp generalityType
+        {
             owner.AllWhenDie();
-
+            owner.rb.mass += (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
+        }
         currentGenerateType = newType;
 
     }
