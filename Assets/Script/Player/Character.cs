@@ -1,6 +1,5 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 public enum CharacterType
 {
@@ -278,9 +277,9 @@ public class Character : MonoBehaviour
 
     public void AbsorbCharacter(Character host, Character character)
     {
-
-        DOTween.To(() => character.radius, x => character.radius = x, 1, 0.3f)
-
+        if (character.satellites.Count <= 0)
+        {
+            DOTween.To(() => character.radius, x => character.radius = x, 2.5f * host.circleCollider2D.radius * host.tf.localScale.x, 0.3f)
            .OnComplete(() =>
            {
                character.tf.gameObject.SetActive(false);
@@ -289,6 +288,16 @@ public class Character : MonoBehaviour
                ResetRadiusSatellite(host);
            })
            .Play();
+            host.rb.mass += character.rb.mass;
+        }
+        else
+        {
+            Character supCharacter = character.GetCharacterWithMinimumMass();
+            if (supCharacter != null)
+            {
+                AbsorbCharacter(character, supCharacter);
+            }
+        }
     }
 
     public Character GetCharacterWithMinimumMass()
@@ -298,6 +307,7 @@ public class Character : MonoBehaviour
         if (satellites.Count > 0)
         {
             character = satellites[0];
+
             foreach (var c in satellites)
             {
                 if (c.rb.mass < character.rb.mass)
@@ -305,13 +315,28 @@ public class Character : MonoBehaviour
                     character = c;
                 }
             }
-            satellites.Remove(character);
+        }
+        return character;
+    }
+
+    public Character GetCharacteHaveSatellite()
+    {
+        Character character = null;
+        if (satellites.Count > 0)
+        {
+            character = satellites[0];
+
+            foreach (var c in satellites)
+            {
+                if (c.satellites.Count > character.satellites.Count)
+                {
+                    character = c;
+                }
+            }
         }
         return character;
 
     }
-
-
 
     private Vector2 CalculateProjection(Vector2 v1, Vector2 v2)
     {

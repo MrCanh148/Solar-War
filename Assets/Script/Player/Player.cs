@@ -67,12 +67,10 @@ public class Player : Character
             // Nhan SPACE de Observe Orbit
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Character character = GetCharacterWithMinimumMass();
+                Character character = GetCharacteHaveSatellite();
                 if (character != null)
                 {
                     AbsorbCharacter(this, character);
-                    rb.mass += character.rb.mass;
-
                 }
 
             }
