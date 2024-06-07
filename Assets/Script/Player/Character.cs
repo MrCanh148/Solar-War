@@ -279,7 +279,7 @@ public class Character : MonoBehaviour
     {
         if (character.satellites.Count <= 0)
         {
-            DOTween.To(() => character.radius, x => character.radius = x, 2.5f * host.circleCollider2D.radius * host.tf.localScale.x, 0.3f)
+            DOTween.To(() => character.radius, x => character.radius = x, 2.5f * host.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(host.characterType), 0.3f)
            .OnComplete(() =>
            {
                character.tf.gameObject.SetActive(false);
@@ -362,15 +362,15 @@ public class Character : MonoBehaviour
             float limitedRadius = 0;
             if (owner.generalityType == GeneralityType.Planet)
             {
-                limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * owner.tf.localScale.x;
+                limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
             }
             else if (owner.generalityType == GeneralityType.Star)
             {
-                limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * owner.tf.localScale.x;
+                limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
             }
-            float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
+            float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
 
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
 
@@ -386,11 +386,19 @@ public class Character : MonoBehaviour
                 t.host = null;
                 t.isCapture = false;
                 t.lineRenderer.enabled = false;
+                t.tf.SetParent(null);
             }
 
         }
         if (host != null)
+        {
             host.satellites.Remove(this);
+            tf.SetParent(null);
+            host = null;
+            isCapture = false;
+            lineRenderer.enabled = false;
+        }
+
         satellites.Clear();
     }
 }
