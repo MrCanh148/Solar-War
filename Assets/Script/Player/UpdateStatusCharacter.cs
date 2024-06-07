@@ -49,9 +49,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         }
         foreach (var c in SpawnPlanets.instance.CharacterInfos)
         {
-
-
-            if (character.characterType == c.characterType - 1)
+            if (character.characterType == c.characterType - 1) // tăng CharacterType
             {
                 if (character.rb.mass >= c.requiredMass)
                 {
@@ -63,7 +61,7 @@ public class UpdateStatusCharacter : MonoBehaviour
                 }
             }
 
-            if (character.characterType == c.characterType + 1)
+            if (character.characterType == c.characterType + 1)  // giảm CharacterType
             {
                 //Debug.Log("character.characterType: " + character.characterType + " c.characterType: " + c.characterType);
                 if (character.rb.mass < requiredMass)

@@ -163,4 +163,22 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         return name;
     }
 
+
+    public float GetScalePlanet(CharacterType characterType)
+    {
+        float scale = 0;
+        foreach (var c in CharacterInfos)
+        {
+            if (c.characterType == characterType)
+            {
+                if (characterType == CharacterType.Asteroid)
+                {
+                    scale = 0.06f;
+                }
+                else
+                    scale = c.scale.x;
+            }
+        }
+        return scale;
+    }
 }

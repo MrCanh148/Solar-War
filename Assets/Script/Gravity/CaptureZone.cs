@@ -11,9 +11,11 @@ public class CaptureZone : MonoBehaviour
     private bool CanCaptureZone = true;
 
 
+
     private void Start()
     {
         ortherCharacter = null;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -82,8 +84,10 @@ public class CaptureZone : MonoBehaviour
 
     public void BecomeSatellite(Character character)
     {
+        character.tf.SetParent(owner.tf);
         character.host = owner;
         SetSatellite(character);
+
     }
 
     public void SetSatellite(Character character)
@@ -100,15 +104,15 @@ public class CaptureZone : MonoBehaviour
     {
         if (owner.generalityType == GeneralityType.Planet)
         {
-            limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * owner.tf.localScale.x;
+            limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
         }
         else if (owner.generalityType == GeneralityType.Star)
         {
-            limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * owner.tf.localScale.x;
+            limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
         }
-        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * character.tf.localScale.x * GameManager.instance.status.coefficientDistanceCharacter);
+        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
 
         return radius;
     }
