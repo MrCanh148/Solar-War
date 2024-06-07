@@ -9,11 +9,13 @@ public class CameraFollow : MonoBehaviour
     private Vector3 targetPosition;
     [SerializeField] private Camera m_Camera;
     [SerializeField] private float IntScale = 0.2f;
+    private float StartSize;
     float currentSize;
 
     private void Start()
     {
-        currentSize = 6f + (int)plant.characterType * IntScale;
+        StartSize = m_Camera.orthographicSize;
+        currentSize = StartSize + (int)plant.characterType * IntScale;
         if (m_Camera != null)
         {
             m_Camera.orthographicSize = currentSize;
@@ -32,7 +34,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
-        OnChangeSize(6f + (int)plant.characterType * IntScale);
+        OnChangeSize(StartSize + (int)plant.characterType * IntScale);
     }
 
     public void OnChangeSize(float newSize)

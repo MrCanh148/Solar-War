@@ -96,15 +96,8 @@ public class ShowUI : FastSingleton<ShowUI>
         SetNameTxt(SpawnPlanets.instance.GetNamePlanet(player.characterType));
         SetMassTxt((int)player.rb.mass);
         SetEvoluTxt((player.characterType + 1).ToString());
-        /*int nestMass = 0;
-        foreach (var c in SpawnPlanets.instance.CharacterInfos)
-        {
-            if (c.characterType == player.characterType + 1)
-            {
-                nestMass = c.requiredMass;
-            }
-        }*/
-        SetEvoluSlider((long)player.rb.mass - SpawnPlanets.instance.GetRequiredMass(player.characterType), SpawnPlanets.instance.GetRequiredMass(player.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(player.characterType));
+        SetEvoluSlider((long)player.rb.mass - SpawnPlanets.instance.GetRequiredMass(player.characterType), 
+            SpawnPlanets.instance.GetRequiredMass(player.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(player.characterType));
     }
 
     public void ShowSettingUI()
