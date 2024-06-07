@@ -118,7 +118,7 @@ public class Turret : MonoBehaviour
             if (test != null)
             {
 
-                if (test.CompareTag(Constant.TAG_AirSpace1) && test.host != OwnerCharacter)
+                if (test.CompareTag(Constant.TAG_AirSpace1) && test.hostAlien != OwnerCharacter)
                 {
                     //target = collision.gameObject.GetComponent<ShootTarget>();                   
                     target1 = test;

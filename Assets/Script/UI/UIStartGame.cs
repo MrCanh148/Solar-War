@@ -12,6 +12,8 @@ public class UIStartGame : MonoBehaviour
     private bool StartExplore = false;
     private SpriteRenderer spriteRenderer;
 
+    const string ENTER_GAME = "Start";
+
     private void Start()
     {
         player.canWASD = false;
@@ -19,7 +21,6 @@ public class UIStartGame : MonoBehaviour
         UIStart.SetActive(true);
         spriteRenderer = Player.GetComponent<SpriteRenderer>();
         StartAnimator = UIStart.GetComponent<Animator>();
-        StartAnimator.enabled = false;
         StartBt.onClick.AddListener(LogicAfterClickBt);
     }
 
@@ -42,7 +43,8 @@ public class UIStartGame : MonoBehaviour
 
     private void LogicAfterClickBt()
     {
-        StartAnimator.enabled = true;
+      
+        StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
     }
 
@@ -76,11 +78,10 @@ public class UIStartGame : MonoBehaviour
         Hole.SetActive(false);
         player.rb.mass = 2f;
         yield return new WaitForSeconds(5f);
+        player.characterType = CharacterType.Asteroid;
         spriteRenderer.enabled = true;
         player.canWASD = true;
         AllUI[3].SetActive(true);
         OneInAll.SetActive(false);
-        player.characterType = CharacterType.Asteroid;
-        player.generalityType = GeneralityType.Asteroid;
     }
 }

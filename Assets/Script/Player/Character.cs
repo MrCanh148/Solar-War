@@ -55,6 +55,7 @@ public class Character : MonoBehaviour
     [Header("======= Other =======")]
     public int Kill;
     public bool EvolutionDone = false;
+    public Character myFamily;
 
     protected virtual void Start()
     {
@@ -72,25 +73,19 @@ public class Character : MonoBehaviour
         if (isCapture)
         {
             lineRenderer.enabled = true;
-            // Tính toán vị trí mới dựa trên góc quay và bán kính
             float x = Mathf.Cos(angle) * radius;
             float y = Mathf.Sin(angle) * radius;
 
             // Cập nhật vị trí của đối tượng
             tf.position = host.tf.position + new Vector3(x, y, 0f);
-            //tf.position = Vector3.Lerp(tf.position, host.tf.position + new Vector3(x, y, 0f), 0.5f);
-
-            //transform.RotateAround(host.tf.position, Vector3.forward, angle);
-
-            // Tăng góc quay theo tốc độ
             angle += spinSpeed * Time.deltaTime;
-            //lineRenderer.enabled = true;
         }
 
         if (host != null && tf != null && lineRenderer.enabled == true)
         {
             lineRenderer.SetPosition(1, tf.position);
             lineRenderer.SetPosition(0, host.tf.position);
+            myFamily = host.host;
         }
     }
 

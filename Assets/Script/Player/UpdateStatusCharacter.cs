@@ -42,45 +42,54 @@ public class UpdateStatusCharacter : MonoBehaviour
 
     public void UpdateInfoCharacter(Character character)
     {
+        bool typeChanged;
+        do
+        {
+            typeChanged = false;
 
-        if (character.characterType == CharacterType.Asteroid)
-        {
-            character.tf.DOScale(new Vector3(0.05f, 0.05f, 0.05f) + 0.0015f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
-        }
-        foreach (var c in SpawnPlanets.instance.CharacterInfos)
-        {
-            if (character.characterType == c.characterType - 1) // tăng CharacterType
+            if (character.characterType == CharacterType.Asteroid)
             {
-                if (character.rb.mass >= c.requiredMass)
+                character.tf.DOScale(new Vector3(0.05f, 0.05f, 0.05f) + 0.0015f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
+            }
+
+            foreach (var c in SpawnPlanets.instance.CharacterInfos)
+            {
+                if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
-                    character.characterType = c.characterType;
-                    character.spriteRenderer.sprite = c.sprite;
-                    if (Minimap != null)
-                        spriteRenderer.sprite = character.spriteRenderer.sprite;
-                    character.tf.DOScale(c.scale, 0f);
+                    if (character.rb.mass >= c.requiredMass)
+                    {
+                        character.characterType = c.characterType;
+                        character.spriteRenderer.sprite = c.sprite;
+                        if (Minimap != null)
+                            spriteRenderer.sprite = character.spriteRenderer.sprite;
+                        character.tf.DOScale(c.scale, 0f);
+                        typeChanged = true;
+                        break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
+                    }
+                }
+
+                if (character.characterType == c.characterType + 1) // Giảm CharacterType
+                {
+                    if (character.rb.mass < requiredMass)
+                    {
+                        character.characterType = c.characterType;
+                        character.spriteRenderer.sprite = c.sprite;
+                        if (Minimap != null)
+                            spriteRenderer.sprite = character.spriteRenderer.sprite;
+                        character.tf.DOScale(c.scale, 0f);
+                        typeChanged = true;
+                        break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
+                    }
+                }
+
+                if (character.characterType == c.characterType)
+                {
+                    requiredMass = c.requiredMass;
                 }
             }
-
-            if (character.characterType == c.characterType + 1)  // giảm CharacterType
-            {
-                //Debug.Log("character.characterType: " + character.characterType + " c.characterType: " + c.characterType);
-                if (character.rb.mass < requiredMass)
-                {
-                    character.characterType = c.characterType;
-                    character.spriteRenderer.sprite = c.sprite;
-                    if (Minimap != null)
-                        spriteRenderer.sprite = character.spriteRenderer.sprite;
-                    character.tf.DOScale(c.scale, 0f);
-                }
-            }
-
-            if (character.characterType == c.characterType)
-            {
-                requiredMass = c.requiredMass;
-                //Debug.Log(requiredMass);
-            }
-        }
+        } while (typeChanged); // Tiếp tục vòng lặp nếu loại đã thay đổi
     }
+
 
     public void EvolutionCharacter(Character character)
     {
