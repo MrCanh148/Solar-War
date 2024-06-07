@@ -21,6 +21,8 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     int quantityAOEC;
     [SerializeField] bool isAOC;
     GameObject targetAOC;
+    public float timeAttackAOC;
+    public float damageAOC = 10;
 
     int currentKill;
     void Start()
@@ -53,7 +55,11 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     {
 
         OnChangeKill(owner.Kill);
+        if (targetAOC != null)
+        {
+            timeAttackAOC += Time.deltaTime;
 
+        }
     }
 
     private void FixedUpdate()
@@ -154,7 +160,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Test2 test = collision.GetComponent<Test2>();
+        /*Test2 test = collision.GetComponent<Test2>();
         if (test != null)
         {
             if (timeCoolDownMissile > 3f)
@@ -173,26 +179,35 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                     antiOrbitalCannon.VFXPlay();
                 }
             }
-        }
-
+        }*/
 
 
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
-            if (timeCoolDownMissile > 3f)
+            if (shootTarget.host != owner)
             {
-                targetMissile = shootTarget.gameObject;
-                ShotMissile(targetMissile);
-                timeCoolDownMissile = 0;
-            }
-
-            if (isAOC)
-            {
-                targetAOC = shootTarget.gameObject;
-                AvticeAOC(targetAOC);
-
-
+                if (timeCoolDownMissile > 3f)
+                {
+                    targetMissile = shootTarget.gameObject;
+                    ShotMissile(targetMissile);
+                    timeCoolDownMissile = 0;
+                }
+                if (isAOC && targetAOC == null)
+                {
+                    targetAOC = shootTarget.gameObject;
+                    AvticeAOC(targetAOC);
+                    if (timeAttackAOC > 1f)
+                    {
+                        shootTarget.heart -= damageAOC;
+                        if (shootTarget.heart <= 0)
+                        {
+                            owner.Kill++;
+                            shootTarget.gameObject.SetActive(false);
+                        }
+                        timeAttackAOC = 0;
+                    }
+                }
             }
         }
 
@@ -200,7 +215,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Test2 test = collision.GetComponent<Test2>();
+        /*Test2 test = collision.GetComponent<Test2>();
         if (test != null)
         {
             if (targetMissile == test.gameObject)
@@ -215,17 +230,17 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 AvticeAOC(targetAOC);
                 antiOrbitalCannon.VFXStop();
             }
-        }
+        }*/
 
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
+            Debug.Log("ra ngoai");
             if (targetMissile == shootTarget.gameObject)
             {
                 targetMissile = null;
                 ShotMissile(targetMissile);
             }
-
             if (targetAOC == shootTarget.gameObject)
             {
                 targetAOC = null;
@@ -233,5 +248,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 antiOrbitalCannon.VFXStop();
             }
         }
+
     }
 }
