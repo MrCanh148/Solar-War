@@ -137,12 +137,9 @@ public class Turret : MonoBehaviour
         {
             if (shootTarget != null)
             {
-
-                if (shootTarget.hostAlien.myFamily != OwnerCharacter.myFamily)
-                {
-                    //target = collision.gameObject.GetComponent<ShootTarget>();                   
+                if (shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily == OwnerCharacter.myFamily) return;
+                else
                     target1 = shootTarget;
-                }
             }
             else
             {
