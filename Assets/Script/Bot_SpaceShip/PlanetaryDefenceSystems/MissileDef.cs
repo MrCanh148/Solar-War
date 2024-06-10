@@ -59,9 +59,11 @@ public class MissileDef : MonoBehaviour
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)
                 {
-                    this.gameObject.SetActive(false);
-                    source.missiles.Add(this);
+                    Destroy(shootTarget.gameObject);
+                    characterOwner.Kill++;
                 }
+                this.gameObject.SetActive(false);
+                source.missiles.Add(this);
             }
         }
     }

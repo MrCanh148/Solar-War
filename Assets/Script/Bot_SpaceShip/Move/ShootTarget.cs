@@ -78,12 +78,11 @@ public class ShootTarget : MonoBehaviour
             if (ignoredTargets.Contains(hit.gameObject)) continue;
 
             Character target = hit.gameObject.GetComponent<Character>();
+            ShootTarget characterTarget = hit.gameObject.GetComponent<ShootTarget>();
+            if (hit.gameObject.tag == "AirSpace1" && characterTarget.hostAlien != null && hostAlien != null && characterTarget.hostAlien.myFamily == hostAlien.myFamily) continue;
 
-            if ((target != null && (target.generalityType != GeneralityType.BlackHole)) || hit.gameObject.tag == "AirSpace1")
-            {
-                ShootTarget alienTarget = hit.gameObject.GetComponent<ShootTarget>();
-                if (hit.gameObject.tag == "AirSpace1" && alienTarget.hostAlien.myFamily == hostAlien.myFamily) continue;
-
+            if (target != null && (target.generalityType != GeneralityType.BlackHole) || hit.gameObject.tag == "AirSpace1")
+            {                  
                 if (target != null && hostAlien != null && (target.myFamily == hostAlien.myFamily)) continue;
 
                 Vector2 directionToTarget = hit.transform.position - transform.position;

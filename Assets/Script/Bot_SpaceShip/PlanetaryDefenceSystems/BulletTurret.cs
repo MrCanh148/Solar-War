@@ -38,6 +38,8 @@ public class BulletTurret : MonoBehaviour
 
             tf.Translate(Vector2.up * speed * Time.fixedDeltaTime);
         }
+        else
+            OnDespawn();
     }
 
     public void OnDespawn()
@@ -64,16 +66,17 @@ public class BulletTurret : MonoBehaviour
         if (shootTarget != null)
         {
             //test.OnHit();
-            if (shootTarget.hostAlien.myFamily != owner.myFamily)
+            if (shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily)
             {
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)
                 {
-                    gameObject.SetActive(false);
-                    source.bullets.Add(this);
+                    Destroy(shootTarget.gameObject);
                     owner.Kill++;
                 }
 
+                gameObject.SetActive(false);
+                source.bullets.Add(this);
             }
         }
     }
