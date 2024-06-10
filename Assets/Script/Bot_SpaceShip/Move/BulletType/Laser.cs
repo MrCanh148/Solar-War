@@ -46,7 +46,7 @@ public class Laser : MonoBehaviour
 
                         if (targetCharacter == null) continue;
 
-                        if (targetCharacter.generalityType == GeneralityType.Asteroid || targetCharacter.generalityType == GeneralityType.Planet)
+                        if (targetCharacter.generalityType != GeneralityType.BlackHole)
                         {
                             if (targetCharacter != characterOwner)
                             {
@@ -63,7 +63,7 @@ public class Laser : MonoBehaviour
                                 else
                                 {
                                     rbTarget.mass -= damage;
-                                    if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                                    if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20) || (targetCharacter.characterType == CharacterType.SmallStar && rbTarget.mass < 180))
                                     {
                                         if (hit.collider.gameObject.tag == "Player")
                                             ReSpawnPlayer.Instance.ResPlayer();

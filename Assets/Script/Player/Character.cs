@@ -85,7 +85,9 @@ public class Character : MonoBehaviour
         {
             lineRenderer.SetPosition(1, tf.position);
             lineRenderer.SetPosition(0, host.tf.position);
-            myFamily = host.host;
+
+            if (host.host != null)
+                myFamily = host.host;
         }
     }
 

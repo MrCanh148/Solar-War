@@ -63,7 +63,8 @@ public class Missile : MonoBehaviour
                 else
                 {
                     rbTarget.mass -= damage;
-                    if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20))
+                    if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20)
+                                          || (target.characterType == CharacterType.SmallStar && rbTarget.mass < 180))
                     {
                         if (collision.gameObject.tag == "Player")
                             ReSpawnPlayer.Instance.ResPlayer();
