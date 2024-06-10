@@ -54,7 +54,7 @@ public class MissileDef : MonoBehaviour
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
-            if (shootTarget.host != characterOwner)
+            if (shootTarget.hostAlien != characterOwner)
             {
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)

@@ -61,6 +61,7 @@ public class Character : MonoBehaviour
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        myFamily = this;
     }
 
     protected virtual void OnInit()
@@ -86,8 +87,7 @@ public class Character : MonoBehaviour
             lineRenderer.SetPosition(1, tf.position);
             lineRenderer.SetPosition(0, host.tf.position);
 
-            if (host.host != null)
-                myFamily = host.host;
+            myFamily = host.myFamily;
         }
     }
 

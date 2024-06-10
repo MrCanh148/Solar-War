@@ -81,8 +81,10 @@ public class ShootTarget : MonoBehaviour
 
             if ((target != null && (target.generalityType != GeneralityType.BlackHole)) || hit.gameObject.tag == "AirSpace1")
             {
-                if (target != null && hostAlien != null && ((target.host != null && target.host == hostAlien)                
-                    || (target.myFamily != null && target.myFamily == hostAlien.host))) continue;
+                ShootTarget alienTarget = hit.gameObject.GetComponent<ShootTarget>();
+                if (hit.gameObject.tag == "AirSpace1" && alienTarget.hostAlien.myFamily == hostAlien.myFamily) continue;
+
+                if (target != null && hostAlien != null && (target.myFamily == hostAlien.myFamily)) continue;
 
                 Vector2 directionToTarget = hit.transform.position - transform.position;
                 float angle = Vector2.Angle(transform.up, directionToTarget);
