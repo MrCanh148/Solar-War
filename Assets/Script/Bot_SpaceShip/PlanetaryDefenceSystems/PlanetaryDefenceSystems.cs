@@ -194,7 +194,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                     ShotMissile(targetMissile);
                     timeCoolDownMissile = 0;
                 }
-                if (isAOC && targetAOC != shootTarget.gameObject)
+                if (isAOC && targetAOC == null)
                 {
                     timeAttackAOC = 0;
                     targetAOC = shootTarget.gameObject;
