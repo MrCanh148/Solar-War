@@ -22,7 +22,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
     [SerializeField] bool isAOC;
     GameObject targetAOC;
     public float timeAttackAOC;
-    public float damageAOC = 10;
+    public float damageAOC = 5;
 
     int currentKill;
     void Start()
@@ -194,11 +194,13 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                     ShotMissile(targetMissile);
                     timeCoolDownMissile = 0;
                 }
-                if (isAOC && targetAOC == null)
+                if (isAOC && targetAOC != shootTarget.gameObject)
                 {
+                    timeAttackAOC = 0;
                     targetAOC = shootTarget.gameObject;
                     AvticeAOC(targetAOC);
-                    if (timeAttackAOC > 1f)
+                    antiOrbitalCannon.VFXPlay();
+                    if (timeAttackAOC > 0.5f)
                     {
                         shootTarget.heart -= damageAOC;
                         if (shootTarget.heart <= 0)
