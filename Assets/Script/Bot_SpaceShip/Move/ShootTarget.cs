@@ -15,7 +15,7 @@ public class ShootTarget : MonoBehaviour
 
     public float heart; // Máu airspace
     private float nextFireTime = 0f;
-    [HideInInspector] public Character host;
+     public Character hostAlien;
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement botAirSpace;
     private SpriteRenderer SpriteRenderer;
@@ -26,10 +26,10 @@ public class ShootTarget : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetIgnoredTargets(List<GameObject> targets, Character hostBase)
+    public void SetIgnoredTargets(List<GameObject> targets, Character HostBase)
     {
         ignoredTargets = targets;
-        host = hostBase;
+        hostAlien = HostBase;
     }
 
     private void Update()
@@ -58,12 +58,12 @@ public class ShootTarget : MonoBehaviour
                 break;
         }
 
-        if (host == null || !host.gameObject.activeSelf)
+        if (hostAlien == null || !hostAlien.gameObject.activeSelf)
         {
-            host = null;
+            hostAlien = null;
             SpriteRenderer.color = Color.white;
         }
-        else if (host.isPlayer)
+        else if (hostAlien.isPlayer || (hostAlien.host != null && hostAlien.host.isPlayer))
             SpriteRenderer.color = Color.green;
         else
             SpriteRenderer.color = Color.red;
@@ -81,7 +81,9 @@ public class ShootTarget : MonoBehaviour
 
             if ((target != null && (target.characterType == CharacterType.Asteroid || target.generalityType == GeneralityType.Planet)) || hit.gameObject.tag == "AirSpace1")
             {
-                if (target != null && target.host == host) continue;
+                if (target != null && ((hostAlien != null && target.host != null && target.host == hostAlien)
+                    || (hostAlien.host != null && target.host.host != null && target.host.host == hostAlien.host) 
+                    || (hostAlien.host != null && target.myFamily != null && target.myFamily == hostAlien.host))) continue;
 
                 Vector2 directionToTarget = hit.transform.position - transform.position;
                 float angle = Vector2.Angle(transform.up, directionToTarget);
@@ -93,20 +95,20 @@ public class ShootTarget : MonoBehaviour
                     // Gắn các thuộc tính cần thiết cho các loại đạn
                     Bullet bullet = a.GetComponent<Bullet>();
                     if (bullet != null)
-                        bullet.characterOwner = host;
+                        bullet.characterOwner = hostAlien;
 
                     Missile missile = a.GetComponent<Missile>();
                     if (missile != null)
                     {
                         missile.SetTarget(hit.gameObject);
-                        missile.characterOwner = host;
+                        missile.characterOwner = hostAlien;
                     }                       
 
                     Laser laser = a.GetComponent<Laser>();
                     if (laser != null)
                     {
                         laser.SetTarget(hit.gameObject, firePoint);
-                        laser.characterOwner = host;
+                        laser.characterOwner = hostAlien;
                     }
 
                     nextFireTime = Time.time + fireInterval;

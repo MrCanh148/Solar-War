@@ -186,7 +186,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
-            if (shootTarget.host != owner)
+            if (shootTarget.hostAlien != owner)
             {
                 if (timeCoolDownMissile > 3f)
                 {
