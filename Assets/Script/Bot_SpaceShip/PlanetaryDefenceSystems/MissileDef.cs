@@ -43,12 +43,26 @@ public class MissileDef : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Test2 test = collision.GetComponent<Test2>();
+        /*Test2 test = collision.GetComponent<Test2>();
         if (test != null)
         {
             Debug.Log("MissileDef");
             this.gameObject.SetActive(false);
             source.missiles.Add(this);
+        }*/
+
+        ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
+        if (shootTarget != null)
+        {
+            if (shootTarget.host != characterOwner)
+            {
+                shootTarget.heart -= damage;
+                if (shootTarget.heart <= 0)
+                {
+                    this.gameObject.SetActive(false);
+                    source.missiles.Add(this);
+                }
+            }
         }
     }
 

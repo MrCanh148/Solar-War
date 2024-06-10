@@ -181,6 +181,7 @@ public class Turret : MonoBehaviour
             bullets[0].transform.position = shotPoint.position;
             bullets[0].target = tg.transform;
             bullets[0].OnInit();
+            bullets[0].owner = OwnerCharacter;
             bullets.Remove(bullets[0]);
 
             Debug.Log(bullets.Count);
@@ -192,6 +193,7 @@ public class Turret : MonoBehaviour
             bullet.transform.position = shotPoint.position;
             bullet.target = tg.transform;
             bullet.source = this;
+            bullet.owner = OwnerCharacter;
         }
     }
 }

@@ -7,8 +7,8 @@ public class BulletTurret : MonoBehaviour
     public float speed = 5f;
     public Turret source;
     float timeAttack = 1f;
-
-
+    public Character owner;
+    public float damage = 5f;
 
     private void Start()
     {
@@ -64,8 +64,17 @@ public class BulletTurret : MonoBehaviour
         if (shootTarget != null)
         {
             //test.OnHit();
-            gameObject.SetActive(false);
-            source.bullets.Add(this);
+            if (shootTarget.host != owner)
+            {
+                shootTarget.heart -= damage;
+                if (shootTarget.heart <= 0)
+                {
+                    gameObject.SetActive(false);
+                    source.bullets.Add(this);
+                    owner.Kill++;
+                }
+
+            }
         }
     }
 }

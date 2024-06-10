@@ -45,6 +45,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             missiles.Add(missile);
             missile.gameObject.SetActive(false);
             missile.source = this;
+            missile.characterOwner = owner;
         }
 
         //AntiOrbitalCannon
