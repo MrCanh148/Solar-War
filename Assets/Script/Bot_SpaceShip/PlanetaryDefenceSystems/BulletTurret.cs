@@ -64,7 +64,7 @@ public class BulletTurret : MonoBehaviour
         if (shootTarget != null)
         {
             //test.OnHit();
-            if (shootTarget.host != owner)
+            if (shootTarget.hostAlien.myFamily != owner.myFamily)
             {
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)

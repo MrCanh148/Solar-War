@@ -108,36 +108,6 @@ public class Turret : MonoBehaviour
          }
      }*/
 
-
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        ShootTarget test = collision.GetComponent<ShootTarget>();
-        if (target1 == null)
-        {
-            if (test != null)
-            {
-
-                if (test.CompareTag(Constant.TAG_AirSpace1) && test.hostAlien != OwnerCharacter)
-                {
-                    //target = collision.gameObject.GetComponent<ShootTarget>();                   
-                    target1 = test;
-                }
-            }
-            else
-            {
-                target1 = null;
-            }
-        }
-
-        if (target1 != null && time >= timeColdown && target1.gameObject.activeSelf)
-        {
-            Shot(target1);
-            time = 0;
-        }
-
-    }
-
     private void Update()
     {
         time += Time.deltaTime;
@@ -160,12 +130,42 @@ public class Turret : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
+        if (target1 == null)
+        {
+            if (shootTarget != null)
+            {
+
+                if (shootTarget.hostAlien.myFamily != OwnerCharacter.myFamily)
+                {
+                    //target = collision.gameObject.GetComponent<ShootTarget>();                   
+                    target1 = shootTarget;
+                }
+            }
+            else
+            {
+                target1 = null;
+            }
+        }
+
+        if (target1 != null && time >= timeColdown && target1.gameObject.activeSelf)
+        {
+            Shot(target1);
+            time = 0;
+        }
+
+    }
+
+
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        ShootTarget test = collision.GetComponent<ShootTarget>();
+        ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
         if (target1 != null)
         {
-            if (target1 == test)
+            if (target1 == shootTarget)
             {
                 target1 = null;
             }
