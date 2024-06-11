@@ -1,17 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 
-public class RandomMovement : BotAirSpace
+public class RandomMovement : MonoBehaviour
 {
-    [SerializeField] private float wanderRadius = 5f; // Bán kính di chuyển ngẫu nhiên xung quanh điểm trung tâm
-    [SerializeField] private float changeDirectionInterval = 2f; // Thời gian để thay đổi hướng di chuyển
+    [SerializeField] private float wanderRadius = 5f;
+    [SerializeField] private float changeDirectionInterval = 2f;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float rotationSpeed = 50f;
+    private float changeDirectionTimer;
+    private Vector2 targetPosition;
+    private Rigidbody2D rb;
+    private Vector2 currentDirection;
+
+
+    public enum AirSpaceType
+    {
+        Fighter = 0,
+        Cruiser = 1,
+        MissileBoat = 2,
+    };
+
     public AirSpaceType type;
     [HideInInspector] public Transform centerPoint;
-    private float changeDirectionTimer;
 
-    protected override void InitializeBot()
+    void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         SetRandomTargetPosition();
-        currentDirection = (targetPosition - (Vector2)transform.position).normalized;
     }
 
     void Update()
@@ -40,7 +55,7 @@ public class RandomMovement : BotAirSpace
         }
     }
 
-    protected override void Move()
+    private void Move()
     {
         Vector2 targetDirection = (targetPosition - (Vector2)transform.position).normalized;
         currentDirection = Vector2.Lerp(currentDirection, targetDirection, Time.deltaTime * moveSpeed);
