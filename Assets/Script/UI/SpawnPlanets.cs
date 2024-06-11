@@ -23,10 +23,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         _camera = Camera.main;
         FarFromPlayer = _camera.orthographicSize;
-
-
-
-
     }
 
 
