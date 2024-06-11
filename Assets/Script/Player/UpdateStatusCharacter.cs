@@ -1,21 +1,26 @@
 ﻿using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class UpdateStatusCharacter : MonoBehaviour
 {
     public Character owner;
     int currentMass;
-    CharacterInfo characterInfo;
     [SerializeField] private GameObject Minimap;
     private SpriteRenderer spriteRenderer;
     int requiredMass;
     int currentGenerateType;
+    [SerializeField] TextMeshProUGUI NameTxt;
 
     private void Start()
     {
         OnInit();
         if (Minimap != null)
             spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
+        if (NameTxt != null)
+        {
+            NameTxt.text = owner.characterType.ToString();
+        }
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
         currentGenerateType = (int)owner.generalityType;
 
@@ -64,6 +69,10 @@ public class UpdateStatusCharacter : MonoBehaviour
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
                         character.tf.DOScale(c.scale, 0f);
                         typeChanged = true;
+                        if (NameTxt != null)
+                        {
+                            NameTxt.text = owner.characterType.ToString();
+                        }
                         break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
                     }
                 }
@@ -78,6 +87,10 @@ public class UpdateStatusCharacter : MonoBehaviour
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
                         character.tf.DOScale(c.scale, 0f);
                         typeChanged = true;
+                        if (NameTxt != null)
+                        {
+                            NameTxt.text = owner.characterType.ToString();
+                        }
                         break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
                     }
                 }

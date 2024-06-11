@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1594576687291401600}
   - component: {fileID: -2857872105247734639}
   - component: {fileID: -6085531826480461634}
+  - component: {fileID: 5814595822762377142}
   m_Layer: 0
   m_Name: SmallStar
   m_TagString: Planet
@@ -190,6 +191,7 @@ MonoBehaviour:
   MaxOrbit: 0
   Kill: 0
   EvolutionDone: 0
+  myFamily: {fileID: 0}
 --- !u!120 &-2857872105247734639
 LineRenderer:
   serializedVersion: 2
@@ -313,6 +315,21 @@ MonoBehaviour:
   ShieldPlanet: 0
   MaxShield: 100
   TakeDamage: 0
+--- !u!114 &5814595822762377142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649527303139333485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705923926f344d0469ad7139f03aedfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 1594576687291401600}
+  Minimap: {fileID: 0}
+  NameTxt: {fileID: 3775140468495759205}
 --- !u!1 &1754937082534991277
 GameObject:
   m_ObjectHideFlags: 0

@@ -156,6 +156,7 @@ MonoBehaviour:
   MaxOrbit: 0
   Kill: 0
   EvolutionDone: 0
+  myFamily: {fileID: 0}
 --- !u!120 &-2952602380615160880
 LineRenderer:
   serializedVersion: 2
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 8694100981238886532}
   Minimap: {fileID: 0}
+  NameTxt: {fileID: 2836307772645954196}
 --- !u!114 &8531791091034586340
 MonoBehaviour:
   m_ObjectHideFlags: 0
