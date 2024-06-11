@@ -14,6 +14,7 @@ public class Laser : MonoBehaviour
     private void Start()
     {
         lineRenderer.positionCount = 2;
+        AudioManager.instance.PlaySFX("Laser");
     }
 
     private void Update()

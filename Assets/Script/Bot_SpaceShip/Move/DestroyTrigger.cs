@@ -20,6 +20,7 @@ public class DestroyTrigger : MonoBehaviour
                     if (target.hostAlien != bullet.characterOwner && bullet.characterOwner != null)
                         bullet.characterOwner.Kill++;
 
+                    AudioManager.instance.PlaySFX("Alien-Destroy");
                     Destroy(target.gameObject);
                 }
             }
@@ -32,6 +33,7 @@ public class DestroyTrigger : MonoBehaviour
                     if (target.hostAlien != missile.characterOwner && missile.characterOwner != null)
                         missile.characterOwner.Kill++;
 
+                    AudioManager.instance.PlaySFX("Alien-Destroy");
                     Destroy(target.gameObject);
                 }
             }

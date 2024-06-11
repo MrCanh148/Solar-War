@@ -25,7 +25,11 @@ public class DiePlanet : MonoBehaviour
         if (character != null)
         {
             if (!isInvincible)
+            {
+                AudioManager.instance.PlaySFX("Alien-Destroy");
                 Destroy(parentRandomMovement.gameObject);
+            }
+                
         }
     }
 }

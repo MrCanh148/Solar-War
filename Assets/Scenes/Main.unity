@@ -8545,10 +8545,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8673,8 +8673,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15499,7 +15499,23 @@ MonoBehaviour:
   musicSound:
   - name: BackGround
     clip: {fileID: 8300000, guid: 9c5ed1e452f6aa04596c88ca78b3a757, type: 3}
-  sfxSound: []
+  sfxSound:
+  - name: Boom
+    clip: {fileID: 8300000, guid: b32332e2afd145b4c9dcda2bde53186e, type: 3}
+  - name: Pistol
+    clip: {fileID: 8300000, guid: 6488170118a832f44abe32cc6ffa4013, type: 3}
+  - name: Laser
+    clip: {fileID: 8300000, guid: 8efe397ce9d72294fafda64b0f23a16b, type: 3}
+  - name: Destroy
+    clip: {fileID: 8300000, guid: d8c2b0ed3119f8f448e6830d3f922257, type: 3}
+  - name: Missile
+    clip: {fileID: 8300000, guid: edfd11068232a4549a989c157bc7e46c, type: 3}
+  - name: bb1
+    clip: {fileID: 8300000, guid: 8f13b6f538775374eb9ee24a99779414, type: 3}
+  - name: bb3
+    clip: {fileID: 8300000, guid: 687fd5b40f8c80b41977f345b02a943c, type: 3}
+  - name: Robot
+    clip: {fileID: 8300000, guid: db7d58db88fb8604d82e0fec3d3d8acb, type: 3}
   musicSource: {fileID: 545790405}
   sfxSource: {fileID: 556042528}
 --- !u!4 &849407887

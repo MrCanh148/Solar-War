@@ -1,3 +1,4 @@
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -7,8 +8,7 @@ public class Slider_MusicSFX : MonoBehaviour
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
-    public Button musicBt, SfXBt;
-    public GameObject[] ban;
+    [SerializeField] private TextMeshProUGUI Music, SFX;
     private float volume, vol;
 
     private void Start()
@@ -20,51 +20,46 @@ public class Slider_MusicSFX : MonoBehaviour
             SetMusicVolume();
             SetSfxVolume();
         }
-
-        musicBt.onClick.AddListener(MusicBtFeature);
-        SfXBt.onClick.AddListener(SfXBtFeature);
     }
 
     private void Update()
     {
-        if (musicSlider.value < 0.01)
-            ban[0].SetActive(true);
+        if (musicSlider.value == 0)
+            Music.text = "music [off]";
         else
-            ban[0].gameObject.SetActive(false);
+            Music.text = "music [on]";
 
-        if (sfxSlider.value < 0.01)
-            ban[1].SetActive(true);
+        if (sfxSlider.value == 0)
+            SFX.text = "sfx [off]";
         else
-            ban[1].SetActive(false);
-    }
-
-    public void MusicBtFeature()
-    {
-        if (ban[0].activeSelf)
-            musicSlider.value = 0.5f;
-        else
-            musicSlider.value = 0.01f;
-    }
-
-    public void SfXBtFeature()
-    {
-        if (ban[1].activeSelf)
-            sfxSlider.value = 0.5f;
-        else
-            sfxSlider.value = 0.01f;
+            SFX.text = "sfx [on]";
     }
 
     public void SetMusicVolume()
     {
         volume = musicSlider.value;
-        myMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+        if (volume == 0)
+        {
+            myMixer.SetFloat("Music", -80);
+        }
+        else
+        {
+            myMixer.SetFloat("Music", Mathf.Log10(volume) * 20); 
+        }
         PlayerPrefs.SetFloat("musicVolume", volume);
     }
 
     public void SetSfxVolume()
     {
         vol = sfxSlider.value;
-        myMixer.SetFloat("Sfx", Mathf.Log10(vol) * 20);
+        if (vol == 0)
+        {
+            myMixer.SetFloat("Sfx", -80); 
+        }
+        else
+        {
+            myMixer.SetFloat("Sfx", Mathf.Log10(vol) * 20); 
+        }
         PlayerPrefs.SetFloat("sfxVolume", vol);
     }
 

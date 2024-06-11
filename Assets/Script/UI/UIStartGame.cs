@@ -16,6 +16,7 @@ public class UIStartGame : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.instance.PlayMusic("BackGround");
         player.canWASD = false;
         DisAbleAllUI();
         UIStart.SetActive(true);
@@ -30,20 +31,14 @@ public class UIStartGame : MonoBehaviour
         {
             StartExplore = true;
             DisAbleAllUI();
-        }
-         
+        }      
 
         if (StartExplore)
-        {
-            
             StartCoroutine(ChaChaBoomBoom());
-        }
-  
     } 
 
     private void LogicAfterClickBt()
     {
-      
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
     }
@@ -64,13 +59,15 @@ public class UIStartGame : MonoBehaviour
     }
 
     private IEnumerator ChaChaBoomBoom()
-    {
+    {  
         StartExplore = false;
         AllInOne.SetActive(true);
+        AudioManager.instance.PlaySFX("bb1");
         yield return new WaitForSeconds(2f);
         spriteRenderer.enabled = false;
         Hole.SetActive(true);
         yield return new WaitForSeconds(3f);
+        AudioManager.instance.PlaySFX("bb2");
         AllInOne.SetActive(false);
         player.characterType = CharacterType.NeutronStar;
         OneInAll.SetActive(true);

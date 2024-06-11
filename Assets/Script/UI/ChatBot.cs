@@ -42,6 +42,7 @@ public class ChatBot : MonoBehaviour
 
     private IEnumerator DisplayTextOverTime(string fullText)
     {
+        AudioManager.instance.PlaySFX("Robot");
         isDisplayingText = true;
         ChatText.text = "";
         foreach (char c in fullText)

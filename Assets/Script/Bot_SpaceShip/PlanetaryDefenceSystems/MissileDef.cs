@@ -11,6 +11,11 @@ public class MissileDef : MonoBehaviour
     public int damage;
     public PlanetaryDefenceSystems source;
 
+    private void Start()
+    {
+        AudioManager.instance.PlaySFX("Missile");
+    }
+
     private void Update()
     {
         timeAppear += Time.deltaTime;
@@ -59,9 +64,11 @@ public class MissileDef : MonoBehaviour
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)
                 {
+                    AudioManager.instance.PlaySFX("Alien-Destroy");
                     Destroy(shootTarget.gameObject);
                     characterOwner.Kill++;
                 }
+     
                 this.gameObject.SetActive(false);
                 source.missiles.Add(this);
             }

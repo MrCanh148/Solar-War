@@ -149,6 +149,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             missiles[0].characterOwner = this.owner;
             missiles[0].transform.position = firePoint.transform.position;
             missiles.Remove(missiles[0]);
+            AudioManager.instance.PlaySFX("Laser");
         }
     }
 
