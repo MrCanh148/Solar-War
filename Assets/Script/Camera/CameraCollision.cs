@@ -5,7 +5,6 @@ public class CameraCollision : MonoBehaviour
 {
     public Camera _camera;
     [SerializeField] List<CameraWall> cameraWalls;
-    SpawnPlanets spawnPlanets;
 
     private void Start()
     {
@@ -15,17 +14,17 @@ public class CameraCollision : MonoBehaviour
         float boxX = boxY * (float)_camera.pixelWidth / _camera.pixelHeight;
         if (cameraWalls.Count >= 4)
         {
-            cameraWalls[0].transform.position = new Vector2(_camera.transform.position.x, _camera.transform.position.y + boxY * 2);
-            cameraWalls[0].transform.localScale = new Vector2(boxX * 4f, 0.1f);   // Top
+            cameraWalls[0].transform.position = new Vector2(_camera.transform.position.x, _camera.transform.position.y + boxY);
+            cameraWalls[0].transform.localScale = new Vector2(boxX * 2, 0.1f);   // Top
 
-            cameraWalls[1].transform.position = new Vector2(_camera.transform.position.x, _camera.transform.position.y - boxY * 2);
-            cameraWalls[1].transform.localScale = new Vector2(boxX * 4f, 0.1f);   // Bot
+            cameraWalls[1].transform.position = new Vector2(_camera.transform.position.x, _camera.transform.position.y - boxY);
+            cameraWalls[1].transform.localScale = new Vector2(boxX * 2, 0.1f);   // Bot
 
-            cameraWalls[2].transform.position = new Vector2(_camera.transform.position.x + boxX * 2, _camera.transform.position.y);
-            cameraWalls[2].transform.localScale = new Vector2(0.1f, boxY * 4f);   // Left
+            cameraWalls[2].transform.position = new Vector2(_camera.transform.position.x + boxX, _camera.transform.position.y);
+            cameraWalls[2].transform.localScale = new Vector2(0.1f, boxY * 2);   // Left
 
-            cameraWalls[3].transform.position = new Vector2(_camera.transform.position.x - boxX * 2, _camera.transform.position.y);
-            cameraWalls[3].transform.localScale = new Vector2(0.1f, boxY * 4f);   // Right
+            cameraWalls[3].transform.position = new Vector2(_camera.transform.position.x - boxX, _camera.transform.position.y);
+            cameraWalls[3].transform.localScale = new Vector2(0.1f, boxY * 2);   // Right
         }
     }
 

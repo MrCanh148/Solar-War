@@ -9,6 +9,8 @@ public enum GameState
 public class GameManager : FastSingleton<GameManager>
 {
     public Status status;
+    public AmountPlanet AmountPlanet;
+
     public GameState gameCurrentState;
 
     public void ChangeState(GameState gameState)

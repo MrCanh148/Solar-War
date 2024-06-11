@@ -13,5 +13,13 @@ public class CameraWall : MonoBehaviour
                 SpawnPlanets.instance.ActiveCharacter(character);
             }
         }
+
+        AsteroidGroup asteroidGroup = collision.GetComponent<AsteroidGroup>();
+        if (asteroidGroup != null)
+        {
+            asteroidGroup.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+            asteroidGroup.OnInit();
+
+        }
     }
 }
