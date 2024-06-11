@@ -13,11 +13,13 @@ public class BulletTurret : MonoBehaviour
     private void Start()
     {
         OnInit();
+
     }
 
     public void OnInit()
     {
         timeAttack = 0;
+        AudioManager.instance.PlaySFX("Pistol");
     }
 
     private void FixedUpdate()
@@ -71,6 +73,7 @@ public class BulletTurret : MonoBehaviour
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)
                 {
+                    AudioManager.instance.PlaySFX("Alien-Destroy");
                     Destroy(shootTarget.gameObject);
                     owner.Kill++;
                 }

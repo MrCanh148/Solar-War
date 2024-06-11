@@ -10,9 +10,10 @@ public class ShowUI : FastSingleton<ShowUI>
     [SerializeField] private Character player;
     [SerializeField] private Player player1;
 
-    [Header("Bt0: Continue / Bt1: Tutor / Bt2: Exit")]
+    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit")]
     [SerializeField] private Button[] bts;
-    [SerializeField] private GameObject PauseUI, TutorUI;
+    [SerializeField] private GameObject PauseUI;
+    [SerializeField] private GameObject[] UI; // 0: Title - 1: Option - 2: Tutor
     [SerializeField] GameObject SettingUI;
 
     [SerializeField] TextMeshProUGUI NameTxt;
@@ -25,9 +26,10 @@ public class ShowUI : FastSingleton<ShowUI>
     private void Start()
     {
         bts[0].onClick.AddListener(PauseGame);
-        bts[1].onClick.AddListener(TutorBtFeature);
-        bts[2].onClick.AddListener(() => Application.Quit());
-        bts[3].onClick.AddListener(BackBtFeature);
+        bts[1].onClick.AddListener(OptionBtFeature);
+        bts[2].onClick.AddListener(TutorBtFeature);
+        bts[3].onClick.AddListener(() => Application.Quit());
+        bts[4].onClick.AddListener(BackBtFeature);
         currentMass = (int)player.rb.mass;
         UpdateInfo();
     }
@@ -44,20 +46,30 @@ public class ShowUI : FastSingleton<ShowUI>
     {
         isPaused = !isPaused;
         PauseUI.SetActive(isPaused);
+        OffAllUI();
+        UI[0].SetActive(true);
         Time.timeScale = isPaused ? 0 : 1;
+    }
+
+    public void OptionBtFeature()
+    {
+        OffAllUI();
+        UI[1].SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void TutorBtFeature()
     {
-        TutorUI.SetActive(true);
-        PauseUI.SetActive(false);
+        OffAllUI();
+        UI[2].SetActive(true);
         Time.timeScale = 0;
     }
 
     public void BackBtFeature()
     {
         Time.timeScale = 1f;
-        TutorUI.SetActive(false);
+        OffAllUI();
+        PauseUI.SetActive(false);
     }
 
     public void SetNameTxt(string CharacterType)
@@ -114,5 +126,11 @@ public class ShowUI : FastSingleton<ShowUI>
             GameManager.instance.ChangeState(GameState.Menu);
         }
 
+    }
+
+    public void OffAllUI()
+    {
+        foreach (GameObject go in UI)
+            go.SetActive(false);
     }
 }

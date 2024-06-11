@@ -8,6 +8,11 @@ public class Bullet : MonoBehaviour
     public int damage;
     [HideInInspector] public Character characterOwner;
 
+    private void Start()
+    {
+        AudioManager.instance.PlaySFX("Pistol");
+    }
+
     private void Update()
     {
         timeAppear += Time.deltaTime;

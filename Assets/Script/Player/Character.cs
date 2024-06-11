@@ -89,6 +89,7 @@ public class Character : MonoBehaviour
 
             myFamily = host.myFamily;
         }
+
     }
 
     protected virtual void FixedUpdate()
@@ -174,6 +175,7 @@ public class Character : MonoBehaviour
 
     public void HandleCollision2(Character character)
     {
+        AudioManager.instance.PlaySFX("Hit");
         float gravitational = (mainVelocity - character.mainVelocity).magnitude;
         //Debug.Log("gravitational = " + gravitational);
         if (generalityType == GeneralityType.Asteroid && character.generalityType == GeneralityType.Asteroid)

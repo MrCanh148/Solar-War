@@ -52,7 +52,7 @@ public class ShootTarget : MonoBehaviour
 
             case BotAirSpace.AirSpaceType.MissileBoat:
                 if (Time.time >= nextFireTime)
-                {
+                {             
                     Shoot(2, missileFireInterval);
                 }
                 break;

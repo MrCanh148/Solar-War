@@ -70,6 +70,7 @@ public class Player : Character
                 Character character = GetCharacteHaveSatellite();
                 if (character != null)
                 {
+                    AudioManager.instance.PlaySFX("Eat");
                     AbsorbCharacter(this, character);
                 }
 

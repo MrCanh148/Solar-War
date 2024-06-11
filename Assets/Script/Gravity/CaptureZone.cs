@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+
 public class CaptureZone : MonoBehaviour
 {
     public Character owner;
@@ -56,9 +57,9 @@ public class CaptureZone : MonoBehaviour
         }
         if (timer > GameManager.instance.status.timeToCapture)
         {
-            if (ortherCharacter != null && ortherCharacter.host == null && (owner.generalityType == ortherCharacter.generalityType + 1))
+            AudioManager.instance.PlaySFX("Orbit");
+            if (ortherCharacter != null && ortherCharacter.host == null)
             {
-                owner.ResetRadiusSatellite(owner);
                 BecomeSatellite(ortherCharacter);
                 owner.satellites.Add(ortherCharacter);
                 timer = 0f;
@@ -87,7 +88,6 @@ public class CaptureZone : MonoBehaviour
         character.tf.SetParent(owner.tf);
         character.host = owner;
         SetSatellite(character);
-
     }
 
     public void SetSatellite(Character character)
@@ -98,7 +98,6 @@ public class CaptureZone : MonoBehaviour
         DOTween.To(() => character.radius, x => character.radius = x, SetRadius(character), 0.3f).Play();
         character.spinSpeed = RamdomSpinSpeed(Random.Range(0.5f, 1.5f));
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
-        //character.ResetRadiusSatellite(owner);
     }
 
     public float SetRadius(Character character)

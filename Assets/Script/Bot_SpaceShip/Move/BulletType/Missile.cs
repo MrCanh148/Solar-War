@@ -11,6 +11,11 @@ public class Missile : MonoBehaviour
     [HideInInspector] public Character characterOwner;
     public int damage;
 
+    private void Start()
+    {
+        AudioManager.instance.PlaySFX("Missile");
+    }
+
     private void Update()
     {
         timeAppear += Time.deltaTime;
