@@ -22,7 +22,6 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-
     void FixedUpdate()
     {
         if (plant.canControl)
