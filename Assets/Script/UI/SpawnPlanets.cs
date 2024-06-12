@@ -18,6 +18,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public int quantityPlanet = 0;
     public Camera _camera;
     float FarFromPlayer;
+    public List<Character> lstCharacter;
 
     private void Start()
     {
@@ -28,23 +29,93 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void OnInit()
     {
-        for (int i = 1; i <= quantityAsteroid; i++)
-        {
-            if (CharacterInfos[(int)CharacterType.Asteroid].characterPrefab != null)
-            {
-                Character character = Instantiate(CharacterInfos[(int)CharacterType.Asteroid].characterPrefab, tfCharacterManager);
-                character.tf.localPosition = SpawnerCharacter();
-                character.name = CharacterType.Asteroid.ToString() + i;
-                ActiveCharacter(character);
-                //activeCharacterList.Add(character);
-            }
-        }
-
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountAsteroidGroup; i++)
         {
             AsteroidGroup asteroidGroup = Instantiate(asteroidGroupPrefab, tfCharacterManager);
             asteroidGroup.transform.localPosition = SpawnerCharacter();
         }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountSmallPlanet; i++)  //smallplanet
+        {
+            if (CharacterInfos[(int)CharacterType.SmallPlanet].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.SmallPlanet].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountLifePlanet; i++)  //lifeplanet
+        {
+            if (CharacterInfos[(int)CharacterType.LifePlanet].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.LifePlanet].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountGasGiantPlanet; i++) // gasgiantplanet
+        {
+            if (CharacterInfos[(int)CharacterType.GasGiantPlanet].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.GasGiantPlanet].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountSmallStar; i++) //smallstar
+        {
+            if (CharacterInfos[(int)CharacterType.SmallStar].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.SmallStar].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountMediumStar; i++)   //mediumstar
+        {
+            if (CharacterInfos[(int)CharacterType.MediumStar].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.MediumStar].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountBigStar; i++)  //bigstar
+        {
+            if (CharacterInfos[(int)CharacterType.BigStar].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.BigStar].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountNeutronStar; i++)  //neutronstar
+        {
+            if (CharacterInfos[(int)CharacterType.NeutronStar].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.NeutronStar].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountBlackHole; i++) //blackhole
+        {
+            if (CharacterInfos[(int)CharacterType.BlackHole].characterPrefab != null)
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.BlackHole].characterPrefab, tfCharacterManager);
+                DeActiveCharacter(character);
+                lstCharacter.Add(character);
+            }
+        }
+
+        UpgradePlayerGenerality(player1);
     }
 
     private void Update()
@@ -181,7 +252,172 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         if (character.isPlayer)
         {
+            Debug.Log(character.characterType);
+            if (character.characterType == CharacterType.Asteroid)        //asteroid
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+                        if (c.characterType > CharacterType.SmallPlanet)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.SmallPlanet)  //small planet
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
 
+                        if (c.characterType > CharacterType.SmallStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.LifePlanet)  //life planet
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+
+                        if (c.characterType > CharacterType.BigStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.GasGiantPlanet)  //gas giant planet
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+
+                        if (c.characterType > CharacterType.NeutronStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.SmallStar)  //small star
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+
+                        if (c.characterType > CharacterType.NeutronStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.MediumStar)  //medium star
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+
+                        if (c.characterType > CharacterType.NeutronStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.BigStar)  //big star
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+
+                        if (c.characterType > CharacterType.NeutronStar)
+                        {
+                            DeActiveCharacter(c);
+                        }
+                        else
+                        {
+                            ActiveCharacter(c);
+                        }
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.NeutronStar)
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+                        ActiveCharacter(c);
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.BlackHole)
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+                        ActiveCharacter(c);
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.BigCrunch)
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+                        ActiveCharacter(c);
+                    }
+                }
+            }
+            else if (character.characterType == CharacterType.BigCrunch)
+            {
+                foreach (Character c in lstCharacter)
+                {
+                    if (!c.gameObject.activeSelf)
+                    {
+                        ActiveCharacter(c);
+                    }
+                }
+            }
         }
     }
 }

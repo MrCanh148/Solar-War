@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5b47cbaf73fd64b87fc14ace42257b, type: 3}
   m_Name: AmountPlanet
   m_EditorClassIdentifier: 
-  amountAsteroidGroup: 4
-  amountPlanet: 5
-  amountStar: 5
+  amountAsteroidGroup: 3
+  amountSmallPlanet: 5
+  amountLifePlanet: 5
+  amountGasGiantPlanet: 5
+  amountSmallStar: 5
+  amountMediumStar: 5
+  amountBigStar: 5
+  amountNeutronStar: 5
   amountBlackHole: 2
+  amountBigCrunch: 0
+  amountBigBang: 0

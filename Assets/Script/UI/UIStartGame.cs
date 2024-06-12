@@ -31,11 +31,11 @@ public class UIStartGame : MonoBehaviour
         {
             StartExplore = true;
             DisAbleAllUI();
-        }      
+        }
 
         if (StartExplore)
             StartCoroutine(ChaChaBoomBoom());
-    } 
+    }
 
     private void LogicAfterClickBt()
     {
@@ -43,7 +43,7 @@ public class UIStartGame : MonoBehaviour
         StartCoroutine(RunAnimator());
     }
 
-    private void DisAbleAllUI ()
+    private void DisAbleAllUI()
     {
         foreach (GameObject go in AllUI)
         {
@@ -59,7 +59,7 @@ public class UIStartGame : MonoBehaviour
     }
 
     private IEnumerator ChaChaBoomBoom()
-    {  
+    {
         StartExplore = false;
         AllInOne.SetActive(true);
         AudioManager.instance.PlaySFX("bb1");
@@ -80,5 +80,7 @@ public class UIStartGame : MonoBehaviour
         player.canWASD = true;
         AllUI[3].SetActive(true);
         OneInAll.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        SpawnPlanets.instance.OnInit();
     }
 }

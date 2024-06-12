@@ -19,7 +19,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
         if (NameTxt != null)
         {
-            NameTxt.text = owner.characterType.ToString();
+            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
         }
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
         currentGenerateType = (int)owner.generalityType;
@@ -71,8 +71,9 @@ public class UpdateStatusCharacter : MonoBehaviour
                         typeChanged = true;
                         if (NameTxt != null)
                         {
-                            NameTxt.text = owner.characterType.ToString();
+                            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
+                        SpawnPlanets.instance.UpgradePlayerGenerality(character);
                         break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
                     }
                 }
@@ -89,8 +90,9 @@ public class UpdateStatusCharacter : MonoBehaviour
                         typeChanged = true;
                         if (NameTxt != null)
                         {
-                            NameTxt.text = owner.characterType.ToString();
+                            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
+                        SpawnPlanets.instance.UpgradePlayerGenerality(character);
                         break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
                     }
                 }
