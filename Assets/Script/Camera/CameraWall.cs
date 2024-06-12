@@ -17,7 +17,7 @@ public class CameraWall : MonoBehaviour
         AsteroidGroup asteroidGroup = collision.GetComponent<AsteroidGroup>();
         if (asteroidGroup != null)
         {
-            asteroidGroup.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+            asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
             asteroidGroup.OnInit();
 
         }

@@ -17,18 +17,21 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public int quantityAsteroid = 20;
     public int quantityPlanet = 0;
     public Camera _camera;
-    float FarFromPlayer;
+    float FarFromPlayerY;
+    float FarFromPlayerX;
     public List<Character> lstCharacter;
 
     private void Start()
     {
         _camera = Camera.main;
-        FarFromPlayer = _camera.orthographicSize;
+        FarFromPlayerY = _camera.orthographicSize;
+        FarFromPlayerX = FarFromPlayerY * (float)_camera.pixelWidth / _camera.pixelHeight;
     }
 
 
     public void OnInit()
     {
+
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountAsteroidGroup; i++)
         {
             AsteroidGroup asteroidGroup = Instantiate(asteroidGroupPrefab, tfCharacterManager);
@@ -171,11 +174,17 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public Vector3 SpawnerCharacter()
     {
-        float xPos = Random.Range(FarFromPlayer, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayer);
-        float yPos = Random.Range(FarFromPlayer, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayer);
+        float xPos = Random.Range(FarFromPlayerX * 1.5f, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayerX);
+        float yPos = Random.Range(FarFromPlayerY * 1.5f, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayerY);
         xPos = RamdomValue(xPos);
         yPos = RamdomValue(yPos);
         return new Vector2(player1.tf.position.x + xPos, player1.tf.position.y + yPos);
+    }
+
+    public Vector3 ReSpawnerAsterrooidGroup()
+    {
+        float random = Random.Range(FarFromPlayerY * 1.5f, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayerY);
+        return player1.tf.position + ((Vector3)player1.mainVelocity.normalized * random);
     }
 
     public float RamdomValue(float n)
