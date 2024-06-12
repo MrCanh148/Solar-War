@@ -17,12 +17,12 @@ public class ShootTarget : MonoBehaviour
     private float nextFireTime = 0f;
      public Character hostAlien;
     private List<GameObject> ignoredTargets = new List<GameObject>();
-    private RandomMovement botAirSpace;
+    private RandomMovement moveRandom;
     private SpriteRenderer SpriteRenderer;
 
     private void Start()
     {
-        botAirSpace = GetComponent<RandomMovement>();
+        moveRandom = GetComponent<RandomMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -34,23 +34,23 @@ public class ShootTarget : MonoBehaviour
 
     private void Update()
     {
-        switch (botAirSpace.type)
+        switch (moveRandom.type)
         {
-            case BotAirSpace.AirSpaceType.Fighter:
+            case RandomMovement.AirSpaceType.Fighter:
                 if (Time.time >= nextFireTime)
                 {
                     Shoot(0, bulletFireInterval);
                 }
                 break;
 
-            case BotAirSpace.AirSpaceType.Cruiser:
+            case RandomMovement.AirSpaceType.Cruiser:
                 if (Time.time >= nextFireTime)
                 {
                     Shoot(1, laserFireInterval);
                 }
                 break;
 
-            case BotAirSpace.AirSpaceType.MissileBoat:
+            case RandomMovement.AirSpaceType.MissileBoat:
                 if (Time.time >= nextFireTime)
                 {             
                     Shoot(2, missileFireInterval);
