@@ -10,7 +10,7 @@ public class CameraWall : MonoBehaviour
             if (!character.isPlayer)
             {
                 SpawnPlanets.instance.DeActiveCharacter(character);
-                SpawnPlanets.instance.ActiveCharacter(character);
+                //SpawnPlanets.instance.ActiveCharacter(character);
             }
         }
 
