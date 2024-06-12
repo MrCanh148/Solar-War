@@ -19234,14 +19234,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3325762445165478924}
     m_Modifications:
+    - target: {fileID: 795342981446122280, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 795342981446122280, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 795342981446122280, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 795342981446122280, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082503789254910905, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082503789254910905, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082503789254910905, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082503789254910905, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1845149090293012802, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: m_Radius
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2226648679263893555, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: GunMiniCam
       value: 
       objectReference: {fileID: 461700152}
+    - target: {fileID: 2328369106433709302, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2870826557558059462, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: owner
       value: 
@@ -19306,10 +19342,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3687504271402541126, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687504271402541126, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687504271402541126, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687504271402541126, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4740499613475561304, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4852197411035066466, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: GunMiniCam
       value: 
       objectReference: {fileID: 996925752}
+    - target: {fileID: 5027653276609923017, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6006100810983236157, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: m_Name
       value: PlanetaryDefenceSystems
@@ -19317,6 +19377,22 @@ PrefabInstance:
     - target: {fileID: 6006100810983236157, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970376709962885143, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970376709962885143, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970376709962885143, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970376709962885143, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8143550970749017084, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: laserOrigin
@@ -19330,6 +19406,10 @@ PrefabInstance:
       propertyPath: GunMiniCam
       value: 
       objectReference: {fileID: 682873872}
+    - target: {fileID: 9070484561706933415, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9187063107689788317, guid: a838e968f5abb914bb85b2bd0ee22cb1, type: 3}
       propertyPath: GunMiniCam
       value: 

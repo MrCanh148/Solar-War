@@ -36,4 +36,14 @@ public class AttackTarget : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
+
+    public void AvoidObstacle()
+    {
+        currentDirection = Quaternion.Euler(0, 0, 60) * currentDirection;
+        rb.velocity = currentDirection * moveSpeed;
+
+        float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
 }
