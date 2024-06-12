@@ -61,12 +61,20 @@ public class Character : MonoBehaviour
     {
         OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        myFamily = this;
+
+    }
+
+    private void OnEnable()
+    {
+        OnInit();
     }
 
     protected virtual void OnInit()
     {
-        //lineRenderer.enabled = false;
+        AllWhenDie();
+        myFamily = this;
+        isCapture = false;
+        host = null;
     }
 
     private void Update()
@@ -80,6 +88,10 @@ public class Character : MonoBehaviour
             // Cập nhật vị trí của đối tượng
             tf.position = host.tf.position + new Vector3(x, y, 0f);
             angle += spinSpeed * Time.deltaTime;
+        }
+        else
+        {
+            lineRenderer.enabled = false;
         }
 
         if (host != null && tf != null && lineRenderer.enabled == true)
@@ -265,8 +277,8 @@ public class Character : MonoBehaviour
     public void MergeCharacter(Character c1, Character c2)
     {
         c1.rb.mass += c2.rb.mass;
-        c2.gameObject.SetActive(false);
-        SpawnPlanets.instance.ActiveCharacter(c2);
+        //c2.gameObject.SetActive(false);
+        SpawnPlanets.instance.DeActiveCharacter(c2);
     }
 
     protected virtual void ResetExternalVelocity()
@@ -384,18 +396,18 @@ public class Character : MonoBehaviour
             {
                 t.host = null;
                 t.isCapture = false;
-                t.lineRenderer.enabled = false;
-                t.tf.SetParent(null);
+                t.tf.SetParent(SpawnPlanets.instance.transform);
+                t.myFamily = t;
             }
 
         }
         if (host != null)
         {
             host.satellites.Remove(this);
-            tf.SetParent(null);
+            tf.SetParent(SpawnPlanets.instance.transform);
             host = null;
             isCapture = false;
-            lineRenderer.enabled = false;
+
         }
 
         satellites.Clear();

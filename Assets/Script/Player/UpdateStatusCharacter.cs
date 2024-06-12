@@ -67,7 +67,8 @@ public class UpdateStatusCharacter : MonoBehaviour
                         character.spriteRenderer.sprite = c.sprite;
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
-                        character.tf.DOScale(c.scale, 0f);
+                        //character.tf.DOScale(c.scale, 0f);
+                        character.tf.localScale = c.scale;
                         typeChanged = true;
                         if (NameTxt != null)
                         {
@@ -86,7 +87,8 @@ public class UpdateStatusCharacter : MonoBehaviour
                         character.spriteRenderer.sprite = c.sprite;
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
-                        character.tf.DOScale(c.scale, 0f);
+                        //character.tf.DOScale(c.scale, 0f);
+                        character.tf.localScale = c.scale;
                         typeChanged = true;
                         if (NameTxt != null)
                         {

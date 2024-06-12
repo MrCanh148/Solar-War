@@ -58,7 +58,7 @@ public class CaptureZone : MonoBehaviour
         if (timer > GameManager.instance.status.timeToCapture)
         {
             AudioManager.instance.PlaySFX("Orbit");
-            if (ortherCharacter != null && ortherCharacter.host == null && !owner.isPlayer)
+            if (ortherCharacter != null && ortherCharacter.host == null && !ortherCharacter.isPlayer)
             {
                 BecomeSatellite(ortherCharacter);
                 owner.satellites.Add(ortherCharacter);
