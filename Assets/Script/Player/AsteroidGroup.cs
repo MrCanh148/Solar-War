@@ -19,7 +19,7 @@ public class AsteroidGroup : MonoBehaviour
     {
         for (int i = 0; i < listAsteroid.Count; i++)
         {
-            if (listAsteroid[i] != null && !listAsteroid[i].isCapture)
+            if (listAsteroid[i] != null && listAsteroid[i].gameObject.activeSelf)
             {
                 SpawnPlanets.instance.ActiveCharacter(listAsteroid[i]);
                 listAsteroid[i].transform.localPosition = AsteroidPosition[i];
