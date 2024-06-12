@@ -16,7 +16,7 @@ public class UIStartGame : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.PlayMusic("BackGround");
+        AudioManager.instance.PlayMusic("Theme1");
         player.canWASD = false;
         DisAbleAllUI();
         UIStart.SetActive(true);

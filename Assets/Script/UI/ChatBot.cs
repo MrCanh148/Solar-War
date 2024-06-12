@@ -10,9 +10,9 @@ public class ChatBot : MonoBehaviour
     [SerializeField] private float TimeShowText = 0.01f;
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
 
-    private int currentIndex = 0; 
+    private int currentIndex = 0;
     private bool isDisplayingText = false;
-    private bool canPressEnter = false;
+    private bool displayFullTextImmediately = false;
 
     private void Start()
     {
@@ -22,9 +22,13 @@ public class ChatBot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (!isDisplayingText)
+            if (isDisplayingText)
+            {
+                displayFullTextImmediately = true;
+            }
+            else
             {
                 if (currentIndex < BotChatText.Length - 1)
                 {
@@ -32,26 +36,38 @@ public class ChatBot : MonoBehaviour
                     StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
                 }
                 else if (currentIndex == BotChatText.Length - 1)
+                {
                     BotUI.SetActive(false);
+                }
             }
         }
 
         if (currentIndex == 2)
+        {
             InGameUI.SetActive(true);
+        }
     }
 
     private IEnumerator DisplayTextOverTime(string fullText)
     {
         AudioManager.instance.PlaySFX("Robot");
         isDisplayingText = true;
+        displayFullTextImmediately = false;
         ChatText.text = "";
+
         foreach (char c in fullText)
         {
+            if (displayFullTextImmediately)
+            {
+                ChatText.text = fullText;
+                break;
+            }
+
             ChatText.text += c;
             yield return new WaitForSeconds(TimeShowText);
         }
+
         isDisplayingText = false;
-        canPressEnter = true;
     }
 
     private IEnumerator GameObjectTextDisPlayer()
@@ -60,7 +76,10 @@ public class ChatBot : MonoBehaviour
         yield return new WaitForSeconds(TimeDelayShowGameObjectText);
         TextDisplay.SetActive(true);
         PressEnterText.SetActive(true);
-        if (BotChatText.Length >= 0)
+
+        if (BotChatText.Length > 0)
+        {
             StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
+        }
     }
 }

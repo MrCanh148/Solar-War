@@ -5,8 +5,8 @@ public class ShootTarget : MonoBehaviour
 {
     [Header("0-Bullet === 1-Laser === 2-Missile")]
     [SerializeField] private GameObject[] bulletPrefab;
+    [SerializeField] private GameObject childObject;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float radius = 5f; // Bán kính vùng phát hiện
     [SerializeField] private float fireAngle = 20f; // Góc phía trước
 
     [SerializeField] private float bulletFireInterval = 0.1f; // Thời gian bắn đạn liên tiếp
@@ -15,7 +15,7 @@ public class ShootTarget : MonoBehaviour
 
     public float heart; // Máu airspace
     private float nextFireTime = 0f;
-     public Character hostAlien;
+    public Character hostAlien;
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement moveRandom;
     private SpriteRenderer SpriteRenderer;
@@ -24,6 +24,11 @@ public class ShootTarget : MonoBehaviour
     {
         moveRandom = GetComponent<RandomMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
+        Collider2D childCollider = childObject.GetComponent<Collider2D>();
+        if (childCollider != null)
+        {
+            childCollider.gameObject.AddComponent<ChildTriggerHandler>().parentHandler = this;
+        }
     }
 
     public void SetIgnoredTargets(List<GameObject> targets, Character HostBase)
@@ -34,30 +39,6 @@ public class ShootTarget : MonoBehaviour
 
     private void Update()
     {
-        switch (moveRandom.type)
-        {
-            case RandomMovement.AirSpaceType.Fighter:
-                if (Time.time >= nextFireTime)
-                {
-                    Shoot(0, bulletFireInterval);
-                }
-                break;
-
-            case RandomMovement.AirSpaceType.Cruiser:
-                if (Time.time >= nextFireTime)
-                {
-                    Shoot(1, laserFireInterval);
-                }
-                break;
-
-            case RandomMovement.AirSpaceType.MissileBoat:
-                if (Time.time >= nextFireTime)
-                {             
-                    Shoot(2, missileFireInterval);
-                }
-                break;
-        }
-
         if (hostAlien == null || !hostAlien.gameObject.activeSelf)
         {
             hostAlien = null;
@@ -69,71 +50,67 @@ public class ShootTarget : MonoBehaviour
             SpriteRenderer.color = Color.red;
     }
 
-    private void Shoot(int bulletIndex, float fireInterval)
+    public void OnChildTriggerEnter(Collider2D other)
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, radius);
-
-        foreach (Collider2D hit in hits)
+        if (Time.time >= nextFireTime)
         {
-            if (ignoredTargets.Contains(hit.gameObject)) continue;
-
-            Character target = hit.gameObject.GetComponent<Character>();
-            ShootTarget characterTarget = hit.gameObject.GetComponent<ShootTarget>();
-            if (hit.gameObject.tag == "AirSpace1" && characterTarget.hostAlien != null && hostAlien != null && characterTarget.hostAlien.myFamily == hostAlien.myFamily) continue;
-
-            if (target != null && (target.generalityType != GeneralityType.BlackHole) || hit.gameObject.tag == "AirSpace1")
-            {                  
-                if (target != null && hostAlien != null && (target.myFamily == hostAlien.myFamily)) continue;
-
-                Vector2 directionToTarget = hit.transform.position - transform.position;
-                float angle = Vector2.Angle(transform.up, directionToTarget);
-
-                if (angle <= fireAngle / 2)
-                {
-                    GameObject a = Instantiate(bulletPrefab[bulletIndex], firePoint.position, firePoint.rotation);
-
-                    // Gắn các thuộc tính cần thiết cho các loại đạn
-                    Bullet bullet = a.GetComponent<Bullet>();
-                    if (bullet != null)
-                        bullet.characterOwner = hostAlien;
-
-                    Missile missile = a.GetComponent<Missile>();
-                    if (missile != null)
-                    {
-                        missile.SetTarget(hit.gameObject);
-                        missile.characterOwner = hostAlien;
-                    }                       
-
-                    Laser laser = a.GetComponent<Laser>();
-                    if (laser != null)
-                    {
-                        laser.SetTarget(hit.gameObject, firePoint);
-                        laser.characterOwner = hostAlien;
-                    }
-
-                    nextFireTime = Time.time + fireInterval;
+            switch (moveRandom.type)
+            {
+                case RandomMovement.AirSpaceType.Fighter:
+                    Shoot(0, bulletFireInterval, other);
                     break;
-                }
+
+                case RandomMovement.AirSpaceType.Cruiser:
+                    Shoot(1, laserFireInterval, other);
+                    break;
+
+                case RandomMovement.AirSpaceType.MissileBoat:
+                    Shoot(2, missileFireInterval, other);
+                    break;
             }
         }
     }
 
-
-    // Vẽ Vùng bắn đạn
-    private void OnDrawGizmosSelected()
+    private void Shoot(int bulletIndex, float fireInterval, Collider2D hit)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        if (ignoredTargets.Contains(hit.gameObject)) return;
 
-        Vector3 forward = transform.up * radius;
-        Quaternion leftRayRotation = Quaternion.AngleAxis(-fireAngle / 2, Vector3.forward);
-        Quaternion rightRayRotation = Quaternion.AngleAxis(fireAngle / 2, Vector3.forward);
+        Character target = hit.gameObject.GetComponent<Character>();
+        ShootTarget characterTarget = hit.gameObject.GetComponent<ShootTarget>();
+        if (hit.gameObject.tag == "AirSpace1" && characterTarget.hostAlien != null && hostAlien != null && characterTarget.hostAlien.myFamily == hostAlien.myFamily) return;
 
-        Vector3 leftRayDirection = leftRayRotation * forward;
-        Vector3 rightRayDirection = rightRayRotation * forward;
+        if (target != null && (target.generalityType != GeneralityType.BlackHole) || hit.gameObject.tag == "AirSpace1")
+        {
+            if (target != null && hostAlien != null && (target.myFamily == hostAlien.myFamily)) return;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, leftRayDirection);
-        Gizmos.DrawRay(transform.position, rightRayDirection);
+            Vector2 directionToTarget = hit.transform.position - transform.position;
+            float angle = Vector2.Angle(transform.up, directionToTarget);
+
+            if (angle <= fireAngle / 2)
+            {
+                GameObject a = Instantiate(bulletPrefab[bulletIndex], firePoint.position, firePoint.rotation);
+
+                // Gắn các thuộc tính cần thiết cho các loại đạn
+                Bullet bullet = a.GetComponent<Bullet>();
+                if (bullet != null)
+                    bullet.characterOwner = hostAlien;
+
+                Missile missile = a.GetComponent<Missile>();
+                if (missile != null)
+                {
+                    missile.SetTarget(hit.gameObject);
+                    missile.characterOwner = hostAlien;
+                }
+
+                Laser laser = a.GetComponent<Laser>();
+                if (laser != null)
+                {
+                    laser.SetTarget(hit.gameObject, firePoint);
+                    laser.characterOwner = hostAlien;
+                }
+
+                nextFireTime = Time.time + fireInterval;
+            }
+        }
     }
 }

@@ -16,7 +16,8 @@ public class AlienController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         ShootTarget target = other.GetComponent<ShootTarget>();
-            
+        Character tg = other.GetComponent<Character>();
+
         if (other.CompareTag("AirSpace1"))
         {
             if (target.hostAlien != null && shootTarget.hostAlien != null && target.hostAlien.myFamily == shootTarget.hostAlien.myFamily)
@@ -27,11 +28,21 @@ public class AlienController : MonoBehaviour
                 SwitchToFollowEnemy();
             }
         }
+
+        if (tg != null && tg.characterType == CharacterType.LifePlanet)
+        {
+            if (shootTarget.hostAlien != null && tg.myFamily == shootTarget.hostAlien.myFamily) return;
+            else
+            {
+                attackScript.SetTarget(other.transform);
+                SwitchToFollowEnemy();
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("AirSpace1"))
+        if (other.CompareTag("AirSpace1") || other.CompareTag("Planet"))
         {
             SwitchToRandomMovement();
         }
