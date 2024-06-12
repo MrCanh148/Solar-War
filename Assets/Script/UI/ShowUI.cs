@@ -13,7 +13,7 @@ public class ShowUI : FastSingleton<ShowUI>
     [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit")]
     [SerializeField] private Button[] bts;
     [SerializeField] private GameObject PauseUI;
-    [SerializeField] private GameObject[] UI; // 0: Title - 1: Option - 2: Tutor
+    [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor
     [SerializeField] GameObject SettingUI;
 
     [SerializeField] TextMeshProUGUI NameTxt;
@@ -46,29 +46,29 @@ public class ShowUI : FastSingleton<ShowUI>
     {
         isPaused = !isPaused;
         PauseUI.SetActive(isPaused);
-        OffAllUI();
-        UI[0].SetActive(true);
+        OffAllBts();
+        UIBts[0].SetActive(true);
         Time.timeScale = isPaused ? 0 : 1;
     }
 
     public void OptionBtFeature()
     {
-        OffAllUI();
-        UI[1].SetActive(true);
+        OffAllBts();
+        UIBts[1].SetActive(true);
         Time.timeScale = 0;
     }
 
     public void TutorBtFeature()
     {
-        OffAllUI();
-        UI[2].SetActive(true);
+        OffAllBts();
+        UIBts[2].SetActive(true);
         Time.timeScale = 0;
     }
 
     public void BackBtFeature()
     {
         Time.timeScale = 1f;
-        OffAllUI();
+        OffAllBts();
         PauseUI.SetActive(false);
     }
 
@@ -128,9 +128,9 @@ public class ShowUI : FastSingleton<ShowUI>
 
     }
 
-    public void OffAllUI()
+    public void OffAllBts()
     {
-        foreach (GameObject go in UI)
+        foreach (GameObject go in UIBts)
             go.SetActive(false);
     }
 }

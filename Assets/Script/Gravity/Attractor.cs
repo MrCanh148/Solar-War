@@ -25,9 +25,9 @@ public class Attractor : MonoBehaviour
             if (attractor.characterType >= target.characterType && target.host == null)
             {
                 int coefficient;
-                if (attractor.generalityType - target.generalityType > 0)
+                if (attractor.characterType - target.characterType > 0)
                 {
-                    coefficient = attractor.generalityType - target.generalityType;
+                    coefficient = attractor.characterType - target.characterType;
                 }
                 else
                 {

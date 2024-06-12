@@ -13,6 +13,7 @@ public class ChatBot : MonoBehaviour
     private int currentIndex = 0;
     private bool isDisplayingText = false;
     private bool displayFullTextImmediately = false;
+    private bool canPressEnter = false;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class ChatBot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
         {
             if (isDisplayingText)
             {
@@ -66,12 +67,13 @@ public class ChatBot : MonoBehaviour
             ChatText.text += c;
             yield return new WaitForSeconds(TimeShowText);
         }
-
+        canPressEnter = true;
         isDisplayingText = false;
     }
 
     private IEnumerator GameObjectTextDisPlayer()
     {
+ 
         TextDisplay.SetActive(false);
         yield return new WaitForSeconds(TimeDelayShowGameObjectText);
         TextDisplay.SetActive(true);

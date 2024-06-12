@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Character target = collision.gameObject.GetComponent<Character>();
         Rigidbody2D rbTarget = collision.gameObject.GetComponent<Rigidbody2D>();
