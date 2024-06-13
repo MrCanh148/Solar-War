@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChatBot : MonoBehaviour
 {
     private BotChatText[] BotChatText;
-    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, InGameUI;
+    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
     [SerializeField] TextMeshProUGUI ChatText;
     [SerializeField] private float TimeShowText = 0.01f;
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
@@ -45,7 +45,7 @@ public class ChatBot : MonoBehaviour
 
         if (currentIndex == 2)
         {
-            InGameUI.SetActive(true);
+            StatePlayerUI.SetActive(true);
         }
     }
 

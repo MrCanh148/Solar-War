@@ -242,6 +242,7 @@ public class Character : MonoBehaviour
                 {
                     if (!character.isPlayer)
                     {
+                        AudioManager.instance.PlaySFX("Planet-destroy");
                         character.gameObject.SetActive(false);
                         character.AllWhenDie();
                         return;
@@ -262,10 +263,10 @@ public class Character : MonoBehaviour
             }
             else
             {
-
                 if (!character.isPlayer)
                 {
                     //SpawnPlanets.instance.ActiveCharacter(character);
+                    AudioManager.instance.PlaySFX("Planet-destroy");
                     character.gameObject.SetActive(false);
                     character.AllWhenDie();
                 }

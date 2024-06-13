@@ -21,12 +21,12 @@ public class LogicUIPlayer : MonoBehaviour
     private Character character;
     private Shield Shield;
     private bool isEvolutionInProgress = false;
-    private Coroutine evolutionCoroutine;
 
     private void Start()
     {
         character = player.GetComponent<Character>();
         Shield = character.GetComponent<Shield>();
+        OffAllUI();
     }
 
     private void Update()
@@ -44,7 +44,7 @@ public class LogicUIPlayer : MonoBehaviour
         if (character.characterType == CharacterType.LifePlanet && !isEvolutionInProgress)
         {
             OffAllUI();
-            evolutionCoroutine = StartCoroutine(EvolveOverTime(TimeEvolutionGO));
+            StartCoroutine(EvolveOverTime(TimeEvolutionGO));
         }
 
         if (character.characterType != CharacterType.LifePlanet)

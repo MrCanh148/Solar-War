@@ -24,16 +24,4 @@ public class GameManager : FastSingleton<GameManager>
         else
             return false;
     }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            ShowUI.instance.ShowSettingUI();
-        }
-
-
-    }
-
 }

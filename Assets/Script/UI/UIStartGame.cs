@@ -9,8 +9,8 @@ public class UIStartGame : MonoBehaviour
     [SerializeField] private Button StartBt;
     [SerializeField] Player player;
     private Animator StartAnimator;
-    private bool StartExplore = false;
     private SpriteRenderer spriteRenderer;
+    private bool chachaboom = false;
 
     const string ENTER_GAME = "Start";
 
@@ -27,18 +27,16 @@ public class UIStartGame : MonoBehaviour
 
     private void Update()
     {
-        if (player.rb.mass >= 1000000)
+        if (player.rb.mass >= 1000000 && !chachaboom)
         {
-            StartExplore = true;
+            StartCoroutine(ChaChaBoomBoom());
             DisAbleAllUI();
         }
-
-        if (StartExplore)
-            StartCoroutine(ChaChaBoomBoom());
     }
 
     private void LogicAfterClickBt()
     {
+        StartBt.interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
     }
@@ -54,13 +52,13 @@ public class UIStartGame : MonoBehaviour
     private IEnumerator RunAnimator()
     {
         yield return new WaitForSeconds(1f);
-        StartExplore = true;
         UIStart.SetActive(false);
+        StartCoroutine(ChaChaBoomBoom());
     }
 
     private IEnumerator ChaChaBoomBoom()
     {
-        StartExplore = false;
+        chachaboom = true;
         AllInOne.SetActive(true);
         AudioManager.instance.PlaySFX("bb1");
         yield return new WaitForSeconds(2f);
@@ -78,9 +76,10 @@ public class UIStartGame : MonoBehaviour
         player.characterType = CharacterType.Asteroid;
         spriteRenderer.enabled = true;
         player.canWASD = true;
-        AllUI[3].SetActive(true);
+        AllUI[0].SetActive(true);
         OneInAll.SetActive(false);
         yield return new WaitForSeconds(1f);
         SpawnPlanets.instance.OnInit();
+        chachaboom = false;
     }
 }

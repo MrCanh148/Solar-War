@@ -1,38 +1,35 @@
 ﻿using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CaptureZone : MonoBehaviour
 {
     public Character owner;
-    public float timer;
-    public bool onZone;
-    Character ortherCharacter;
     public float limitedRadius = 0.5f;
-    private bool CanCaptureZone = true;
-
-
+    private bool canCaptureZone = true;
+    private List<Character> charactersInZone = new List<Character>();
+    private Dictionary<Character, float> characterTimers = new Dictionary<Character, float>();
 
     private void Start()
     {
-        ortherCharacter = null;
-
+        // Ensure the lists are clear at the start
+        charactersInZone.Clear();
+        characterTimers.Clear();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Character character = Cache.GetCharacterCollider(collision);
 
-        if (CanCaptureZone)
+        if (canCaptureZone && character != null && owner != null)
         {
-            if (character != null)
+            if (owner.generalityType == character.generalityType + 1 && character.host == null && !character.isPlayer)
             {
-                ortherCharacter = character;
-            }
-            if (ortherCharacter != null && owner != null && (owner.generalityType == ortherCharacter.generalityType + 1) && ortherCharacter.host == null && !ortherCharacter.isPlayer)
-            {
-                onZone = true;
-                timer = 0f;
-
+                if (!charactersInZone.Contains(character))
+                {
+                    charactersInZone.Add(character);
+                    characterTimers[character] = 0f;
+                }
             }
         }
     }
@@ -40,46 +37,50 @@ public class CaptureZone : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         Character character = Cache.GetCharacterCollider(collision);
-        if (ortherCharacter == character)
-        {
-            onZone = false;
-            ortherCharacter = null;
 
+        if (charactersInZone.Contains(character))
+        {
+            charactersInZone.Remove(character);
+            characterTimers.Remove(character);
         }
     }
 
-
     private void Update()
     {
-        if (onZone)
+        if (charactersInZone.Count > 0)
         {
-            timer += Time.deltaTime;
-        }
-        if (timer > GameManager.instance.status.timeToCapture)
-        {
-            AudioManager.instance.PlaySFX("Orbit");
-            if (ortherCharacter != null && ortherCharacter.host == null && !ortherCharacter.isPlayer)
+            for (int i = charactersInZone.Count - 1; i >= 0; i--)
             {
-                BecomeSatellite(ortherCharacter);
-                owner.satellites.Add(ortherCharacter);
-                timer = 0f;
-                onZone = false;
-                ortherCharacter = null;
+                Character character = charactersInZone[i];
+                characterTimers[character] += Time.deltaTime;
+
+                if (characterTimers[character] > GameManager.instance.status.timeToCapture)
+                {
+                    AudioManager.instance.PlaySFX("Orbit");
+
+                    if (character.host == null && !character.isPlayer)
+                    {
+                        BecomeSatellite(character);
+                        owner.satellites.Add(character);
+                        charactersInZone.RemoveAt(i);
+                        characterTimers.Remove(character);
+                    }
+                }
             }
         }
 
+        UpdateCaptureAbility();
+    }
+
+    private void UpdateCaptureAbility()
+    {
         if (owner.generalityType == GeneralityType.Star)
         {
-            if (owner.NunmberOrbit < owner.MaxOrbit)
-                CanCaptureZone = true;
-            else
-                CanCaptureZone = false;
+            canCaptureZone = owner.NunmberOrbit < owner.MaxOrbit;
         }
-
-        if (owner.generalityType == GeneralityType.BlackHole)
+        else if (owner.generalityType == GeneralityType.BlackHole)
         {
-
-            CanCaptureZone = false;
+            canCaptureZone = false;
         }
     }
 
@@ -96,7 +97,7 @@ public class CaptureZone : MonoBehaviour
         character.radius = distance;
         character.isCapture = true;
         DOTween.To(() => character.radius, x => character.radius = x, SetRadius(character), 0.3f).Play();
-        character.spinSpeed = RamdomSpinSpeed(Random.Range(0.5f, 1.5f));
+        character.spinSpeed = RandomSpinSpeed(Random.Range(0.5f, 1.5f));
         character.angle = Mathf.Atan2(character.tf.position.y - owner.tf.position.y, character.tf.position.x - owner.tf.position.x);
     }
 
@@ -105,31 +106,19 @@ public class CaptureZone : MonoBehaviour
         if (owner.generalityType == GeneralityType.Planet)
         {
             limitedRadius = GameManager.instance.status.coefficientRadiusPlanet * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
-
         }
         else if (owner.generalityType == GeneralityType.Star)
         {
             limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
-
         }
-        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
 
+        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
         return radius;
     }
 
-    public float RamdomSpinSpeed(float n)
+    public float RandomSpinSpeed(float n)
     {
-        float number = n;
         int randomValue = Random.Range(0, 2);
-        if (randomValue == 0)
-        {
-            number = -n;
-        }
-        else if (randomValue == 1)
-        {
-            number = n;
-        }
-        return number;
+        return randomValue == 0 ? -n : n;
     }
-
 }

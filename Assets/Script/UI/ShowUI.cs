@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShowUI : FastSingleton<ShowUI>
@@ -12,9 +13,8 @@ public class ShowUI : FastSingleton<ShowUI>
 
     [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit")]
     [SerializeField] private Button[] bts;
-    [SerializeField] private GameObject PauseUI;
-    [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor
-    [SerializeField] GameObject SettingUI;
+    [SerializeField] private GameObject PauseUI, GamePlayUI;
+    [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve
 
     [SerializeField] TextMeshProUGUI NameTxt;
     [SerializeField] TextMeshProUGUI EvoluTxt;
@@ -30,6 +30,8 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[2].onClick.AddListener(TutorBtFeature);
         bts[3].onClick.AddListener(() => Application.Quit());
         bts[4].onClick.AddListener(BackBtFeature);
+        bts[5].onClick.AddListener(AchieveBtFeature);
+        bts[6].onClick.AddListener(ResetBtFeature);
         currentMass = (int)player.rb.mass;
         UpdateInfo();
     }
@@ -46,6 +48,7 @@ public class ShowUI : FastSingleton<ShowUI>
     {
         isPaused = !isPaused;
         PauseUI.SetActive(isPaused);
+        GamePlayUI.SetActive(!isPaused);
         OffAllBts();
         UIBts[0].SetActive(true);
         Time.timeScale = isPaused ? 0 : 1;
@@ -65,11 +68,23 @@ public class ShowUI : FastSingleton<ShowUI>
         Time.timeScale = 0;
     }
 
+    public void AchieveBtFeature()
+    {
+        OffAllBts();
+        UIBts[3].SetActive(true);
+        Time.timeScale = 0;
+    }
+
     public void BackBtFeature()
     {
         Time.timeScale = 1f;
         OffAllBts();
         PauseUI.SetActive(false);
+    }
+
+    public void ResetBtFeature()
+    {
+        SaveManager.Instance.DeleteSaveFile();
     }
 
     public void SetNameTxt(string CharacterType)
@@ -110,22 +125,6 @@ public class ShowUI : FastSingleton<ShowUI>
         SetEvoluTxt((player.characterType + 1).ToString());
         SetEvoluSlider((long)player.rb.mass - SpawnPlanets.instance.GetRequiredMass(player.characterType), 
             SpawnPlanets.instance.GetRequiredMass(player.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(player.characterType));
-    }
-
-    public void ShowSettingUI()
-    {
-        bool active = SettingUI.activeSelf;
-        if (active)
-        {
-            SettingUI.SetActive(!active);
-            GameManager.instance.ChangeState(GameState.Play);
-        }
-        else
-        {
-            SettingUI.SetActive(!active);
-            GameManager.instance.ChangeState(GameState.Menu);
-        }
-
     }
 
     public void OffAllBts()
