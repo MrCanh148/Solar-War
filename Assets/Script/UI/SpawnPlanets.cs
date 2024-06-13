@@ -39,13 +39,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             AsteroidGroup asteroidGroup = Instantiate(asteroidGroupPrefab, tfCharacterManager);
             asteroidGroups.Add(asteroidGroup);
             asteroidGroup.transform.localPosition = SpawnerCharacter();
-            asteroidGroup.gameObject.SetActive(false);
         }
 
-        if (asteroidGroups.Count > 0)
-        {
-            asteroidGroups[0].gameObject.SetActive(true);
-        }
+
 
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountSmallPlanet; i++)  //smallplanet
         {
@@ -222,7 +218,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
-        character.velocity = RandomInitialVelocity(3f);
+        character.velocity = RandomInitialVelocity(2f);
         if (character.characterType == CharacterType.Asteroid)
         {
             character.rb.mass = (int)Random.Range(1, 3);

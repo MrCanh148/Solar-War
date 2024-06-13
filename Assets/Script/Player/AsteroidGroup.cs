@@ -3,39 +3,29 @@ using UnityEngine;
 
 public class AsteroidGroup : MonoBehaviour
 {
-    [SerializeField] List<Character> listAsteroid;
-    List<Vector3> AsteroidPosition = new List<Vector3>();
+    [SerializeField] List<Vector3> StartPositions = new List<Vector3>();
+    int quantityAsteroid;
 
     private void Start()
     {
-        foreach (Character c in listAsteroid)
-        {
-            AsteroidPosition.Add(c.tf.localPosition);
-            c.velocity = SpawnPlanets.instance.RandomInitialVelocity(1.5f);
-        }
+        quantityAsteroid = StartPositions.Count;
+        OnInit();
     }
-
 
     public void OnInit()
     {
-        for (int i = 0; i < listAsteroid.Count; i++)
+        Character[] characters = GetComponentsInChildren<Character>();
+        foreach (Character c in characters)
         {
-            if (listAsteroid[i] != null && !listAsteroid[i].gameObject.activeSelf)
-            {
-                SpawnPlanets.instance.ActiveCharacter(listAsteroid[i]);
-                listAsteroid[i].transform.localPosition = AsteroidPosition[i];
-
-            }
+            c.tf.SetParent(null);
         }
-    }
 
-    public bool AllChildrenDeActive()
-    {
-        foreach (Character c in listAsteroid)
+        for (int i = 0; i < quantityAsteroid; i++)
         {
-            if (c.gameObject.activeSelf)
-                return false;
+            Character asteroid = PoolingCharacter.instance.GetCharacterFromPool();
+            SpawnPlanets.instance.ActiveCharacter(asteroid);
+            asteroid.tf.SetParent(this.transform);
+            asteroid.tf.localPosition = StartPositions[i];
         }
-        return true;
     }
 }

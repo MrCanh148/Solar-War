@@ -19,41 +19,8 @@ public class CameraWall : MonoBehaviour
         AsteroidGroup asteroidGroup = collision.GetComponent<AsteroidGroup>();
         if (asteroidGroup != null)
         {
-
-            if (asteroidGroup.AllChildrenDeActive())
-            {
-
-                asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
-                asteroidGroup.OnInit();
-            }
-            else
-            {
-                foreach (AsteroidGroup AG in SpawnPlanets.instance.asteroidGroups)
-                {
-                    if (AG.gameObject.activeSelf)
-                    {
-                        if (AG.AllChildrenDeActive())
-                        {
-                            AG.gameObject.SetActive(false);
-                        }
-                    }
-
-                }
-
-                foreach (AsteroidGroup AG in SpawnPlanets.instance.asteroidGroups)
-                {
-
-                    if (!AG.gameObject.activeSelf)
-                    {
-                        AG.gameObject.SetActive(true);
-                        asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
-                        AG.OnInit();
-                        break;
-                    }
-
-                }
-
-            }
+            asteroidGroup.OnInit();
+            asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
         }
 
         ShootTarget target = collision.GetComponent<ShootTarget>();
