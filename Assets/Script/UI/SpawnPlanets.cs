@@ -20,6 +20,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     float FarFromPlayerY;
     float FarFromPlayerX;
     public List<Character> lstCharacter;
+    public List<AsteroidGroup> asteroidGroups;
 
     private void Start()
     {
@@ -31,11 +32,19 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void OnInit()
     {
-
+        asteroidGroups.Clear();
+        lstCharacter.Clear();
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountAsteroidGroup; i++)
         {
             AsteroidGroup asteroidGroup = Instantiate(asteroidGroupPrefab, tfCharacterManager);
+            asteroidGroups.Add(asteroidGroup);
             asteroidGroup.transform.localPosition = SpawnerCharacter();
+            asteroidGroup.gameObject.SetActive(false);
+        }
+
+        if (asteroidGroups.Count > 0)
+        {
+            asteroidGroups[0].gameObject.SetActive(true);
         }
 
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountSmallPlanet; i++)  //smallplanet
@@ -183,8 +192,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public Vector3 ReSpawnerAsterrooidGroup()
     {
-        float random = Random.Range(FarFromPlayerY * 1.5f, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayerY);
-        return player1.tf.position + ((Vector3)player1.mainVelocity.normalized * random);
+        float distance = FarFromPlayerX > FarFromPlayerY ? FarFromPlayerX : FarFromPlayerY;
+        //float random = Random.Range(FarFromPlayerY * 1.5f, (GameManager.instance.status.coefficientActiveGameObject - .5f) * FarFromPlayerY);
+        return player1.tf.position + ((Vector3)player1.mainVelocity.normalized * distance * (GameManager.instance.status.coefficientActiveGameObject + 1) / 2);
     }
 
     public float RamdomValue(float n)
@@ -212,7 +222,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
-        character.velocity = RandomInitialVelocity();
+        character.velocity = RandomInitialVelocity(3f);
         if (character.characterType == CharacterType.Asteroid)
         {
             character.rb.mass = (int)Random.Range(1, 3);
@@ -224,10 +234,10 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     }
 
-    public Vector2 RandomInitialVelocity()
+    public Vector2 RandomInitialVelocity(float limit)
     {
-        float randomX = Random.Range(-3, 3);
-        float randomY = Random.Range(-3, 3);
+        float randomX = Random.Range(-limit, limit);
+        float randomY = Random.Range(-limit, limit);
         return new Vector2(randomX, randomY);
     }
 
@@ -261,7 +271,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         if (character.isPlayer)
         {
-            Debug.Log(character.characterType);
+
             if (character.characterType == CharacterType.Asteroid)        //asteroid
             {
                 foreach (Character c in lstCharacter)
@@ -429,4 +439,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             }
         }
     }
+
+
 }
