@@ -15,6 +15,7 @@ public class AsteroidGroup : MonoBehaviour
         }
     }
 
+
     public void OnInit()
     {
         for (int i = 0; i < listAsteroid.Count; i++)
@@ -26,5 +27,15 @@ public class AsteroidGroup : MonoBehaviour
 
             }
         }
+    }
+
+    public bool AllChildrenDeActive()
+    {
+        foreach (Character c in listAsteroid)
+        {
+            if (c.gameObject.activeSelf)
+                return false;
+        }
+        return true;
     }
 }
