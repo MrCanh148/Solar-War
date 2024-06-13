@@ -212,7 +212,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
-        character.velocity = RandomInitialVelocity();
+        character.velocity = RandomInitialVelocity(3f);
         if (character.characterType == CharacterType.Asteroid)
         {
             character.rb.mass = (int)Random.Range(1, 3);
@@ -224,10 +224,10 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     }
 
-    public Vector2 RandomInitialVelocity()
+    public Vector2 RandomInitialVelocity(float limit)
     {
-        float randomX = Random.Range(-3, 3);
-        float randomY = Random.Range(-3, 3);
+        float randomX = Random.Range(-limit, limit);
+        float randomY = Random.Range(-limit, limit);
         return new Vector2(randomX, randomY);
     }
 
