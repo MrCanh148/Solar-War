@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnRates : MonoBehaviour
+public class SpawnRates
 {
     public CharacterType CharacterType;
     public float SpawnRate;

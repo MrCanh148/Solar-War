@@ -10,7 +10,7 @@ public class CameraWall : MonoBehaviour
             if (!character.isPlayer)
             {
                 if (character.characterType > CharacterType.Asteroid)
-                    SpawnPlanets.instance.ActiveCharacter(character);
+                    SpawnPlanets.instance.ActiveCharacter(character, character.characterType);
                 else
                     SpawnPlanets.instance.DeActiveCharacter(character);
             }

@@ -23,7 +23,7 @@ public class AsteroidGroup : MonoBehaviour
         for (int i = 0; i < quantityAsteroid; i++)
         {
             Character asteroid = PoolingCharacter.instance.GetCharacterFromPool();
-            SpawnPlanets.instance.ActiveCharacter(asteroid);
+            SpawnPlanets.instance.ActiveCharacter(asteroid, asteroid.characterType);
             asteroid.tf.SetParent(this.transform);
             asteroid.tf.localPosition = StartPositions[i];
         }
