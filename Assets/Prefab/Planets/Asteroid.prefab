@@ -169,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 70
 --- !u!114 &5085873029300793241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,7 +714,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 20
 --- !u!114 &3777442929617754621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,8 +728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: -6489732090044767875}
-  timer: 0
-  onZone: 0
   limitedRadius: 0.5
 --- !u!1 &7491789312561243161
 GameObject:

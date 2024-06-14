@@ -59,6 +59,7 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             foreach (var c in SpawnPlanets.instance.CharacterInfos)
             {
+
                 if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
                     if (character.rb.mass >= c.requiredMass)
@@ -67,15 +68,14 @@ public class UpdateStatusCharacter : MonoBehaviour
                         character.spriteRenderer.sprite = c.sprite;
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
-                        //character.tf.DOScale(c.scale, 0f);
-                        character.tf.localScale = c.scale;
+                        character.tf.DOScale(c.scale, 0f);
                         typeChanged = true;
                         if (NameTxt != null)
                         {
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
                         SpawnPlanets.instance.UpgradePlayerGenerality(character);
-                        break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
+                        break;
                     }
                 }
 
@@ -87,15 +87,15 @@ public class UpdateStatusCharacter : MonoBehaviour
                         character.spriteRenderer.sprite = c.sprite;
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
-                        //character.tf.DOScale(c.scale, 0f);
-                        character.tf.localScale = c.scale;
+                        character.tf.DOScale(c.scale, 0f);
+
                         typeChanged = true;
                         if (NameTxt != null)
                         {
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
                         SpawnPlanets.instance.UpgradePlayerGenerality(character);
-                        break; // Dừng vòng lặp để khởi động lại và kiểm tra lại các điều kiện
+                        break;
                     }
                 }
 

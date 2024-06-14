@@ -397,7 +397,7 @@ public class Character : MonoBehaviour
             {
                 t.host = null;
                 t.isCapture = false;
-                t.tf.SetParent(SpawnPlanets.instance.transform);
+                //t.tf.SetParent(SpawnPlanets.instance.transform);
                 t.myFamily = t;
             }
 
@@ -405,7 +405,7 @@ public class Character : MonoBehaviour
         if (host != null)
         {
             host.satellites.Remove(this);
-            tf.SetParent(SpawnPlanets.instance.transform);
+            //tf.SetParent(SpawnPlanets.instance.transform);
             host = null;
             isCapture = false;
 

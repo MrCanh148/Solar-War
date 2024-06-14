@@ -86,7 +86,7 @@ public class CaptureZone : MonoBehaviour
 
     public void BecomeSatellite(Character character)
     {
-        character.tf.SetParent(owner.tf);
+        //character.tf.SetParent(owner.tf);
         character.host = owner;
         SetSatellite(character);
     }
