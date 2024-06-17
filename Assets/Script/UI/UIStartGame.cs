@@ -13,7 +13,7 @@ public class UIStartGame : MonoBehaviour
     [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player, Select;
     [SerializeField] Player player;
 
-    private Animator StartAnimator;
+    [SerializeField] private Animator StartAnimator;
     private SpriteRenderer spriteRenderer;
     private bool chachaboom = false;
 

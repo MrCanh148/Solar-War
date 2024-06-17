@@ -7,6 +7,7 @@ public class QuestSpawn : MonoBehaviour
     [SerializeField] private GameObject Player;
     [SerializeField] private float R = 15;
     [SerializeField] private float borderSize = 100;
+    [SerializeField] private float moveSpeed = 5f;
 
     public Vector3 targetPos;
     public RectTransform pointerRectTransform;
@@ -30,12 +31,12 @@ public class QuestSpawn : MonoBehaviour
             pointerScreenPos.x = Mathf.Clamp(pointerScreenPos.x, borderSize, Screen.width - borderSize);
             pointerScreenPos.y = Mathf.Clamp(pointerScreenPos.y, borderSize, Screen.height - borderSize);
 
-            pointerRectTransform.position = pointerScreenPos;
+            pointerRectTransform.position = Vector3.Lerp(pointerRectTransform.position, pointerScreenPos, Time.deltaTime * moveSpeed);
         }
         else
         {
             pointerImage.sprite = cross;
-            pointerRectTransform.position = targetPosScreenPoint;
+            pointerRectTransform.position = Vector3.Lerp(pointerRectTransform.position, targetPosScreenPoint, Time.deltaTime * moveSpeed);
         }
     }
 
