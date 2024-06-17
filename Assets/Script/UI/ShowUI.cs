@@ -1,14 +1,8 @@
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShowUI : FastSingleton<ShowUI>
 {
-
-    [SerializeField] private TextMeshProUGUI MassText;
-    [SerializeField] private Character player;
     [SerializeField] private Player player1;
 
     [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit")]
@@ -16,12 +10,7 @@ public class ShowUI : FastSingleton<ShowUI>
     [SerializeField] private GameObject PauseUI, GamePlayUI;
     [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve
 
-    [SerializeField] TextMeshProUGUI NameTxt;
-    [SerializeField] TextMeshProUGUI EvoluTxt;
-    [SerializeField] Slider EvoluSlider;
-
     private bool isPaused = false;
-    private int currentMass;
 
     private void Start()
     {
@@ -32,8 +21,6 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[4].onClick.AddListener(BackBtFeature);
         bts[5].onClick.AddListener(AchieveBtFeature);
         bts[6].onClick.AddListener(ResetBtFeature);
-        currentMass = (int)player.rb.mass;
-        UpdateInfo();
     }
 
     private void Update()
@@ -85,46 +72,6 @@ public class ShowUI : FastSingleton<ShowUI>
     public void ResetBtFeature()
     {
         SaveManager.Instance.DeleteSaveFile();
-    }
-
-    public void SetNameTxt(string CharacterType)
-    {
-        NameTxt.text = CharacterType;
-    }
-
-    public void SetMassTxt(int mass)
-    {
-        float duration = 0;
-        if (mass - currentMass == 1)
-            duration = 0;
-        else
-            duration = 1;
-
-
-        DOTween.To(() => currentMass, x => currentMass = x, mass, duration)
-            .OnUpdate(() =>
-            {
-                MassText.text = currentMass.ToString();
-            });
-    }
-
-    public void SetEvoluTxt(string CharacterType)
-    {
-        EvoluTxt.text = "To " + CharacterType;
-    }
-
-    public void SetEvoluSlider(long currentMass, long massNeedeVolution)
-    {
-        EvoluSlider.value = (float)currentMass / massNeedeVolution;
-    }
-
-    public void UpdateInfo()
-    {
-        SetNameTxt(SpawnPlanets.instance.GetNamePlanet(player.characterType));
-        SetMassTxt((int)player.rb.mass);
-        SetEvoluTxt((player.characterType + 1).ToString());
-        SetEvoluSlider((long)player.rb.mass - SpawnPlanets.instance.GetRequiredMass(player.characterType), 
-            SpawnPlanets.instance.GetRequiredMass(player.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(player.characterType));
     }
 
     public void OffAllBts()

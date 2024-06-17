@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,28 +6,39 @@ using UnityEngine.UI;
 
 public class LogicUIPlayer : MonoBehaviour
 {
+    public static LogicUIPlayer Instance;
+
     [Header("0:Shield - 1:Exp - 2:Envolution - 3:Planet - 4:Kill")]
     [SerializeField] private GameObject[] UIinfo;
     [SerializeField] private GameObject player;
 
     [SerializeField] private TextMeshProUGUI numberPlanet;
     [SerializeField] private TextMeshProUGUI numberKill;
+    [SerializeField] private TextMeshProUGUI MassText;
+    [SerializeField] private TextMeshProUGUI NameTxt;
+    [SerializeField] private TextMeshProUGUI EvoluTxt;
 
+    [SerializeField] private Slider EvoluSlider;
     [SerializeField] private Slider EvolutionSlider;
     [SerializeField] private Slider ShieldPlayer;
     [SerializeField] private Slider ExpPlayer;
+
     [SerializeField] private float MaxExp = 36;
     [SerializeField] private float TimeEvolutionGO = 5f;
 
     private Character character;
     private Shield Shield;
     private bool isEvolutionInProgress = false;
+    private int currentMass;
 
     private void Start()
     {
+        Instance = this;
         character = player.GetComponent<Character>();
         Shield = character.GetComponent<Shield>();
         OffAllUI();
+        currentMass = (int)character.rb.mass;
+        UpdateInfo();
     }
 
     private void Update()
@@ -103,5 +115,45 @@ public class LogicUIPlayer : MonoBehaviour
             go.SetActive(false);
         }
         EvolutionSlider.value = 0f;
+    }
+
+    public void SetMassTxt(int mass)
+    {
+        float duration = 0;
+        if (mass - currentMass == 1)
+            duration = 0;
+        else
+            duration = 1;
+
+
+        DOTween.To(() => currentMass, x => currentMass = x, mass, duration)
+            .OnUpdate(() =>
+            {
+                MassText.text = currentMass.ToString();
+            });
+    }
+
+    public void UpdateInfo()
+    {
+        SetNameTxt(SpawnPlanets.instance.GetNamePlanet(character.characterType));
+        SetMassTxt((int)character.rb.mass);
+        SetEvoluTxt((character.characterType + 1).ToString());
+        SetEvoluSlider((long)character.rb.mass - SpawnPlanets.instance.GetRequiredMass(character.characterType),
+            SpawnPlanets.instance.GetRequiredMass(character.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(character.characterType));
+    }
+
+    public void SetEvoluTxt(string CharacterType)
+    {
+        EvoluTxt.text = "To " + CharacterType;
+    }
+
+    public void SetEvoluSlider(long currentMass, long massNeedeVolution)
+    {
+        EvoluSlider.value = (float)currentMass / massNeedeVolution;
+    }
+
+    public void SetNameTxt(string CharacterType)
+    {
+        NameTxt.text = CharacterType;
     }
 }

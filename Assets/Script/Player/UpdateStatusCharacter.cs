@@ -30,9 +30,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         currentMass = (int)owner.rb.mass;
         if (owner.isPlayer)
-        {
-            ShowUI.instance.UpdateInfo();
-        }
+            LogicUIPlayer.Instance.UpdateInfo();
 
         //UpdateInfoCharacter(owner);
         EvolutionCharacter(owner);
@@ -134,9 +132,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             UpdateInfoCharacter(owner);
             EvolutionCharacter(owner);
             if (owner.isPlayer)
-            {
-                ShowUI.instance.UpdateInfo();
-            }
+                LogicUIPlayer.Instance.UpdateInfo();
         }
 
         currentMass = newMass;
