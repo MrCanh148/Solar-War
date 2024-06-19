@@ -21,11 +21,29 @@ public class Quest : MonoBehaviour
 
     private void Start()
     {
-        quest1 = GetComponent<Quest1>();
-        quest2 = GetComponent<Quest2>();
-        quest3 = GetComponent<Quest3>();
-        quest4 = GetComponent<Quest4>();
-        DisableAllQuest();
+        if (type == TypeQuest.Quest1)
+        {
+            quest1 = GetComponent<Quest1>();
+            quest1.enabled = false;
+        }
+
+        if (type == TypeQuest.Quest2)
+        {
+            quest2 = GetComponent<Quest2>();
+            quest2.enabled = false;
+        }
+
+        if (type == TypeQuest.Quest3)
+        {
+            quest3 = GetComponent<Quest3>();
+            quest3.enabled = false;
+        }
+
+        if (type == TypeQuest.Quest4)
+        {
+            quest4 = GetComponent<Quest4>();
+            quest4.enabled = false;
+        }
     }
 
     private void Update()
@@ -71,13 +89,5 @@ public class Quest : MonoBehaviour
             dashCircle[0].SetActive(false);
             dashCircle[1].SetActive(false);
         }
-    }
-
-    private void DisableAllQuest()
-    {
-        quest1.enabled = false;
-        quest2.enabled = false;
-        quest3.enabled = false;
-        quest4.enabled = false;
     }
 }

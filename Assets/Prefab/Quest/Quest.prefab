@@ -180,9 +180,6 @@ GameObject:
   - component: {fileID: 3955785720513849544}
   - component: {fileID: 1425559097171683872}
   - component: {fileID: 3563057446230112016}
-  - component: {fileID: 4834390945965603099}
-  - component: {fileID: 4241761125037965496}
-  - component: {fileID: 988823902625812116}
   m_Layer: 0
   m_Name: Quest
   m_TagString: Untagged
@@ -271,39 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697c3c8d54c39ed40bf1acfed705145c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4834390945965603099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da627266051f13e498fb44f896dc46d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4241761125037965496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0295e6bdbc34774db4713bdc1c852ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &988823902625812116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 296f32e64c49d51419ed503dbf1bc50f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  AlienPrefab: {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}

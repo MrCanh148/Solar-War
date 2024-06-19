@@ -179,9 +179,6 @@ GameObject:
   - component: {fileID: 233302590375216709}
   - component: {fileID: 3955785720513849544}
   - component: {fileID: 1425559097171683872}
-  - component: {fileID: 3563057446230112016}
-  - component: {fileID: 4834390945965603099}
-  - component: {fileID: 4241761125037965496}
   - component: {fileID: 988823902625812116}
   m_Layer: 0
   m_Name: Quest 3
@@ -259,42 +256,6 @@ MonoBehaviour:
   - {fileID: 7061218286199330521}
   - {fileID: 2350666043199722419}
   speedRotate: 10
---- !u!114 &3563057446230112016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697c3c8d54c39ed40bf1acfed705145c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4834390945965603099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da627266051f13e498fb44f896dc46d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4241761125037965496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8161055244140443492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0295e6bdbc34774db4713bdc1c852ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &988823902625812116
 MonoBehaviour:
   m_ObjectHideFlags: 0

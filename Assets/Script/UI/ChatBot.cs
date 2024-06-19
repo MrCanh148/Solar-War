@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class ChatBot : MonoBehaviour
+public class ChatBot : MonoBehaviour, IQuest2Listener
 {
     private BotChatText[] BotChatText;
     [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
@@ -15,9 +15,11 @@ public class ChatBot : MonoBehaviour
     private bool displayFullTextImmediately = false;
     private bool canPressEnter = false;
 
+    private Coroutine displayCoroutine;
+
     private void Start()
     {
-        StartCoroutine(GameObjectTextDisPlayer());
+        StartCoroutine(GameObjectTextDisplayer());
         BotChatText = Resources.LoadAll<BotChatText>("BotChatText");
     }
 
@@ -34,11 +36,12 @@ public class ChatBot : MonoBehaviour
                 if (currentIndex < BotChatText.Length - 1)
                 {
                     currentIndex++;
-                    StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
+                    StartDisplayTextOverTime(BotChatText[currentIndex].text);
                 }
                 else if (currentIndex == BotChatText.Length - 1)
                 {
                     BotUI.SetActive(false);
+                    gameObject.SetActive(false);
                 }
             }
         }
@@ -71,9 +74,8 @@ public class ChatBot : MonoBehaviour
         isDisplayingText = false;
     }
 
-    private IEnumerator GameObjectTextDisPlayer()
+    private IEnumerator GameObjectTextDisplayer()
     {
- 
         TextDisplay.SetActive(false);
         yield return new WaitForSeconds(TimeDelayShowGameObjectText);
         TextDisplay.SetActive(true);
@@ -81,7 +83,31 @@ public class ChatBot : MonoBehaviour
 
         if (BotChatText.Length > 0)
         {
-            StartCoroutine(DisplayTextOverTime(BotChatText[currentIndex].text));
+            StartDisplayTextOverTime(BotChatText[currentIndex].text);
         }
+    }
+
+    private void StartDisplayTextOverTime(string text)
+    {
+        if (displayCoroutine != null)
+        {
+            StopCoroutine(displayCoroutine);
+        }
+        displayCoroutine = StartCoroutine(DisplayTextOverTime(text));
+    }
+
+    // Implement IQuest2Listener
+    public void OnQuest2Started()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotQuest2");
+        currentIndex = 0;
+        StartDisplayTextOverTime(BotChatText[0].text);
+    }
+
+    public void OnQuest2Completed()
+    {
+        gameObject.SetActive(true);
+        StartDisplayTextOverTime(BotChatText[1].text);
     }
 }
