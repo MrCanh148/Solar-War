@@ -75,6 +75,11 @@ public class UpdateStatusCharacter : MonoBehaviour
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
                         SpawnPlanets.instance.UpgradePlayerGenerality(character);
+                        if (character.isPlayer)
+                        {
+                            SpawnPlanets.instance.AdjustSpawnRates(character);
+
+                        }
                         break;
                     }
                 }

@@ -12,15 +12,14 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     [SerializeField] private Player player1;
     private Character lastSpawnedPlanet;
     private GameObject currentArrow;
-    public int quantityAsteroid = 20;
-    public int quantityPlanet = 0;
+
     public Camera _camera;
     float FarFromPlayerY;
     float FarFromPlayerX;
     public List<Character> lstCharacter;
     public List<AsteroidGroup> asteroidGroups;
-    public Dictionary<CharacterType, float> spawnRates = new Dictionary<CharacterType, float>();
-    public List<SpawnRates> lstSpawnRates = new List<SpawnRates>();
+    public SortedDictionary<CharacterType, int> spawnRates = new SortedDictionary<CharacterType, int>();
+
 
 
     private void Start()
@@ -29,10 +28,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         FarFromPlayerY = _camera.orthographicSize;
         FarFromPlayerX = FarFromPlayerY * (float)_camera.pixelWidth / _camera.pixelHeight;
         AdjustSpawnRates(player1);
-        for (CharacterType i = CharacterType.Asteroid; i <= CharacterType.BigBang; i++)
+        foreach (var rate in spawnRates)
         {
-            SpawnRates spawnRates = new SpawnRates(i, 0f);
-
+            Debug.Log(rate.Key + " " + rate.Value);
         }
     }
 
@@ -450,149 +448,170 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         switch (character.characterType)
         {
             case CharacterType.Asteroid:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 30;
+                spawnRates[CharacterType.SmallPlanet] = 40;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.SmallPlanet:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 50;
+                spawnRates[CharacterType.LifePlanet] = 40;
+                spawnRates[CharacterType.GasGiantPlanet] = 30;
+                spawnRates[CharacterType.SmallStar] = 20;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.LifePlanet:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.GasGiantPlanet:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.SmallStar:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.MediumStar:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.BigStar:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.NeutronStar:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.BlackHole:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.BigCrunch:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
                 break;
             case CharacterType.BigBang:
-                spawnRates[CharacterType.Asteroid] = 1.2f;
-                spawnRates[CharacterType.SmallPlanet] = 0.8f;
-                spawnRates[CharacterType.LifePlanet] = 0.8f;
-                spawnRates[CharacterType.GasGiantPlanet] = 0.8f;
-                spawnRates[CharacterType.SmallStar] = 0.8f;
-                spawnRates[CharacterType.MediumStar] = 0.8f;
-                spawnRates[CharacterType.BigStar] = 0.8f;
-                spawnRates[CharacterType.NeutronStar] = 0.8f;
-                spawnRates[CharacterType.BlackHole] = 0.8f;
-                spawnRates[CharacterType.BigCrunch] = 0.8f;
-                spawnRates[CharacterType.BigBang] = 0.8f;
+                spawnRates[CharacterType.Asteroid] = 100;
+                spawnRates[CharacterType.SmallPlanet] = 0;
+                spawnRates[CharacterType.LifePlanet] = 0;
+                spawnRates[CharacterType.GasGiantPlanet] = 0;
+                spawnRates[CharacterType.SmallStar] = 0;
+                spawnRates[CharacterType.MediumStar] = 0;
+                spawnRates[CharacterType.BigStar] = 0;
+                spawnRates[CharacterType.NeutronStar] = 0;
+                spawnRates[CharacterType.BlackHole] = 0;
+                spawnRates[CharacterType.BigCrunch] = 0;
+                spawnRates[CharacterType.BigBang] = 0;
+                break;
+            default:
                 break;
         }
+
+        Debug.Log(spawnRates[CharacterType.Asteroid]);
+        Debug.Log(spawnRates[CharacterType.SmallPlanet]);
+
+    }
+
+    public CharacterType RandomCharacterType()
+    {
+        CharacterType characterType = CharacterType.Asteroid;
+        int random = Random.Range(1, 101);
+        foreach (var rate in spawnRates)
+        {
+            if (random <= rate.Value)
+            {
+                characterType = rate.Key;
+                break;
+            }
+        }
+        return characterType;
     }
 
 }
