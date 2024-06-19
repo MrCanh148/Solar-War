@@ -14,13 +14,25 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
     private bool isDisplayingText = false;
     private bool displayFullTextImmediately = false;
     private bool canPressEnter = false;
+    private bool isInitialBotChat = true;
 
     private Coroutine displayCoroutine;
+
+    private void Awake()
+    {
+        QuestEventManager.Instance.RegisterListener(this);
+    }
+
+    private void OnDestroy()
+    {
+        QuestEventManager.Instance.UnregisterListener(this);
+    }
 
     private void Start()
     {
         StartCoroutine(GameObjectTextDisplayer());
-        BotChatText = Resources.LoadAll<BotChatText>("BotChatText");
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotStartGame");
+        isInitialBotChat = true;
     }
 
     private void Update()
@@ -33,12 +45,20 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
             }
             else
             {
-                if (currentIndex < BotChatText.Length - 1)
+                if (isInitialBotChat)
                 {
-                    currentIndex++;
-                    StartDisplayTextOverTime(BotChatText[currentIndex].text);
+                    if (currentIndex < BotChatText.Length - 1)
+                    {
+                        currentIndex++;
+                        StartDisplayTextOverTime(BotChatText[currentIndex].text);
+                    }
+                    else if (currentIndex == BotChatText.Length - 1)
+                    {
+                        BotUI.SetActive(false);
+                        gameObject.SetActive(false);
+                    }
                 }
-                else if (currentIndex == BotChatText.Length - 1)
+                else
                 {
                     BotUI.SetActive(false);
                     gameObject.SetActive(false);
@@ -100,14 +120,18 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
     public void OnQuest2Started()
     {
         gameObject.SetActive(true);
-        BotChatText = Resources.LoadAll<BotChatText>("BotQuest2");
-        currentIndex = 0;
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest2");
+        isInitialBotChat = false; 
         StartDisplayTextOverTime(BotChatText[0].text);
     }
 
     public void OnQuest2Completed()
     {
         gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest2");
+        isInitialBotChat = false;
         StartDisplayTextOverTime(BotChatText[1].text);
     }
+
+    public void OnQuest2ProgressUpdated(int a) { }
 }

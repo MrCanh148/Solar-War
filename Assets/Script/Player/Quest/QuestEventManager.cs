@@ -79,4 +79,12 @@ public class QuestEventManager : MonoBehaviour
             listener.OnQuest2Completed();
         }
     }
+
+    public void NotifyQuestProgressUpdated(int percentage)
+    {
+        foreach (var listener in quest2Listeners)
+        {
+            listener.OnQuest2ProgressUpdated(percentage);
+        }
+    }
 }

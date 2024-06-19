@@ -15,6 +15,9 @@ public class Quest2 : MonoBehaviour
     private RectTransform PointerRectTransform;
     private Image ArrowImage;
 
+    private float initialDistance;
+    private int distanceTravelledPercentage;
+
     private void Start()
     {
         Arrow.SetActive(true);
@@ -26,6 +29,7 @@ public class Quest2 : MonoBehaviour
         {
             Vector3 direction = new Vector3(player.transform.right.x, player.transform.right.y, 0) * DistanceToTarget;
             targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, 0) + direction;
+            initialDistance = Vector3.Distance(player.transform.position, targetPosition);
             QuestEventManager.Instance.NotifyQuestStarted();
         }
         else
@@ -60,9 +64,13 @@ public class Quest2 : MonoBehaviour
             PointerRectTransform.position = Vector3.Lerp(PointerRectTransform.position, targetPosScreenPoint, Time.deltaTime * moveSpeed);
         }
 
+        // Calculate distance travelled percentage
+        float currentDistance = Vector3.Distance(player.transform.position, targetPosition);
+        distanceTravelledPercentage = Mathf.Max(0, Mathf.RoundToInt(100 * (1 - currentDistance / initialDistance)));
+        QuestEventManager.Instance.NotifyQuestProgressUpdated(distanceTravelledPercentage);
+
         // Done quest
-        float distanceToTarget = Vector3.Distance(player.transform.position, targetPosition);
-        if (distanceToTarget <= 2f)
+        if (currentDistance <= 2f)
         {
             QuestEventManager.Instance.NotifyQuestCompleted();
             Destroy(gameObject);
