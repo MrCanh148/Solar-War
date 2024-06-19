@@ -1,9 +1,14 @@
-using UnityEngine;
-
 public enum GameState
 {
     Menu,
-    Play
+    Play,
+    Pause
+};
+
+public enum GameMode
+{
+    Normal,
+    Survival
 };
 
 public class GameManager : FastSingleton<GameManager>
@@ -12,6 +17,7 @@ public class GameManager : FastSingleton<GameManager>
     public AmountPlanet AmountPlanet;
 
     public GameState gameCurrentState;
+    public GameMode currentGameMode;
 
     public void ChangeState(GameState gameState)
     {
@@ -24,4 +30,17 @@ public class GameManager : FastSingleton<GameManager>
         else
             return false;
     }
+
+    public void ChangeGameMode(GameMode gameMode)
+    {
+        currentGameMode = gameMode;
+    }
+    public bool IsGameMode(GameMode gameMode)
+    {
+        if (currentGameMode == gameMode)
+            return true;
+        else
+            return false;
+    }
+
 }
