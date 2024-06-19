@@ -234,44 +234,17 @@ public class Character : MonoBehaviour
             if (characterType == CharacterType.Asteroid)
             {
                 character.rb.mass -= (int)rb.mass;
-
+                AudioManager.instance.PlaySFX("Planet-destroy");
+                SpawnPlanets.instance.ActiveCharacter(this, characterType);
             }
+     
             else
-            {
-                if (generalityType > character.generalityType)
-                {
-                    if (!character.isPlayer)
-                    {
-                        AudioManager.instance.PlaySFX("Planet-destroy");
-                        character.gameObject.SetActive(false);
-                        character.AllWhenDie();
-                        return;
-                    }
-                }
-                else
-                {
-                    character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(character.characterType + 1) / 10;
-                }
-            }
+                character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(characterType + 1) / 10;
+
             Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
 
-            if (character.rb.mass >= SpawnPlanets.instance.GetRequiredMass(character.characterType))
-            {
-
-                character.velocity = new Vector2(velocity.x, velocity.y);
-                character.ResetExternalVelocity();
-            }
-            else
-            {
-                if (!character.isPlayer)
-                {
-                    //SpawnPlanets.instance.ActiveCharacter(character);
-                    AudioManager.instance.PlaySFX("Planet-destroy");
-                    character.gameObject.SetActive(false);
-                    character.AllWhenDie();
-                }
-
-            }
+            character.velocity = new Vector2(velocity.x, velocity.y);
+            character.ResetExternalVelocity();
         }
     }
 

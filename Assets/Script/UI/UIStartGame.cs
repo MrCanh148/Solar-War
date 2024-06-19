@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 public class UIStartGame : MonoBehaviour
 {
-    [SerializeField] private GameObject[] AllUI;
-    [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player;
-    [SerializeField] private Button StartBt;
+    [Header("0:GamePlay / 1:Setting / 2:Shop / 3:Task / 4:StartGame")]
+    [SerializeField] private GameObject[] AllUI; 
+
+    [Header("0:GameMode / 1:Shop / 2:Task / 3:Setting / 4:Exit / 5:Normal / 6:Survival")]
+    [SerializeField] private Button[] bts;
+
+    [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player, Select;
     [SerializeField] Player player;
-    private Animator StartAnimator;
+
+    [SerializeField] private Animator StartAnimator;
     private SpriteRenderer spriteRenderer;
     private bool chachaboom = false;
 
@@ -22,7 +27,14 @@ public class UIStartGame : MonoBehaviour
         UIStart.SetActive(true);
         spriteRenderer = Player.GetComponent<SpriteRenderer>();
         StartAnimator = UIStart.GetComponent<Animator>();
-        StartBt.onClick.AddListener(LogicAfterClickBt);
+
+        bts[0].onClick.AddListener(GameModeFeature);
+        bts[1].onClick.AddListener(ShopFeature);
+        bts[2].onClick.AddListener(TaskFeature);
+        bts[3].onClick.AddListener(SettingFeature);
+        bts[4].onClick.AddListener(ExitFeature);
+        bts[5].onClick.AddListener(NormalFeature);
+        bts[6].onClick.AddListener(SurvivalFeature);
     }
 
     private void Update()
@@ -34,11 +46,44 @@ public class UIStartGame : MonoBehaviour
         }
     }
 
-    private void LogicAfterClickBt()
+    public void GameModeFeature()
     {
-        StartBt.interactable = false;
+        Select.SetActive(true);
+    }
+
+    public void ShopFeature()
+    {
+        DisAbleAllUI();
+        AllUI[2].SetActive(true);
+    }
+
+    public void TaskFeature()
+    {
+        DisAbleAllUI();
+        AllUI[3].SetActive(true);
+    }
+
+    public void SettingFeature()
+    {
+        DisAbleAllUI();
+        AllUI[1].SetActive(true);
+    }
+
+    public void ExitFeature()
+    {
+        Application.Quit();
+    }
+
+    private void NormalFeature()
+    {
+        bts[5].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
+    }
+
+    public void SurvivalFeature()
+    {
+
     }
 
     private void DisAbleAllUI()

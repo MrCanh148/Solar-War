@@ -30,9 +30,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         currentMass = (int)owner.rb.mass;
         if (owner.isPlayer)
-        {
-            ShowUI.instance.UpdateInfo();
-        }
+            LogicUIPlayer.Instance.UpdateInfo();
 
         //UpdateInfoCharacter(owner);
         EvolutionCharacter(owner);
@@ -53,12 +51,11 @@ public class UpdateStatusCharacter : MonoBehaviour
             typeChanged = false;
 
             if (character.characterType == CharacterType.Asteroid)
-            {
                 character.tf.DOScale(new Vector3(0.05f, 0.05f, 0.05f) + 0.0015f * new Vector3(character.rb.mass, character.rb.mass, character.rb.mass), 0f);
-            }
 
             foreach (var c in SpawnPlanets.instance.CharacterInfos)
             {
+               
 
                 if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
@@ -140,9 +137,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             UpdateInfoCharacter(owner);
             EvolutionCharacter(owner);
             if (owner.isPlayer)
-            {
-                ShowUI.instance.UpdateInfo();
-            }
+                LogicUIPlayer.Instance.UpdateInfo();
         }
 
         currentMass = newMass;
@@ -152,12 +147,9 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         if (currentGenerateType > newType)  // tụt cấp generalityType
         {
+            AudioManager.instance.PlaySFX("Planet-destroy");
             owner.AllWhenDie();
-
-            if (!owner.isPlayer)
-                owner.gameObject.SetActive(false);
-            else
-                ReSpawnPlayer.Instance.ResPlayer();
+            SpawnPlanets.instance.ActiveCharacter(owner, owner.characterType + 1);
 
         }
         else if (currentGenerateType < newType)  // lên cấp generalityType

@@ -219,18 +219,25 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     }
 
-    public void ActiveCharacter(Character character)
+    public void ActiveCharacter(Character character, CharacterType type)
     {
-        character.gameObject.SetActive(true);
-        character.tf.localPosition = SpawnerCharacter();
-        character.velocity = RandomInitialVelocity(2f);
+        if (character.isPlayer)
+            ReSpawnPlayer.Instance.ResPlayer();
+        else
+        {
+            character.gameObject.SetActive(true);
+            character.tf.localPosition = SpawnerCharacter();
+            character.velocity = RandomInitialVelocity(2f);
+        }
+
         if (character.characterType == CharacterType.Asteroid)
         {
             character.rb.mass = (int)Random.Range(1, 3);
+          
         }
         else
         {
-            character.rb.mass = GetRequiredMass(character.characterType) + GetRequiredMass(character.characterType + 1) / 10;
+            character.rb.mass = GetRequiredMass(type) + GetRequiredMass(type + 1) / 10;
         }
 
     }
@@ -277,7 +284,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
                         if (c.characterType > CharacterType.SmallPlanet)
                         {
@@ -285,7 +292,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -294,7 +301,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.SmallStar)
@@ -303,7 +310,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -312,7 +319,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.BigStar)
@@ -321,7 +328,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -330,7 +337,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.NeutronStar)
@@ -339,7 +346,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -348,7 +355,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.NeutronStar)
@@ -357,7 +364,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -366,7 +373,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.NeutronStar)
@@ -375,7 +382,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -384,7 +391,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
 
                         if (c.characterType > CharacterType.NeutronStar)
@@ -393,7 +400,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                         }
                         else
                         {
-                            ActiveCharacter(c);
+                            ActiveCharacter(c, c.characterType);
                         }
                     }
                 }
@@ -402,9 +409,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
-                        ActiveCharacter(c);
+                        ActiveCharacter(c, c.characterType);
                     }
                 }
             }
@@ -412,9 +419,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
-                        ActiveCharacter(c);
+                        ActiveCharacter(c, c.characterType);
                     }
                 }
             }
@@ -422,9 +429,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
-                        ActiveCharacter(c);
+                        ActiveCharacter(c, c.characterType);
                     }
                 }
             }
@@ -432,9 +439,9 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             {
                 foreach (Character c in lstCharacter)
                 {
-                    if (!c.gameObject.activeSelf)
+                    if (!c.gameObject.activeSelf && c != null)
                     {
-                        ActiveCharacter(c);
+                        ActiveCharacter(c, c.characterType);
                     }
                 }
             }

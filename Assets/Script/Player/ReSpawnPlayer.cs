@@ -49,21 +49,6 @@ public class ReSpawnPlayer : MonoBehaviour
         transform.position = newPos;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Character character1 = collision.gameObject.GetComponent<Character>();
-
-        if (character == null || character1 == null)
-        {
-            return;
-        }
-
-        if (character1.generalityType > character.generalityType)
-        {
-            ResPlayer();
-        }
-    }
-
     public void ResPlayer()
     {
         character.AllWhenDie();

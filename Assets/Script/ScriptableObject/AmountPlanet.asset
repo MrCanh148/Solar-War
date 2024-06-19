@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: AmountPlanet
   m_EditorClassIdentifier: 
   amountAsteroidGroup: 1
-  amountSmallPlanet: 0
-  amountLifePlanet: 0
-  amountGasGiantPlanet: 0
-  amountSmallStar: 0
-  amountMediumStar: 0
-  amountBigStar: 0
-  amountNeutronStar: 0
+  amountSmallPlanet: 2
+  amountLifePlanet: 2
+  amountGasGiantPlanet: 2
+  amountSmallStar: 1
+  amountMediumStar: 1
+  amountBigStar: 1
+  amountNeutronStar: 1
   amountBlackHole: 0
   amountBigCrunch: 0
   amountBigBang: 0
