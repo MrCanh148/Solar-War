@@ -11,4 +11,5 @@ public class CharacterInfo : ScriptableObject
     public Character characterPrefab;
     public float collisionCoefficient;
     public Vector3 scale;
+    public int spawnRate;
 }
