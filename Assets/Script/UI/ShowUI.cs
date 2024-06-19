@@ -39,6 +39,10 @@ public class ShowUI : FastSingleton<ShowUI>
         OffAllBts();
         UIBts[0].SetActive(true);
         Time.timeScale = isPaused ? 0 : 1;
+        if (isPaused)
+            GameManager.instance.ChangeGameState(GameState.Pause);
+        else
+            GameManager.instance.ChangeGameState(GameState.InGame);
     }
 
     public void OptionBtFeature()

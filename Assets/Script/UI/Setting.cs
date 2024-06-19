@@ -60,7 +60,7 @@ public class Setting : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.IsState(GameState.Menu))
+        if (GameManager.instance.IsGameState(GameState.Menu))
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {

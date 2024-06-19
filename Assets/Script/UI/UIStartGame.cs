@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIStartGame : MonoBehaviour
 {
     [Header("0:GamePlay / 1:Setting / 2:Shop / 3:Task / 4:StartGame")]
-    [SerializeField] private GameObject[] AllUI; 
+    [SerializeField] private GameObject[] AllUI;
 
     [Header("0:GameMode / 1:Shop / 2:Task / 3:Setting / 4:Exit / 5:Normal / 6:Survival")]
     [SerializeField] private Button[] bts;
@@ -76,6 +76,7 @@ public class UIStartGame : MonoBehaviour
 
     private void NormalFeature()
     {
+        GameManager.instance.ChangeGameMode(GameMode.Normal);
         bts[5].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
@@ -83,7 +84,10 @@ public class UIStartGame : MonoBehaviour
 
     public void SurvivalFeature()
     {
-
+        GameManager.instance.ChangeGameMode(GameMode.Survival);
+        bts[6].interactable = false;
+        StartAnimator.SetTrigger(ENTER_GAME);
+        StartCoroutine(RunAnimator());
     }
 
     private void DisAbleAllUI()

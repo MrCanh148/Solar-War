@@ -55,7 +55,7 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             foreach (var c in SpawnPlanets.instance.CharacterInfos)
             {
-               
+
 
                 if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
@@ -71,11 +71,9 @@ public class UpdateStatusCharacter : MonoBehaviour
                         {
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
-                        SpawnPlanets.instance.UpgradePlayerGenerality(character);
-                        if (character.isPlayer)
+                        if (character.isPlayer && GameManager.instance.IsGameMode(GameMode.Normal))
                         {
-                            SpawnPlanets.instance.AdjustSpawnRates(character);
-
+                            SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
                         }
                         break;
                     }
@@ -90,13 +88,15 @@ public class UpdateStatusCharacter : MonoBehaviour
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
                         character.tf.DOScale(c.scale, 0f);
-
                         typeChanged = true;
                         if (NameTxt != null)
                         {
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
-                        SpawnPlanets.instance.UpgradePlayerGenerality(character);
+                        if (character.isPlayer && GameManager.instance.IsGameMode(GameMode.Normal))
+                        {
+                            SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
+                        }
                         break;
                     }
                 }
