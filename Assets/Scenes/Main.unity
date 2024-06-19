@@ -1455,6 +1455,7 @@ MonoBehaviour:
   Kill: 0
   EvolutionDone: 0
   myFamily: {fileID: 0}
+  isSetup: 0
   moveSpeed: 0
   velocityStart: 0
   canWASD: 1
@@ -9505,6 +9506,7 @@ MonoBehaviour:
   AmountPlanet: {fileID: 11400000, guid: 746f9e1cb8ad70740ae256ae15f0c65d, type: 2}
   gameCurrentState: 0
   currentGameMode: 0
+  timePlay: 0
 --- !u!114 &581862333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30357,7 +30359,7 @@ Transform:
   m_GameObject: {fileID: 6772659483532777773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9.2, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
