@@ -13,13 +13,4 @@ MonoBehaviour:
   m_Name: AmountPlanet
   m_EditorClassIdentifier: 
   amountAsteroidGroup: 1
-  amountSmallPlanet: 2
-  amountLifePlanet: 2
-  amountGasGiantPlanet: 2
-  amountSmallStar: 1
-  amountMediumStar: 1
-  amountBigStar: 1
-  amountNeutronStar: 1
-  amountBlackHole: 0
-  amountBigCrunch: 0
-  amountBigBang: 0
+  amountPlanet: 4

@@ -9618,12 +9618,11 @@ MonoBehaviour:
   FarFromPlayerMin: 4
   FarFromPlayerMax: 10
   destroyDistance: 2.5
-  player1: {fileID: 211834571}
-  quantityAsteroid: 1
-  quantityPlanet: 0
+  player: {fileID: 211834571}
   _camera: {fileID: 362457825}
   lstCharacter: []
   asteroidGroups: []
+  quantityPlanet: 0
 --- !u!114 &581862332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9639,6 +9638,8 @@ MonoBehaviour:
   status: {fileID: 11400000, guid: 8979812de5777d54a832ebcb33df7ffa, type: 2}
   AmountPlanet: {fileID: 11400000, guid: 746f9e1cb8ad70740ae256ae15f0c65d, type: 2}
   gameCurrentState: 0
+  currentGameMode: 0
+  timePlay: 0
 --- !u!114 &581862333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15582,7 +15583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1730.1871, y: -539.9473}
+  m_AnchoredPosition: {x: 1729.9995, y: -540}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &716427283
@@ -17106,7 +17107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1730.1871, y: -459.94733}
+  m_AnchoredPosition: {x: 1729.9995, y: -460}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &967289808
@@ -19955,7 +19956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1730.1871, y: -699.9473}
+  m_AnchoredPosition: {x: 1729.9995, y: -700}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1265779519
@@ -29615,7 +29616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1730.1871, y: -619.9473}
+  m_AnchoredPosition: {x: 1729.9995, y: -620}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2029180921
@@ -29795,7 +29796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1730.1871, y: -379.94733}
+  m_AnchoredPosition: {x: 1729.9995, y: -380}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049816207
