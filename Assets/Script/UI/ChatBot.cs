@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3Listenner, IQuest4Listenner
 {
@@ -9,6 +10,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     [SerializeField] TextMeshProUGUI ChatText;
     [SerializeField] private float TimeShowText = 0.01f;
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
+    [SerializeField] private Button TaptoClose;
 
     private int currentIndex = 0;
     private bool isDisplayingText = false;
@@ -36,6 +38,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 
     private void Start()
     {
+        TaptoClose.onClick.AddListener(OnReturnKeyPressed);
         StartCoroutine(GameObjectTextDisplayer());
         BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotStartGame");
         isInitialBotChat = true;
@@ -45,31 +48,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     {
         if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
         {
-            if (isDisplayingText)
-            {
-                displayFullTextImmediately = true;
-            }
-            else
-            {
-                if (isInitialBotChat)
-                {
-                    if (currentIndex < BotChatText.Length - 1)
-                    {
-                        currentIndex++;
-                        StartDisplayTextOverTime(BotChatText[currentIndex].text);
-                    }
-                    else if (currentIndex == BotChatText.Length - 1)
-                    {
-                        BotUI.SetActive(false);
-                        gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    BotUI.SetActive(false);
-                    gameObject.SetActive(false);
-                }
-            }
+            OnReturnKeyPressed();
         }
 
         if (currentIndex == 2 || !isInitialBotChat)
@@ -122,12 +101,41 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         displayCoroutine = StartCoroutine(DisplayTextOverTime(text));
     }
 
+    private void OnReturnKeyPressed()
+    {
+        if (isDisplayingText)
+        {
+            displayFullTextImmediately = true;
+        }
+        else
+        {
+            if (isInitialBotChat)
+            {
+                if (currentIndex < BotChatText.Length - 1)
+                {
+                    currentIndex++;
+                    StartDisplayTextOverTime(BotChatText[currentIndex].text);
+                }
+                else if (currentIndex == BotChatText.Length - 1)
+                {
+                    BotUI.SetActive(false);
+                    gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                BotUI.SetActive(false);
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
     // ========================================Implement IQuest2Listener
     public void OnQuest2Started()
     {
         gameObject.SetActive(true);
         BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest2");
-        isInitialBotChat = false; 
+        isInitialBotChat = false;
         StartDisplayTextOverTime(BotChatText[0].text);
     }
 

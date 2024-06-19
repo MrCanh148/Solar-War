@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Player : Character
 {
@@ -16,11 +18,14 @@ public class Player : Character
     private float velocityMoveRight;
 
     [SerializeField] private Camera miniCam;
+    [SerializeField] private Button absorbButton;
+    [SerializeField] private FixedJoystick joystick;
 
     protected override void Start()
     {
         base.Start();
         canControl = true;
+        absorbButton.onClick.AddListener(TryAbsorbCharacter);
     }
 
     protected override void OnInit()
@@ -38,25 +43,25 @@ public class Player : Character
     {
         if (canWASD)
         {
-            if (Input.GetKey(KeyCode.UpArrow) || (Input.GetKey(KeyCode.W)))
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || joystick.Vertical > 0.1f)
             {
                 isMovingUp = true;
             }
             else { isMovingUp = false; }
 
-            if (Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.S)))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || joystick.Vertical < -0.1f)
             {
                 isMovingDown = true;
             }
             else { isMovingDown = false; }
 
-            if (Input.GetKey(KeyCode.LeftArrow) || (Input.GetKey(KeyCode.A)))
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || joystick.Horizontal < -0.1f)
             {
                 isMovingLeft = true;
             }
             else { isMovingLeft = false; }
 
-            if (Input.GetKey(KeyCode.RightArrow) || (Input.GetKey(KeyCode.D)))
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || joystick.Horizontal > 0.1f)
             {
                 isMovingRight = true;
             }
@@ -67,13 +72,7 @@ public class Player : Character
             // Nhan SPACE de Observe Orbit
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Character character = GetCharacteHaveSatellite();
-                if (character != null)
-                {
-                    AudioManager.instance.PlaySFX("Eat");
-                    AbsorbCharacter(this, character);
-                }
-
+                TryAbsorbCharacter();
             }
         }
     }
@@ -140,10 +139,9 @@ public class Player : Character
 
         }
 
-
         float velocityHorizontal = velocityMoveUp - velocityMoveDown;
         float velocityVertical = velocityMoveRight - velocityMoveLeft;
-        externalVelocity = new(velocityVertical, velocityHorizontal);
+        externalVelocity = new Vector2(velocityVertical, velocityHorizontal);
         miniCam.transform.rotation = Quaternion.identity;
 
         base.FixedUpdate();
@@ -167,4 +165,13 @@ public class Player : Character
         externalVelocity = Vector2.zero;
     }
 
+    private void TryAbsorbCharacter()
+    {
+        Character character = GetCharacteHaveSatellite();
+        if (character != null)
+        {
+            AudioManager.instance.PlaySFX("Eat");
+            AbsorbCharacter(this, character);
+        }
+    }
 }

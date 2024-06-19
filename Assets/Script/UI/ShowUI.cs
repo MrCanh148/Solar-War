@@ -5,9 +5,9 @@ public class ShowUI : FastSingleton<ShowUI>
 {
     [SerializeField] private Player player1;
 
-    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit")]
+    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit / Bt4: Back / Bt5: Achieve / Bt6: Reset / Bt7: Menu")]
     [SerializeField] private Button[] bts;
-    [SerializeField] private GameObject PauseUI, GamePlayUI;
+    [SerializeField] private GameObject SettingUI, GamePlayUI, StartGameUI;
     [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve
 
     private bool isPaused = false;
@@ -21,6 +21,7 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[4].onClick.AddListener(BackBtFeature);
         bts[5].onClick.AddListener(AchieveBtFeature);
         bts[6].onClick.AddListener(ResetBtFeature);
+        bts[7].onClick.AddListener(PauseGame);
     }
 
     private void Update()
@@ -33,16 +34,25 @@ public class ShowUI : FastSingleton<ShowUI>
 
     public void PauseGame()
     {
-        isPaused = !isPaused;
-        PauseUI.SetActive(isPaused);
-        GamePlayUI.SetActive(!isPaused);
-        OffAllBts();
-        UIBts[0].SetActive(true);
-        Time.timeScale = isPaused ? 0 : 1;
-        if (isPaused)
-            GameManager.instance.ChangeGameState(GameState.Pause);
-        else
-            GameManager.instance.ChangeGameState(GameState.InGame);
+        if (GameManager.instance.gameCurrentState == GameState.Menu)
+        {
+            SettingUI.SetActive(false);
+            StartGameUI.SetActive(true);
+        }
+
+        if (GameManager.instance.gameCurrentState == GameState.Pause || GameManager.instance.gameCurrentState == GameState.InGame)
+        {
+            isPaused = !isPaused;
+            SettingUI.SetActive(isPaused);
+            GamePlayUI.SetActive(!isPaused);
+            OffAllBts();
+            UIBts[0].SetActive(true);
+            Time.timeScale = isPaused ? 0 : 1;
+            if (isPaused)
+                GameManager.instance.ChangeGameState(GameState.Pause);
+            else
+                GameManager.instance.ChangeGameState(GameState.InGame);
+        }
     }
 
     public void OptionBtFeature()
@@ -70,7 +80,7 @@ public class ShowUI : FastSingleton<ShowUI>
     {
         Time.timeScale = 1f;
         OffAllBts();
-        PauseUI.SetActive(false);
+        SettingUI.SetActive(false);
     }
 
     public void ResetBtFeature()

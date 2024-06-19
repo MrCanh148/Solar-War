@@ -10,7 +10,7 @@ public class UIStartGame : MonoBehaviour
     [Header("0:GameMode / 1:Shop / 2:Task / 3:Setting / 4:Exit / 5:Normal / 6:Survival")]
     [SerializeField] private Button[] bts;
 
-    [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player, Select;
+    [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player, Select, Quest;
     [SerializeField] Player player;
 
     [SerializeField] private Animator StartAnimator;
@@ -24,6 +24,7 @@ public class UIStartGame : MonoBehaviour
         AudioManager.instance.PlayMusic("Theme1");
         player.canWASD = false;
         DisAbleAllUI();
+        Quest.SetActive(false);
         UIStart.SetActive(true);
         spriteRenderer = Player.GetComponent<SpriteRenderer>();
         StartAnimator = UIStart.GetComponent<Animator>();
@@ -77,6 +78,7 @@ public class UIStartGame : MonoBehaviour
     private void NormalFeature()
     {
         GameManager.instance.ChangeGameMode(GameMode.Normal);
+        Quest.SetActive(true);
         bts[5].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
