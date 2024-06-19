@@ -1,13 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class CreateQuest : MonoBehaviour, IQuestEvent
+public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1Listenner, IQuest3Listenner, IQuest4Listenner
 {
     [SerializeField] private LogicQuestPointer _quest;
     [SerializeField] private GameObject[] questPrefabs;
     [SerializeField] private GameObject Player;
 
     private List<GameObject> activeQuests = new List<GameObject>();
+    private bool quest1Done = false;
+    private bool quest2Done = false;
+    private bool quest3Done = false;
+    private bool quest4Done = false;
+
+    private void Awake()
+    {
+        QuestEventManager.Instance.RegisterListener(this);
+        QuestEventManager.Instance.Register1Listener(this);
+        QuestEventManager.Instance.Register3Listener(this);
+        QuestEventManager.Instance.Register4Listener(this);
+    }
+
+    private void OnDestroy()
+    {
+        QuestEventManager.Instance.UnregisterListener(this);
+        QuestEventManager.Instance.Unregister1Listener(this);
+        QuestEventManager.Instance.Unregister3Listener(this);
+        QuestEventManager.Instance.Unregister4Listener(this);
+    }
 
     private void Start()
     {
@@ -76,6 +96,7 @@ public class CreateQuest : MonoBehaviour, IQuestEvent
         }
     }
 
+    // ===================================Implement IQuestEvent
     public void OnQuestEnter(Quest quest)
     {
         foreach (var questObject in activeQuests)
@@ -90,4 +111,41 @@ public class CreateQuest : MonoBehaviour, IQuestEvent
         _quest.RemoveAllPoints();
     }
 
+    // ==================================Implement IQuest2Listener
+    public void OnQuest2Completed()
+    {
+        quest2Done = true;
+        CreateUniquePoints();
+        RegisterToEvent();
+    }
+
+    public void OnQuest2Started() { }
+    public void OnQuest2ProgressUpdated(int a) { }
+
+    // =================================Implement IQuest1Listener
+    public void OnQuest1Completed()
+    {
+        quest1Done = true;
+        CreateUniquePoints();
+        RegisterToEvent();
+    }
+    public void OnQuest1Started() { }
+
+    // =================================Implement IQuest3Listener
+    public void OnQuest3Completed()
+    {
+        quest3Done = true;
+        CreateUniquePoints();
+        RegisterToEvent();
+    }
+    public void OnQuest3Started() { }
+
+    // =================================Implement IQuest4Listener
+    public void OnQuest4Completed()
+    {
+        quest4Done = true;
+        CreateUniquePoints();
+        RegisterToEvent();
+    }
+    public void OnQuest4Started() { }
 }

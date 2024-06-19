@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ChatBot : MonoBehaviour, IQuest2Listener
+public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3Listenner, IQuest4Listenner
 {
     private BotChatText[] BotChatText;
     [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
@@ -21,11 +21,17 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
     private void Awake()
     {
         QuestEventManager.Instance.RegisterListener(this);
+        QuestEventManager.Instance.Register1Listener(this);
+        QuestEventManager.Instance.Register3Listener(this);
+        QuestEventManager.Instance.Register4Listener(this);
     }
 
     private void OnDestroy()
     {
         QuestEventManager.Instance.UnregisterListener(this);
+        QuestEventManager.Instance.Unregister1Listener(this);
+        QuestEventManager.Instance.Unregister3Listener(this);
+        QuestEventManager.Instance.Unregister4Listener(this);
     }
 
     private void Start()
@@ -66,7 +72,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
             }
         }
 
-        if (currentIndex == 2)
+        if (currentIndex == 2 || !isInitialBotChat)
         {
             StatePlayerUI.SetActive(true);
         }
@@ -116,7 +122,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
         displayCoroutine = StartCoroutine(DisplayTextOverTime(text));
     }
 
-    // Implement IQuest2Listener
+    // ========================================Implement IQuest2Listener
     public void OnQuest2Started()
     {
         gameObject.SetActive(true);
@@ -134,4 +140,55 @@ public class ChatBot : MonoBehaviour, IQuest2Listener
     }
 
     public void OnQuest2ProgressUpdated(int a) { }
+
+    // ========================================Implement IQuest1Listener
+    public void OnQuest1Started()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest1");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[0].text);
+    }
+
+    public void OnQuest1Completed()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest1");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[1].text);
+    }
+
+    // ========================================Implement IQuest3Listener
+    public void OnQuest3Started()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest3");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[0].text);
+    }
+
+    public void OnQuest3Completed()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest3");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[1].text);
+    }
+
+    // ========================================Implement IQuest4Listener
+    public void OnQuest4Started()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest4");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[0].text);
+    }
+
+    public void OnQuest4Completed()
+    {
+        gameObject.SetActive(true);
+        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotQuest4");
+        isInitialBotChat = false;
+        StartDisplayTextOverTime(BotChatText[1].text);
+    }
 }
