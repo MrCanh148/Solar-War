@@ -7,15 +7,20 @@ public class CameraWall : MonoBehaviour
         Character character = Cache.GetCharacterCollider(collision);
         if (character != null)
         {
-            if (!character.isPlayer)
+            if (!character.isSetup)
             {
-                if (character.characterType > CharacterType.Asteroid)
-                    SpawnPlanets.instance.ActiveCharacter2(character);
-                else
+                if (!character.isPlayer)
                 {
-                    SpawnPlanets.instance.DeActiveCharacter(character);
-                }
+                    if (character.characterType > CharacterType.Asteroid)
+                    {
+                        SpawnPlanets.instance.ActiveCharacter2(character);
+                    }
+                    else
+                    {
+                        SpawnPlanets.instance.DeActiveCharacter(character);
+                    }
 
+                }
             }
         }
 
@@ -30,6 +35,28 @@ public class CameraWall : MonoBehaviour
         if (target != null)
         {
             Destroy(target.gameObject);
+        }
+
+        GroupPlanet groupPlanet = collision.GetComponent<GroupPlanet>();
+        if (groupPlanet != null)
+        {
+            if (groupPlanet.masterStar.host == null)
+            {
+                GroupPlanet group = SpawnPlanets.instance.GetGroupPlanet();
+                {
+                    if (group != null)
+                    {
+                        group.OnInit();
+                        group.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+                    }
+                    else
+                    {
+                        groupPlanet.OnInit();
+                        groupPlanet.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+                    }
+                }
+
+            }
         }
     }
 }

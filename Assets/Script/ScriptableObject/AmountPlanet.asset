@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountAsteroidGroup: 1
   amountPlanet: 4
+  amountGroupPlanet: 1
