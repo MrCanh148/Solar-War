@@ -82,6 +82,7 @@ public class UIStartGame : MonoBehaviour
         bts[5].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
+    
     }
 
     public void SurvivalFeature()
@@ -90,6 +91,7 @@ public class UIStartGame : MonoBehaviour
         bts[6].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());
+    
     }
 
     private void DisAbleAllUI()
@@ -105,6 +107,8 @@ public class UIStartGame : MonoBehaviour
         yield return new WaitForSeconds(1f);
         AllUI[4].SetActive(false);
         StartCoroutine(ChaChaBoomBoom());
+        bts[5].interactable = true;
+        bts[6].interactable = true;
     }
 
     private IEnumerator ChaChaBoomBoom()
