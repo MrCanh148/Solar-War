@@ -15,6 +15,10 @@ public class NotifUI : MonoBehaviour, IQuest2Listener
     {
         QuestEventManager.Instance.RegisterListener(this);
         bgCanvasGroup = Bg.GetComponent<CanvasGroup>();
+        if (bgCanvasGroup == null)
+        {
+            bgCanvasGroup = Bg.AddComponent<CanvasGroup>();
+        }
     }
 
     private void OnDestroy()

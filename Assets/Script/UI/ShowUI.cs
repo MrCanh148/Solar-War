@@ -39,6 +39,7 @@ public class ShowUI : FastSingleton<ShowUI>
         {
             SettingUI.SetActive(false);
             StartGameUI.SetActive(true);
+            Time.timeScale = isPaused ? 0 : 1;
         }
 
         if (GameManager.instance.gameCurrentState == GameState.Pause || GameManager.instance.gameCurrentState == GameState.InGame)
@@ -79,8 +80,9 @@ public class ShowUI : FastSingleton<ShowUI>
 
     public void BackBtFeature()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0;
         OffAllBts();
+        UIBts[0].SetActive(true);
         SettingUI.SetActive(true);
     }
 

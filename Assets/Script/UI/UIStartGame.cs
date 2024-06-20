@@ -10,7 +10,7 @@ public class UIStartGame : MonoBehaviour
     [Header("0:GameMode / 1:Shop / 2:Task / 3:Setting / 4:Exit / 5:Normal / 6:Survival")]
     [SerializeField] private Button[] bts;
 
-    [SerializeField] private GameObject UIStart, AllInOne, Hole, OneInAll, Player, Select, Quest;
+    [SerializeField] private GameObject AllInOne, Hole, OneInAll, Player, Select, Quest;
     [SerializeField] Player player;
 
     [SerializeField] private Animator StartAnimator;
@@ -25,9 +25,9 @@ public class UIStartGame : MonoBehaviour
         player.canWASD = false;
         DisAbleAllUI();
         Quest.SetActive(false);
-        UIStart.SetActive(true);
+        AllUI[4].SetActive(true);
         spriteRenderer = Player.GetComponent<SpriteRenderer>();
-        StartAnimator = UIStart.GetComponent<Animator>();
+        StartAnimator = AllUI[4].GetComponent<Animator>();
 
         bts[0].onClick.AddListener(GameModeFeature);
         bts[1].onClick.AddListener(ShopFeature);
@@ -103,7 +103,7 @@ public class UIStartGame : MonoBehaviour
     private IEnumerator RunAnimator()
     {
         yield return new WaitForSeconds(1f);
-        UIStart.SetActive(false);
+        AllUI[4].SetActive(false);
         StartCoroutine(ChaChaBoomBoom());
     }
 

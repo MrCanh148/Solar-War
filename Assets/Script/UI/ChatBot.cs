@@ -40,7 +40,10 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     {
         TaptoClose.onClick.AddListener(OnReturnKeyPressed);
         StartCoroutine(GameObjectTextDisplayer());
-        BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotStartGame");
+        if (GameManager.instance.currentGameMode == GameMode.Normal)
+            BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotStartGame");
+        if (GameManager.instance.currentGameMode == GameMode.Survival)
+            BotChatText = Resources.LoadAll<BotChatText>("BotChatText/BotSurvival");
         isInitialBotChat = true;
     }
 
@@ -51,7 +54,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
             OnReturnKeyPressed();
         }
 
-        if (currentIndex == 2 || !isInitialBotChat)
+        if (currentIndex == 2 || !isInitialBotChat || GameManager.instance.currentGameMode == GameMode.Survival)
         {
             StatePlayerUI.SetActive(true);
         }
