@@ -56,17 +56,22 @@ public class Character : MonoBehaviour
     public int Kill;
     public bool EvolutionDone = false;
     public Character myFamily;
+    public bool isSetup;
 
     protected virtual void Start()
     {
-        OnInit();
+        //OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
 
     private void OnEnable()
     {
-        OnInit();
+        if (!isSetup)
+        {
+            OnInit();
+        }
+
     }
 
     protected virtual void OnInit()
@@ -237,7 +242,7 @@ public class Character : MonoBehaviour
                 AudioManager.instance.PlaySFX("Planet-destroy");
                 SpawnPlanets.instance.ActiveCharacter(this, characterType);
             }
-     
+
             else
                 character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(characterType + 1) / 10;
 
