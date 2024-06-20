@@ -9759,7 +9759,9 @@ MonoBehaviour:
   _camera: {fileID: 362457825}
   lstCharacter: []
   asteroidGroups: []
-  groupPlanets: []
+  groupPlanets:
+  - {fileID: 1174158572533169929, guid: b317df1342fa01f409ba0e8c39f5fb4c, type: 3}
+  - {fileID: 6022387643372380825, guid: d5e18570bfe800d42a04c277c54e7aec, type: 3}
   quantityPlanet: 0
 --- !u!114 &581862332
 MonoBehaviour:
