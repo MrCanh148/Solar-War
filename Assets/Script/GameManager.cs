@@ -54,7 +54,7 @@ public class GameManager : FastSingleton<GameManager>
 
     private void Start()
     {
-        timePlay = 1200; // 20 phút = 1200 giây
+        timePlay = 1200f;
         ChangeGameState(GameState.Menu);
     }
 

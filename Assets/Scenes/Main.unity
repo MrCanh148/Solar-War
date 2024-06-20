@@ -9760,7 +9760,6 @@ MonoBehaviour:
   lstCharacter: []
   asteroidGroups: []
   groupPlanets:
-  - {fileID: 6426257745577076963, guid: b0570a73bde2e3242a6ac495f73d02e1, type: 3}
   - {fileID: 1174158572533169929, guid: b317df1342fa01f409ba0e8c39f5fb4c, type: 3}
   - {fileID: 6022387643372380825, guid: d5e18570bfe800d42a04c277c54e7aec, type: 3}
   quantityPlanet: 0
