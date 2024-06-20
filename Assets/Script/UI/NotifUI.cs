@@ -15,15 +15,28 @@ public class NotifUI : MonoBehaviour, IQuest2Listener
     {
         QuestEventManager.Instance.RegisterListener(this);
         bgCanvasGroup = Bg.GetComponent<CanvasGroup>();
-        if (bgCanvasGroup == null)
-        {
-            bgCanvasGroup = Bg.AddComponent<CanvasGroup>();
-        }
     }
 
     private void OnDestroy()
     {
         QuestEventManager.Instance.UnregisterListener(this);
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.currentGameMode == GameMode.Survival)
+        {
+            BgFadeIn();
+            Name.text = "Time Remaining:";
+
+            float timeRemaining = GameManager.instance.timePlay;
+            int minutes = Mathf.FloorToInt(timeRemaining / 60);
+            int seconds = Mathf.FloorToInt(timeRemaining % 60);
+            Info.text = $"Time: {minutes} m {seconds} s";
+
+            if (GameManager.instance.gameCurrentState == GameState.GameOver)
+                BgFadeOut();
+        }
     }
 
     // Implement IQuest2Listener

@@ -5,7 +5,7 @@ public class ShowUI : FastSingleton<ShowUI>
 {
     [SerializeField] private Player player1;
 
-    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit / Bt4: Back / Bt5: Achieve / Bt6: Reset / Bt7: Menu")]
+    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit / Bt4: Back / Bt5: Achieve / Bt6: Reset / Bt7: Menu / Bt8: BackOption")]
     [SerializeField] private Button[] bts;
     [SerializeField] private GameObject SettingUI, GamePlayUI, StartGameUI;
     [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve
@@ -22,6 +22,7 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[5].onClick.AddListener(AchieveBtFeature);
         bts[6].onClick.AddListener(ResetBtFeature);
         bts[7].onClick.AddListener(PauseGame);
+        bts[8].onClick.AddListener(BackBtFeature);
     }
 
     private void Update()
@@ -80,7 +81,7 @@ public class ShowUI : FastSingleton<ShowUI>
     {
         Time.timeScale = 1f;
         OffAllBts();
-        SettingUI.SetActive(false);
+        SettingUI.SetActive(true);
     }
 
     public void ResetBtFeature()
