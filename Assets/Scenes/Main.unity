@@ -9759,6 +9759,9 @@ MonoBehaviour:
   _camera: {fileID: 362457825}
   lstCharacter: []
   asteroidGroups: []
+  groupPlanets:
+  - {fileID: 6022387643372380825, guid: d5e18570bfe800d42a04c277c54e7aec, type: 3}
+  - {fileID: 1174158572533169929, guid: b317df1342fa01f409ba0e8c39f5fb4c, type: 3}
   quantityPlanet: 0
 --- !u!114 &581862332
 MonoBehaviour:
@@ -9777,7 +9780,7 @@ MonoBehaviour:
   gameCurrentState: 0
   currentGameMode: 0
   timePlay: 0
-  UIGameOver: {fileID: 1795348143}
+  UIGameOver: {fileID: 0}
 --- !u!114 &581862333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28375,11 +28378,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d057fd212054264aa3f29cfc51ab75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackBt: {fileID: 1102009110}
-  UIGameOver: {fileID: 1795348143}
-  StartGameUI: {fileID: 962678184}
-  GameplayUI: {fileID: 1144245704}
-  infoText: {fileID: 2060653694}
+  BackBt: {fileID: 0}
+  UIGameOver: {fileID: 0}
+  StartGameUI: {fileID: 0}
+  GameplayUI: {fileID: 0}
+  infoText: {fileID: 0}
 --- !u!114 &1795348146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31314,7 +31317,7 @@ Transform:
   m_GameObject: {fileID: 6772659483532777773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.38, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:

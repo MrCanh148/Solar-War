@@ -18,6 +18,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     float FarFromPlayerX;
     public List<Character> lstCharacter;
     public List<AsteroidGroup> asteroidGroups;
+    public List<GroupPlanet> groupPlanets;
     public Dictionary<CharacterType, int> spawnRates = new Dictionary<CharacterType, int>();
     public Dictionary<CharacterType, int> SortSpawnRates = new Dictionary<CharacterType, int>();
     public int quantityPlanet = 3;
@@ -50,6 +51,15 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 Character character = Instantiate(CharacterInfos[(int)CharacterType.SmallPlanet].characterPrefab, tfCharacterManager);
                 lstCharacter.Add(character);
                 ActiveCharacter2(character);
+            }
+        }
+
+        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountGroupPlanet; i++)
+        {
+            if (groupPlanets.Count > 0)
+            {
+                GroupPlanet groupPlanet = Instantiate(groupPlanets[0], tfCharacterManager);
+                groupPlanet.transform.localPosition = SpawnerCharacter();
             }
         }
 
@@ -122,6 +132,22 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         //float random = Random.Range(FarFromPlayerY * 1.5f, (GameManager.instance.status.coefficientActiveGameObject - .5f) * FarFromPlayerY);
         return player.tf.position + ((Vector3)player.mainVelocity.normalized * distance * (GameManager.instance.status.coefficientActiveGameObject + 1) / 2);
     }
+
+    public GroupPlanet GetGroupPlanet()
+    {
+        GroupPlanet groupPlanet = null;
+        CharacterType characterType = RandomCharacterType();
+        foreach (var group in groupPlanets)
+        {
+            if (group.masterStar.characterType == characterType)
+            {
+                groupPlanet = group;
+                break;
+            }
+        }
+        return groupPlanet;
+    }
+
 
     public float RamdomValue(float n)
     {
