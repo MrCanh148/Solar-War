@@ -8,10 +8,6 @@ public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1L
     [SerializeField] private GameObject Player;
 
     private List<GameObject> activeQuests = new List<GameObject>();
-    private bool quest1Done = false;
-    private bool quest2Done = false;
-    private bool quest3Done = false;
-    private bool quest4Done = false;
 
     private void Awake()
     {
@@ -114,7 +110,6 @@ public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1L
     // ==================================Implement IQuest2Listener
     public void OnQuest2Completed()
     {
-        quest2Done = true;
         CreateUniquePoints();
         RegisterToEvent();
     }
@@ -125,7 +120,6 @@ public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1L
     // =================================Implement IQuest1Listener
     public void OnQuest1Completed()
     {
-        quest1Done = true;
         CreateUniquePoints();
         RegisterToEvent();
     }
@@ -134,7 +128,6 @@ public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1L
     // =================================Implement IQuest3Listener
     public void OnQuest3Completed()
     {
-        quest3Done = true;
         CreateUniquePoints();
         RegisterToEvent();
     }
@@ -143,7 +136,6 @@ public class CreateQuest : MonoBehaviour, IQuestEvent, IQuest2Listener, IQuest1L
     // =================================Implement IQuest4Listener
     public void OnQuest4Completed()
     {
-        quest4Done = true;
         CreateUniquePoints();
         RegisterToEvent();
     }
