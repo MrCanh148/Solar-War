@@ -112,7 +112,8 @@ public class CaptureZone : MonoBehaviour
             limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
         }
 
-        float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
+        float radius = limitedRadius + owner.satellites.Count * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType) * 2;
+        //float radius = limitedRadius + owner.satellites.Count * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
         return radius;
     }
 

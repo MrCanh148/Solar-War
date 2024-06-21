@@ -244,6 +244,7 @@ public class Character : MonoBehaviour
                 character.rb.mass -= (int)rb.mass;
                 AudioManager.instance.PlaySFX("Planet-destroy");
                 SpawnPlanets.instance.ActiveCharacter(this, characterType);
+                AllWhenDie();
             }
 
             else
@@ -363,8 +364,8 @@ public class Character : MonoBehaviour
                 limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
             }
-            float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
-
+            //float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
+            float tmpRadius = limitedRadius + i * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType) * 2;
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f)
                 .OnStart(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = false)
                 .OnComplete(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = true);
