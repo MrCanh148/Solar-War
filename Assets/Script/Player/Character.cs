@@ -244,6 +244,7 @@ public class Character : MonoBehaviour
                 character.rb.mass -= (int)rb.mass;
                 AudioManager.instance.PlaySFX("Planet-destroy");
                 SpawnPlanets.instance.ActiveCharacter(this, characterType);
+                AllWhenDie();
             }
 
             else
