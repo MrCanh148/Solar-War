@@ -172,13 +172,15 @@ public class Character : MonoBehaviour
         if (generalityType == GeneralityType.Star)
         {
             if (characterType == CharacterType.SmallStar)
+                MaxOrbit = 3;
+            else if (characterType == CharacterType.MediumStar)
                 MaxOrbit = 5;
             else if (characterType == CharacterType.BigStar)
-                MaxOrbit = 8;
+                MaxOrbit = 7;
             else if (characterType == CharacterType.NeutronStar)
-                MaxOrbit = 4;
+                MaxOrbit = 9;
         }
-
+        NunmberOrbit = satellites.Count;
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
@@ -362,7 +364,9 @@ public class Character : MonoBehaviour
             }
             float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
 
-            DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f);
+            DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f)
+                .OnStart(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = false)
+                .OnComplete(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = true);
 
         }
     }
