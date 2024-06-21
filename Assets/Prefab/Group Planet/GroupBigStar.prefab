@@ -230,6 +230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BigStar
       objectReference: {fileID: 0}
+    - target: {fileID: 7453806933414085857, guid: f99e3ba012de2e14eac8a26cf66619d0, type: 3}
+      propertyPath: isSetup
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8408830236506944916, guid: f99e3ba012de2e14eac8a26cf66619d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

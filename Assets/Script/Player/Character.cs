@@ -36,6 +36,7 @@ public class Character : MonoBehaviour
     public Vector2 externalVelocity;
     public Vector2 mainVelocity;
     public bool isPlayer;
+    public bool isDead;
     public bool canControl;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;

@@ -13,6 +13,7 @@ public class GroupPlanet : MonoBehaviour
 
     public void OnInit()
     {
+        this.gameObject.GetComponent<GroupPlanet>().enabled = true;
         masterStar.satellites.Clear();
         foreach (Character c in characterChilds)
         {

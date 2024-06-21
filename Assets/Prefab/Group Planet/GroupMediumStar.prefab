@@ -501,6 +501,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6621866837115324098}
     m_Modifications:
+    - target: {fileID: -8290093958724739382, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}
+      propertyPath: isSetup
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2347289635430099732, guid: 3ae6be44d46239e4e885e5177ddbcd9b, type: 3}
       propertyPath: m_Name
       value: MediumStar

@@ -428,6 +428,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2646830932537563276}
     m_Modifications:
+    - target: {fileID: -411917550344471460, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
+      propertyPath: isSetup
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2003567711149025007, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
       propertyPath: m_Name
       value: NeutronStar
