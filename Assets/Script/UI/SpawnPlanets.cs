@@ -139,7 +139,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         GroupPlanet groupPlanet = null;
         CharacterType characterType = RandomCharacterType();
-        Debug.Log(characterType);
+        //Debug.Log(characterType);
         foreach (var group in groupPlanets)
         {
             if (group.masterStar.characterType == characterType)
@@ -148,7 +148,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 break;
             }
         }
-        Debug.Log(groupPlanet);
+        //Debug.Log(groupPlanet);
         return groupPlanet;
     }
 
