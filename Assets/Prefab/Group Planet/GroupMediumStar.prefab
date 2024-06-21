@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6621866837115324098}
   - component: {fileID: 5879430325467077618}
+  - component: {fileID: 2977020883018960709}
+  - component: {fileID: 63214721375803687}
   m_Layer: 0
   m_Name: GroupMediumStar
   m_TagString: Untagged
@@ -57,6 +59,68 @@ MonoBehaviour:
   - {fileID: 5338095496101415319}
   - {fileID: 1374616262805921013}
   masterStar: {fileID: 5124066104035046663}
+--- !u!58 &2977020883018960709
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527171257035198963}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -8.23, y: 1.06}
+  serializedVersion: 2
+  m_Radius: 0.98
+--- !u!50 &63214721375803687
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527171257035198963}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &856917692867729441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,6 +176,10 @@ PrefabInstance:
     - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: m_Name
       value: Small Planet
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: radius
@@ -201,6 +269,10 @@ PrefabInstance:
     - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: m_Name
       value: Small Planet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: radius
@@ -303,6 +375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Life Planet
       objectReference: {fileID: 0}
+    - target: {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -335,6 +411,10 @@ PrefabInstance:
     - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_Name
       value: GasGiantPlanet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123883582720114456, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -501,6 +581,10 @@ PrefabInstance:
     - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_Name
       value: GasGiantPlanet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123883582720114456, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_LocalPosition.x

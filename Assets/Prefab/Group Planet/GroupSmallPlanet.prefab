@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8297602267580051692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 52.979836, y: -19.921978, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -89,7 +89,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 2.15, y: 1.46}
   serializedVersion: 2
-  m_Radius: 1.17
+  m_Radius: 1.52
 --- !u!50 &616852822838959481
 Rigidbody2D:
   serializedVersion: 4
@@ -128,10 +128,14 @@ PrefabInstance:
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: host
       value: 
+      objectReference: {fileID: 113752058473246627}
+    - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: angle
+      value: 20.330414
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: radius
-      value: 0
+      value: 2.3999999
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isSetup
@@ -143,11 +147,11 @@ PrefabInstance:
       objectReference: {fileID: 113752058473246627}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isCapture
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: spinSpeed
-      value: 0
+      value: -0.7352369
       objectReference: {fileID: 0}
     - target: {fileID: 2111806101972903701, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -193,6 +197,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3203132349341816512, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -225,10 +233,14 @@ PrefabInstance:
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: host
       value: 
+      objectReference: {fileID: 113752058473246627}
+    - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: angle
+      value: 291.1409
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: radius
-      value: 0
+      value: 1.68
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isSetup
@@ -240,11 +252,11 @@ PrefabInstance:
       objectReference: {fileID: 113752058473246627}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isCapture
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: spinSpeed
-      value: 0
+      value: 0.5245341
       objectReference: {fileID: 0}
     - target: {fileID: 2111806101972903701, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -290,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3203132349341816512, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -322,10 +338,14 @@ PrefabInstance:
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: host
       value: 
+      objectReference: {fileID: 113752058473246627}
+    - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: angle
+      value: 260.73184
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: radius
-      value: 0
+      value: 0.96000004
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isSetup
@@ -337,11 +357,11 @@ PrefabInstance:
       objectReference: {fileID: 113752058473246627}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: isCapture
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6489732090044767875, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: spinSpeed
-      value: 0
+      value: 0.9707464
       objectReference: {fileID: 0}
     - target: {fileID: 2111806101972903701, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -386,6 +406,10 @@ PrefabInstance:
     - target: {fileID: 3203132349341816512, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
       propertyPath: m_Name
       value: Asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203132349341816512, guid: c0b1d3742fd7a504890626a474adebca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -470,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: satellites.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: satellites.Array.data[0]
