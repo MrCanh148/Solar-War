@@ -17,14 +17,20 @@ public class GroupPlanet : MonoBehaviour
         foreach (Character c in characterChilds)
         {
             masterStar.satellites.Add(c);
-            c.gameObject.SetActive(true);
+            c.gameObject.SetActive(false);
             c.isCapture = true;
             c.host = masterStar;
             c.angle = Random.Range(0f, 360f);
             c.spinSpeed = RandomSpinSpeed(Random.Range(0.5f, 1f));
+            c.radius = (c.tf.position - masterStar.tf.position).magnitude;
         }
         masterStar.ResetRadiusSatellite(masterStar);
         masterStar.gameObject.SetActive(true);
+
+        foreach (Character c in characterChilds)
+        {
+            c.gameObject.SetActive(true);
+        }
     }
 
     public float RandomSpinSpeed(float n)
