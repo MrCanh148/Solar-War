@@ -48,11 +48,16 @@ public class CameraWall : MonoBehaviour
                     {
                         group.OnInit();
                         group.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+                        groupPlanet.gameObject.SetActive(false);
+                        group.gameObject.SetActive(true);
+
                     }
                     else
                     {
                         groupPlanet.OnInit();
                         groupPlanet.transform.localPosition = SpawnPlanets.instance.SpawnerCharacter();
+                        groupPlanet.gameObject.SetActive(true);
+
                     }
                 }
 

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2646830932537563276}
   - component: {fileID: 8797550695483885315}
+  - component: {fileID: 9198341315775964526}
+  - component: {fileID: 8733365651191731347}
   m_Layer: 0
   m_Name: GroupNeutronStar
   m_TagString: Untagged
@@ -65,6 +67,68 @@ MonoBehaviour:
   - {fileID: 2583531080387588112}
   - {fileID: 213468613002552150}
   masterStar: {fileID: 3978469715174671426}
+--- !u!50 &9198341315775964526
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504156413681962937}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &8733365651191731347
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504156413681962937}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.24
 --- !u!1001 &2509248848431649149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,6 +208,10 @@ PrefabInstance:
     - target: {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
       propertyPath: m_Name
       value: Life Planet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -234,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Life Planet
       objectReference: {fileID: 0}
+    - target: {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -266,6 +338,10 @@ PrefabInstance:
     - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_Name
       value: GasGiantPlanet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123883582720114456, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -352,6 +428,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2646830932537563276}
     m_Modifications:
+    - target: {fileID: -411917550344471460, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
+      propertyPath: isSetup
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2003567711149025007, guid: 71017d7c57f67484c830b24182a89c7c, type: 3}
       propertyPath: m_Name
       value: NeutronStar
@@ -473,6 +553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Planet (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: radius
       value: 1
@@ -517,6 +601,10 @@ PrefabInstance:
     - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_Name
       value: GasGiantPlanet (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123883582720114456, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -651,6 +739,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small Planet (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: radius
       value: 1
@@ -739,6 +831,10 @@ PrefabInstance:
     - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: m_Name
       value: Small Planet
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378639861866745267, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7764996312339137584, guid: 88cf193e51cc71c478ce98fc60b29a2b, type: 3}
       propertyPath: radius
@@ -853,6 +949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Life Planet (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8805419360225620633, guid: a82b1d79f32a3a54a937453638df2be7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -885,6 +985,10 @@ PrefabInstance:
     - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_Name
       value: GasGiantPlanet (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882966884363989911, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3123883582720114456, guid: a875bdfed43cc99418c5233a9149a23d, type: 3}
       propertyPath: m_LocalScale.x

@@ -1573,6 +1573,7 @@ MonoBehaviour:
   externalVelocity: {x: 0, y: 0}
   mainVelocity: {x: 0, y: 0}
   isPlayer: 1
+  isDead: 0
   canControl: 0
   spriteRenderer: {fileID: 0}
   canvar: {fileID: 0}
@@ -9759,14 +9760,15 @@ MonoBehaviour:
   _camera: {fileID: 362457825}
   lstCharacter: []
   asteroidGroups: []
-  groupPlanets:
+  groupPlanetsPrefab:
+  - {fileID: 6426257745577076963, guid: b0570a73bde2e3242a6ac495f73d02e1, type: 3}
   - {fileID: 1174158572533169929, guid: b317df1342fa01f409ba0e8c39f5fb4c, type: 3}
   - {fileID: 6022387643372380825, guid: d5e18570bfe800d42a04c277c54e7aec, type: 3}
   - {fileID: 5584633165387788397, guid: 0f90c67ef2b8e6a4d91a95d4b5450513, type: 3}
   - {fileID: 5879430325467077618, guid: f84e47ac5a7255c4fb4fc832f1cc9287, type: 3}
   - {fileID: 7589977083662876928, guid: d6837aa42b445734db7499e409321348, type: 3}
   - {fileID: 8797550695483885315, guid: c18a8d492f818ec4497491daf43ccba7, type: 3}
-  quantityPlanet: 0
+  groupPlanets: []
 --- !u!114 &581862332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15496,7 +15498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -61.000305, y: -4}
+  m_AnchoredPosition: {x: -61.000244, y: -4}
   m_SizeDelta: {x: 1065.532, y: 266.383}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &675864079

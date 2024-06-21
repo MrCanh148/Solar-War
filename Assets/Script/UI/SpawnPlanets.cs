@@ -18,11 +18,10 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     float FarFromPlayerX;
     public List<Character> lstCharacter;
     public List<AsteroidGroup> asteroidGroups;
+    public List<GroupPlanet> groupPlanetsPrefab;
     public List<GroupPlanet> groupPlanets;
     public Dictionary<CharacterType, int> spawnRates = new Dictionary<CharacterType, int>();
     public Dictionary<CharacterType, int> SortSpawnRates = new Dictionary<CharacterType, int>();
-    public int quantityPlanet = 3;
-
 
     private void Start()
     {
@@ -53,14 +52,17 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 ActiveCharacter2(character);
             }
         }
-
-        for (int i = 1; i <= GameManager.instance.AmountPlanet.amountGroupPlanet; i++)
+        foreach (var group in groupPlanetsPrefab)
         {
-            if (groupPlanets.Count > 0)
-            {
-                GroupPlanet groupPlanet = Instantiate(groupPlanets[0], tfCharacterManager);
-                groupPlanet.transform.localPosition = SpawnerCharacter();
-            }
+            GroupPlanet groupPlanet = Instantiate(group, tfCharacterManager);
+            groupPlanets.Add(groupPlanet);
+            groupPlanet.gameObject.SetActive(false);
+        }
+        if (groupPlanets.Count > 0)
+        {
+
+            groupPlanets[0].gameObject.SetActive(true);
+            groupPlanets[0].transform.localPosition = SpawnerCharacter();
         }
 
         GameManager.instance.ChangeGameState(GameState.InGame);
@@ -137,6 +139,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         GroupPlanet groupPlanet = null;
         CharacterType characterType = RandomCharacterType();
+        Debug.Log(characterType);
         foreach (var group in groupPlanets)
         {
             if (group.masterStar.characterType == characterType)
@@ -145,6 +148,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 break;
             }
         }
+        Debug.Log(groupPlanet);
         return groupPlanet;
     }
 
