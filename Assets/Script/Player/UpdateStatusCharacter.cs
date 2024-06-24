@@ -93,9 +93,12 @@ public class UpdateStatusCharacter : MonoBehaviour
                         {
                             NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
                         }
-                        if (character.isPlayer && GameManager.instance.IsGameMode(GameMode.Normal))
+                        if (character.isPlayer)
                         {
-                            SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
+                            if (GameManager.instance.IsGameMode(GameMode.Normal))
+                                SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
+                            else if (GameManager.instance.IsGameMode(GameMode.Survival))
+                                GameManager.instance.ChangeGameState(GameState.GameOver);
                         }
                         break;
                     }
@@ -147,9 +150,16 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         if (currentGenerateType > newType)  // tụt cấp generalityType
         {
-            AudioManager.instance.PlaySFX("Planet-destroy");
-            owner.AllWhenDie();
-            SpawnPlanets.instance.ActiveCharacter(owner, owner.characterType + 1);
+            if (!owner.isBasicReSpawn)
+            {
+                AudioManager.instance.PlaySFX("Planet-destroy");
+                owner.AllWhenDie();
+                SpawnPlanets.instance.ActiveCharacter(owner, owner.characterType + 1);
+            }
+            else
+            {
+                owner.isBasicReSpawn = true;
+            }
 
         }
         else if (currentGenerateType < newType)  // lên cấp generalityType

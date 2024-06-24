@@ -38,6 +38,7 @@ public class Character : MonoBehaviour
     public bool isPlayer;
     public bool isDead;
     public bool canControl;
+    public bool isBasicReSpawn;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     public List<Character> satellites;
@@ -81,6 +82,7 @@ public class Character : MonoBehaviour
         myFamily = this;
         isCapture = false;
         host = null;
+        isBasicReSpawn = false;
     }
 
     private void Update()
@@ -397,5 +399,8 @@ public class Character : MonoBehaviour
         }
 
         satellites.Clear();
+
+        /*if (this.isPlayer && GameManager.instance.gameMode == GameMode.Survival)
+            GameManager.instance.ChangeGameState(GameState.GameOver);*/
     }
 }
