@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Bullet : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class Bullet : MonoBehaviour
                         {
                             if (target.host != null)
                                 target.host.satellites.Remove(target);
-                            Destroy(target.gameObject);
+                            SpawnPlanets.instance.ActiveCharacter2(target);
                         }
                     }
                 }
