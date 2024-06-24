@@ -1,5 +1,6 @@
 ﻿using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Missile : MonoBehaviour
 {
@@ -78,7 +79,11 @@ public class Missile : MonoBehaviour
                         {
                             if (target.host != null)
                                 target.host.satellites.Remove(target);
-                            Destroy(target.gameObject);
+
+                            if (target.generalityType == GeneralityType.Asteroid)
+                                target.gameObject.SetActive(false);
+                            else
+                                SpawnPlanets.instance.ActiveCharacter2(target);
                         }
                     }
                 }

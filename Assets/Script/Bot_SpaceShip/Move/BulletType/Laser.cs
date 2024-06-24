@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Laser : MonoBehaviour
 {
@@ -72,7 +73,11 @@ public class Laser : MonoBehaviour
                                         {
                                             if (targetCharacter.host != null)
                                                 targetCharacter.host.satellites.Remove(targetCharacter);
-                                            Destroy(hit.collider.gameObject);
+
+                                            if (targetCharacter.generalityType == GeneralityType.Asteroid)
+                                                targetCharacter.gameObject.SetActive(false);
+                                            else
+                                                SpawnPlanets.instance.ActiveCharacter2(targetCharacter);
                                         }
                                     }
                                 }
