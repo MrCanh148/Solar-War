@@ -226,23 +226,26 @@ public class Character : MonoBehaviour
             return;
         }
 
-        if (character.generalityType == GeneralityType.BlackHole)
+        if (generalityType == GeneralityType.BlackHole)
         {
-            if (generalityType == GeneralityType.BlackHole)
+            if (character.generalityType == GeneralityType.BlackHole)
             {
-                if (this.rb.mass < character.rb.mass)
+                if (this.rb.mass > character.rb.mass)
                 {
-                    MergeCharacter(character, this);
-                    SpawnPlanets.instance.ActiveCharacter2(this);
+                    MergeCharacter(this, character);
+                    SpawnPlanets.instance.ActiveCharacter2(character);
                     SpawnPlanets.instance.quantityPlanetActive++;
                 }
 
             }
             else
             {
-                MergeCharacter(character, this);
-                SpawnPlanets.instance.ActiveCharacter2(this);
-                SpawnPlanets.instance.quantityPlanetActive++;
+                MergeCharacter(this, character);
+                if (character.characterType > CharacterType.Asteroid)
+                {
+                    SpawnPlanets.instance.ActiveCharacter2(character);
+                    SpawnPlanets.instance.quantityPlanetActive++;
+                }
             }
 
 
