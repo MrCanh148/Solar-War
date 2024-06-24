@@ -88,6 +88,7 @@ public class UIStartGame : MonoBehaviour
     public void SurvivalFeature()
     {
         GameManager.instance.ChangeGameMode(GameMode.Survival);
+        GameManager.instance.timePlay = 1200;
         bts[6].interactable = false;
         StartAnimator.SetTrigger(ENTER_GAME);
         StartCoroutine(RunAnimator());

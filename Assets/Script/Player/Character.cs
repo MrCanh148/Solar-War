@@ -262,6 +262,7 @@ public class Character : MonoBehaviour
     public void MergeCharacter(Character c1, Character c2)
     {
         c1.rb.mass += c2.rb.mass;
+        c2.AllWhenDie();
         //c2.gameObject.SetActive(false);
         SpawnPlanets.instance.DeActiveCharacter(c2);
     }

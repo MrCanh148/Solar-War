@@ -5,10 +5,11 @@ public class ShowUI : FastSingleton<ShowUI>
 {
     [SerializeField] private Player player1;
 
-    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit / Bt4: Back / Bt5: Achieve / Bt6: Reset / Bt7: Menu / Bt8: BackOption")]
+    [Header("Bt0: Continue / Bt1: Opotion / Bt2: Tutor / Bt3: Exit / Bt4: Back / Bt5: Achieve /" +
+        " Bt6: Reset / Bt7: Menu / Bt8: BackOption / Bt9: GodSpawn / Bt10: BackSpawn")]
     [SerializeField] private Button[] bts;
     [SerializeField] private GameObject SettingUI, GamePlayUI, StartGameUI;
-    [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve
+    [SerializeField] private GameObject[] UIBts; // 0: Title - 1: Option - 2: Tutor - 3: Achieve - 4: GodSpawn
 
     private bool isPaused = false;
 
@@ -23,6 +24,8 @@ public class ShowUI : FastSingleton<ShowUI>
         bts[6].onClick.AddListener(ResetBtFeature);
         bts[7].onClick.AddListener(PauseGame);
         bts[8].onClick.AddListener(BackBtFeature);
+        bts[9].onClick.AddListener(GodSpawnFeature);
+        bts[10].onClick.AddListener(BackBtFeature);
     }
 
     private void Update()
@@ -89,6 +92,13 @@ public class ShowUI : FastSingleton<ShowUI>
     public void ResetBtFeature()
     {
         SaveManager.Instance.DeleteSaveFile();
+    }
+
+    public void GodSpawnFeature()
+    {
+        Time.timeScale = 0;
+        OffAllBts();
+        UIBts[4].SetActive(true);
     }
 
     public void OffAllBts()

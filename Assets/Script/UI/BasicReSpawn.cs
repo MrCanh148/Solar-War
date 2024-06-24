@@ -14,6 +14,7 @@ public class BasicReSpawn : MonoBehaviour
     [SerializeField] private Button ReSpawnBlackHole;
 
     [SerializeField] private Player player;
+    [SerializeField] private GameObject SettingUI, GamePlayUI;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class BasicReSpawn : MonoBehaviour
 
     public void BasicReSpawnPlayer(CharacterType characterType)
     {
+
         if (GameManager.instance.IsGameMode(GameMode.Normal))
         {
             player.isBasicReSpawn = true;
@@ -39,5 +41,9 @@ public class BasicReSpawn : MonoBehaviour
                 player.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterType) + (SpawnPlanets.instance.GetRequiredMass(characterType + 1) - SpawnPlanets.instance.GetRequiredMass(characterType)) / 2;
             ReSpawnPlayer.Instance.ResPlayer();
         }
+
+        SettingUI.SetActive(false);
+        GamePlayUI.SetActive(true);
+        Time.timeScale = 1.0f;
     }
 }
