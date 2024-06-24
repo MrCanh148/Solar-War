@@ -72,7 +72,7 @@ public class GameManager : FastSingleton<GameManager>
 
         if (IsGameMode(GameMode.Survival))
         {
-            if (timePlay > 1200)
+            if (timePlay > 1200)  // <120
             {
                 SpawnPlanets.instance.AdjustSpawnRates(CharacterType.Asteroid);
             }
@@ -92,7 +92,7 @@ public class GameManager : FastSingleton<GameManager>
             {
                 SpawnPlanets.instance.AdjustSpawnRates(CharacterType.SmallStar);
             }
-            else if (timePlay > 600) 
+            else if (timePlay > 600)
             {
                 SpawnPlanets.instance.AdjustSpawnRates(CharacterType.MediumStar);
             }
