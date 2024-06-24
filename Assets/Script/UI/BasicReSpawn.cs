@@ -36,9 +36,15 @@ public class BasicReSpawn : MonoBehaviour
         {
             player.isBasicReSpawn = true;
             if (characterType == CharacterType.Asteroid)
+            {
                 player.rb.mass = 2;
+            }
             else
+            {
                 player.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterType) + (SpawnPlanets.instance.GetRequiredMass(characterType + 1) - SpawnPlanets.instance.GetRequiredMass(characterType)) / 2;
+                Debug.Log(player.rb.mass);
+            }
+
             ReSpawnPlayer.Instance.ResPlayer();
         }
 

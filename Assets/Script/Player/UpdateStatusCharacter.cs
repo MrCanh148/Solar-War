@@ -158,14 +158,22 @@ public class UpdateStatusCharacter : MonoBehaviour
             }
             else
             {
-                owner.isBasicReSpawn = true;
+                owner.isBasicReSpawn = false;
             }
 
         }
         else if (currentGenerateType < newType)  // lên cấp generalityType
         {
-            owner.AllWhenDie();
-            owner.rb.mass += (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
+            if (!owner.isBasicReSpawn)
+            {
+                owner.AllWhenDie();
+                owner.rb.mass += (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
+            }
+            else
+            {
+                owner.isBasicReSpawn = false;
+            }
+
         }
         currentGenerateType = newType;
 
