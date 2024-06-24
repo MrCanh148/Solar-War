@@ -59,7 +59,11 @@ public class Bullet : MonoBehaviour
                         {
                             if (target.host != null)
                                 target.host.satellites.Remove(target);
-                            SpawnPlanets.instance.ActiveCharacter2(target);
+
+                            if (target.generalityType == GeneralityType.Asteroid)
+                                target.gameObject.SetActive(false);
+                            else
+                                SpawnPlanets.instance.ActiveCharacter2(target);
                         }
                     }
                 }
