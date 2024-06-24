@@ -76,7 +76,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
             }
 
             ChatText.text += c;
-            yield return new WaitForSeconds(TimeShowText);
+            yield return new WaitForSecondsRealtime(TimeShowText);
         }
         canPressEnter = true;
         isDisplayingText = false;
@@ -85,7 +85,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     private IEnumerator GameObjectTextDisplayer()
     {
         TextDisplay.SetActive(false);
-        yield return new WaitForSeconds(TimeDelayShowGameObjectText);
+        yield return new WaitForSecondsRealtime(TimeDelayShowGameObjectText);
         TextDisplay.SetActive(true);
         PressEnterText.SetActive(true);
 
@@ -94,6 +94,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
             StartDisplayTextOverTime(BotChatText[currentIndex].text);
         }
     }
+
 
     private void StartDisplayTextOverTime(string text)
     {

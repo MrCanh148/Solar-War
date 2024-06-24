@@ -166,7 +166,7 @@ public class Character : MonoBehaviour
         if (canvar != null)
             canvar.transform.rotation = Quaternion.identity;
 
-        if (characterType != CharacterType.LifePlanet)
+        if (characterType != CharacterType.LifePlanet || !gameObject.activeSelf)
         {
             Kill = 0;
             EvolutionDone = false;

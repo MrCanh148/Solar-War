@@ -19,7 +19,7 @@ public class Player : Character
 
     [SerializeField] private Camera miniCam;
     [SerializeField] private Button absorbButton;
-    [SerializeField] private FixedJoystick joystick;
+    [SerializeField] private FloatingJoystick joystick;
 
     protected override void Start()
     {

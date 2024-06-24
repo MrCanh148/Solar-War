@@ -179,6 +179,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void ActiveCharacter(Character character, CharacterType type)
     {
+        //character.gameObject.SetActive(false);
         if (character.isPlayer)
             ReSpawnPlayer.Instance.ResPlayer();
         else
@@ -201,6 +202,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void ActiveCharacter2(Character character)
     {
+        //character.gameObject.SetActive(false);
         character.isBasicReSpawn = true;
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
