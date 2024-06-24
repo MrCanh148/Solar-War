@@ -31,7 +31,6 @@ public class BasicReSpawn : MonoBehaviour
 
     public void BasicReSpawnPlayer(CharacterType characterType)
     {
-
         if (GameManager.instance.IsGameMode(GameMode.Normal))
         {
             player.isBasicReSpawn = true;
@@ -42,12 +41,9 @@ public class BasicReSpawn : MonoBehaviour
             else
             {
                 player.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterType) + (SpawnPlanets.instance.GetRequiredMass(characterType + 1) - SpawnPlanets.instance.GetRequiredMass(characterType)) / 2;
-                Debug.Log(player.rb.mass);
             }
-
             ReSpawnPlayer.Instance.ResPlayer();
         }
-
         SettingUI.SetActive(false);
         GamePlayUI.SetActive(true);
         Time.timeScale = 1.0f;

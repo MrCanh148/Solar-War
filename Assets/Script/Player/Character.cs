@@ -231,10 +231,20 @@ public class Character : MonoBehaviour
             if (generalityType == GeneralityType.BlackHole)
             {
                 if (this.rb.mass < character.rb.mass)
+                {
                     MergeCharacter(character, this);
+                    SpawnPlanets.instance.ActiveCharacter2(this);
+                    SpawnPlanets.instance.quantityPlanetActive++;
+                }
+
             }
             else
+            {
                 MergeCharacter(character, this);
+                SpawnPlanets.instance.ActiveCharacter2(this);
+                SpawnPlanets.instance.quantityPlanetActive++;
+            }
+
 
             return;
         }
@@ -279,7 +289,7 @@ public class Character : MonoBehaviour
             DOTween.To(() => character.radius, x => character.radius = x, 2.5f * host.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(host.characterType), 0.3f)
            .OnComplete(() =>
            {
-               character.tf.gameObject.SetActive(false);
+               SpawnPlanets.instance.DeActiveCharacter(character);
                host.satellites.Remove(character);
                character.lineRenderer.enabled = false;
                ResetRadiusSatellite(host);

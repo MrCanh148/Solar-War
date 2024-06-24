@@ -64,6 +64,12 @@ public class CaptureZone : MonoBehaviour
                         owner.satellites.Add(character);
                         charactersInZone.RemoveAt(i);
                         characterTimers.Remove(character);
+
+                        if (character.characterType > CharacterType.Asteroid)
+                        {
+                            SpawnPlanets.instance.quantityPlanetActive -= 1;
+                            SpawnPlanets.instance.SpawnPlanetWhenCapture();
+                        }
                     }
                 }
             }

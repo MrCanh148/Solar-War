@@ -22,6 +22,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public List<GroupPlanet> groupPlanets;
     public Dictionary<CharacterType, int> spawnRates = new Dictionary<CharacterType, int>();
     public Dictionary<CharacterType, int> SortSpawnRates = new Dictionary<CharacterType, int>();
+    public int quantityPlanetActive;
 
     private void Start()
     {
@@ -36,6 +37,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         asteroidGroups.Clear();
         lstCharacter.Clear();
+        quantityPlanetActive = 0;
         for (int i = 1; i <= GameManager.instance.AmountPlanet.amountAsteroidGroup; i++)
         {
             AsteroidGroup asteroidGroup = Instantiate(asteroidGroupPrefab, tfCharacterManager);
@@ -50,6 +52,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 Character character = Instantiate(CharacterInfos[(int)CharacterType.SmallPlanet].characterPrefab, tfCharacterManager);
                 lstCharacter.Add(character);
                 ActiveCharacter2(character);
+                quantityPlanetActive++;
             }
         }
         foreach (var group in groupPlanetsPrefab)
@@ -192,17 +195,18 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         }
         else
         {
-            character.rb.mass = GetRequiredMass(type) + GetRequiredMass(type + 1) / 10;
+            character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
         }
     }
 
     public void ActiveCharacter2(Character character)
     {
+        character.isBasicReSpawn = true;
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
         character.velocity = RandomInitialVelocity(2f);
         CharacterType type = RandomCharacterType();
-        character.rb.mass = GetRequiredMass(type) + GetRequiredMass(type + 1) / 10;
+        character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
     }
 
     public Vector2 RandomInitialVelocity(float limit)
@@ -421,6 +425,36 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             }
         }
         return characterType;
+    }
+
+    public void SpawnPlanetWhenCapture()
+    {
+        Debug.Log("SpawnPlanetWhenCapture");
+        if (quantityPlanetActive < GameManager.instance.AmountPlanet.amountPlanet)
+        {
+            bool available = false;
+            foreach (var c in lstCharacter)
+            {
+                if (!c.gameObject.activeSelf)
+                {
+                    ActiveCharacter2(c);
+                    quantityPlanetActive++;
+                    available = true;
+                    break;
+                }
+            }
+            if (available)
+            {
+                return;
+            }
+            else
+            {
+                Character character = Instantiate(CharacterInfos[(int)CharacterType.SmallPlanet].characterPrefab, tfCharacterManager);
+                lstCharacter.Add(character);
+                ActiveCharacter2(character);
+                quantityPlanetActive++;
+            }
+        }
     }
 
 }
