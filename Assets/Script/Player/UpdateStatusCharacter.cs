@@ -32,7 +32,6 @@ public class UpdateStatusCharacter : MonoBehaviour
         if (owner.isPlayer)
             LogicUIPlayer.Instance.UpdateInfo();
 
-        //UpdateInfoCharacter(owner);
         EvolutionCharacter(owner);
 
     }

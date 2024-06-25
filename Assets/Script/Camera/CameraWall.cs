@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class CameraWall : MonoBehaviour
 {
+    private Character character;
+    private AsteroidGroup asteroidGroup;
+    private ShootTarget target;
+    private GroupPlanet groupPlanet;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Character character = Cache.GetCharacterCollider(collision);
+        character = Cache.GetCharacterCollider(collision);
         if (character != null)
         {
             if (!character.isSetup)
@@ -24,20 +29,20 @@ public class CameraWall : MonoBehaviour
             }
         }
 
-        AsteroidGroup asteroidGroup = collision.GetComponent<AsteroidGroup>();
+        asteroidGroup = collision.GetComponent<AsteroidGroup>();
         if (asteroidGroup != null)
         {
             asteroidGroup.OnInit();
             asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
         }
 
-        ShootTarget target = Cache.GetShootTargetCollider(collision);
+        target = Cache.GetShootTargetCollider(collision);
         if (target != null)
         {
             Destroy(target.gameObject);
         }
 
-        GroupPlanet groupPlanet = collision.GetComponent<GroupPlanet>();
+        groupPlanet = collision.GetComponent<GroupPlanet>();
         if (groupPlanet != null)
         {
             if (groupPlanet.masterStar.host == null)

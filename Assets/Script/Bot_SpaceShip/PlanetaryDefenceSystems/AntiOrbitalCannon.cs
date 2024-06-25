@@ -13,7 +13,6 @@ public class AntiOrbitalCannon : MonoBehaviour
 
     private void Start()
     {
-        //FillListVFX();
         startVFX.SetActive(false);
         endVFX.SetActive(false);
     }
@@ -39,9 +38,9 @@ public class AntiOrbitalCannon : MonoBehaviour
                 if (h.collider.CompareTag(Constant.TAG_AirSpace1))
                 {
 
-                    Test2 shootTarget = h.collider.GetComponent<Test2>();
+                    ShootTarget shootTarget = h.collider.GetComponent<ShootTarget>();
                     {
-                        if (shootTarget != null && shootTarget.owner != OwnerCharacter)
+                        if (shootTarget != null && shootTarget.hostAlien != OwnerCharacter)
                         {
                             laserLineRenderer.SetPosition(1, h.point);
                             endVFX.transform.position = h.point;

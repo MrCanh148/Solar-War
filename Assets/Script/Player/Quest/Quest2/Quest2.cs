@@ -25,15 +25,10 @@ public class Quest2 : MonoBehaviour
         PointerRectTransform = Arrow.GetComponent<RectTransform>();
         ArrowImage = Arrow.GetComponent<Image>();
 
-        if (player != null)
-        {
-            Vector3 direction = new Vector3(player.transform.right.x, player.transform.right.y, 0) * DistanceToTarget;
-            targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, 0) + direction;
-            initialDistance = Vector3.Distance(player.transform.position, targetPosition);
-            QuestEventManager.Instance.NotifyQuestStarted();
-        }
-        else
-            Debug.Log("==== No have Player to do Quest 2 ======");
+        Vector3 direction = new Vector3(player.transform.right.x, player.transform.right.y, 0) * DistanceToTarget;
+        targetPosition = new Vector3(player.transform.position.x, player.transform.position.y, 0) + direction;
+        initialDistance = Vector3.Distance(player.transform.position, targetPosition);
+        QuestEventManager.Instance.NotifyQuestStarted();
     }
 
     private void Update()

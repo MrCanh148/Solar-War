@@ -28,8 +28,6 @@ public class BulletTurret : MonoBehaviour
         {
             Vector3 direction = (target.transform.position - tf.position).normalized;
             tf.up = direction;
-            //tf.position = Vector3.Lerp(tf.position, target.position, Time.deltaTime * speed);
-            //tf.position -= speed * Time.fixedDeltaTime * tf.up;
 
             timeAttack += Time.fixedDeltaTime;
             if (timeAttack > 1)
@@ -55,19 +53,9 @@ public class BulletTurret : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*Test2 test = collision.GetComponent<Test2>();
-        if (test != null)
-        {
-            //test.OnHit();
-            gameObject.SetActive(false);
-            source.bullets.Add(this);
-        }*/
-
-
         ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
         if (shootTarget != null)
         {
-            //test.OnHit();
             if (shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily)
             {
                 shootTarget.heart -= damage;

@@ -48,7 +48,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             missile.characterOwner = owner;
         }
 
-        //AntiOrbitalCannon
         isAOC = false;
     }
 
@@ -162,28 +161,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        /*Test2 test = collision.GetComponent<Test2>();
-        if (test != null)
-        {
-            if (timeCoolDownMissile > 3f)
-            {
-                targetMissile = test.gameObject;
-                ShotMissile(targetMissile);
-                timeCoolDownMissile = 0;
-            }
-
-            if (targetAOC == null)
-            {
-                if (isAOC)
-                {
-                    targetAOC = test.gameObject;
-                    AvticeAOC(targetAOC);
-                    antiOrbitalCannon.VFXPlay();
-                }
-            }
-        }*/
-
-
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
@@ -219,27 +196,9 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        /*Test2 test = collision.GetComponent<Test2>();
-        if (test != null)
-        {
-            if (targetMissile == test.gameObject)
-            {
-                targetMissile = null;
-                ShotMissile(targetMissile);
-            }
-
-            if (targetAOC == test.gameObject)
-            {
-                targetAOC = null;
-                AvticeAOC(targetAOC);
-                antiOrbitalCannon.VFXStop();
-            }
-        }*/
-
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
-            Debug.Log("ra ngoai");
             if (targetMissile == shootTarget.gameObject)
             {
                 targetMissile = null;

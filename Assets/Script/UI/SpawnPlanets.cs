@@ -142,7 +142,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         GroupPlanet groupPlanet = null;
         CharacterType characterType = RandomCharacterType();
-        //Debug.Log(characterType);
         foreach (var group in groupPlanets)
         {
             if (group.masterStar.characterType == characterType)
@@ -151,7 +150,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 break;
             }
         }
-        //Debug.Log(groupPlanet);
         return groupPlanet;
     }
 
@@ -431,7 +429,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void SpawnPlanetWhenCapture()
     {
-        Debug.Log("SpawnPlanetWhenCapture");
         if (quantityPlanetActive < GameManager.instance.AmountPlanet.amountPlanet)
         {
             bool available = false;
