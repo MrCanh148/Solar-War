@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class Laser : MonoBehaviour
 {
@@ -40,10 +39,9 @@ public class Laser : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.gameObject.tag == "Planet" || hit.collider.gameObject.tag == "Player")
+                    if (hit.collider.gameObject.CompareTag(Constant.TAG_Planet) || hit.collider.gameObject.CompareTag(Constant.TAG_Player))
                     {
-                        Character targetCharacter = hit.collider.gameObject.GetComponent<Character>();
-                        Rigidbody2D rbTarget = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                        Character targetCharacter = Cache.GetCharacterCollider(hit.collider);
                         Shield shieldTarget = hit.collider.gameObject.GetComponent<Shield>();
 
                         if (targetCharacter == null) continue;
@@ -60,14 +58,14 @@ public class Laser : MonoBehaviour
                                         shieldTarget.TakeDamage = true;
                                     }
                                     else
-                                        rbTarget.mass -= damage;
+                                        targetCharacter.rb.mass -= damage;
                                 }
                                 else
                                 {
-                                    rbTarget.mass -= damage;
-                                    if (rbTarget.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20) || (targetCharacter.characterType == CharacterType.SmallStar && rbTarget.mass < 180))
+                                    targetCharacter.rb.mass -= damage;
+                                    if (targetCharacter.rb.mass < 1 || (targetCharacter.characterType == CharacterType.SmallPlanet && targetCharacter.rb.mass < 20) || (targetCharacter.characterType == CharacterType.SmallStar && targetCharacter.rb.mass < 180))
                                     {
-                                        if (hit.collider.gameObject.tag == "Player")
+                                        if (hit.collider.gameObject.CompareTag(Constant.TAG_Player))
                                             ReSpawnPlayer.Instance.ResPlayer();
                                         else
                                         {
@@ -88,7 +86,7 @@ public class Laser : MonoBehaviour
                         break;
                     }
 
-                    if (hit.collider.gameObject.tag == "AirSpace1")
+                    if (hit.collider.gameObject.CompareTag(Constant.TAG_AirSpace1))
                     {
                         ShootTarget enermy = hit.collider.gameObject.GetComponent<ShootTarget>();
                         if (enermy != null)
@@ -99,7 +97,7 @@ public class Laser : MonoBehaviour
                                 characterOwner.Kill++;
                                 Destroy(enermy.gameObject);
                             }
-                                
+
                         }
 
                         isShoot = true;

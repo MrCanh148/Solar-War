@@ -33,23 +33,13 @@ public class Attractor : MonoBehaviour
                 {
                     coefficient = 1;
                 }
-
-
-
-
-                float massProduct = attractor.rb.mass * target.rb.mass;
-
-                Vector3 direction = attractor.transform.position - target.transform.position;
+                Vector3 direction = attractor.tf.position - target.tf.position;
                 float distance = direction.magnitude;
                 if (distance <= 0.1f)
                 {
                     return;
                 }
-
-                float unScaledforceManguite = massProduct / Mathf.Pow(distance, 2);
-                //float forceMagnitude = G * GameManager.instance.status.GravitationalConstant * unScaledforceManguite;
                 float forceMagnitude = (G * coefficient) / Mathf.Pow(distance, 2);
-                //Debug.Log(G * GameManager.instance.status.GravitationalConstant * massProduct);
                 Vector3 force = direction.normalized * forceMagnitude;
                 if (target.isPlayer)
                 {
@@ -59,11 +49,7 @@ public class Attractor : MonoBehaviour
                 {
                     target.externalVelocity += (Vector2)force;
                 }
-
-
-                //Debug.Log(force);
             }
         }
-
     }
 }
