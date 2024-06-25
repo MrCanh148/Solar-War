@@ -7,4 +7,5 @@ public class Constant : MonoBehaviour
     public const string TAG_Character = "Character";
     public const string TAG_Bullet = "Bullet";
     public const string TAG_Shield = "Shield";
+    public const string TAG_Planet = "Planet";
 }

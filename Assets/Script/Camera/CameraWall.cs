@@ -31,7 +31,7 @@ public class CameraWall : MonoBehaviour
             asteroidGroup.transform.localPosition = SpawnPlanets.instance.ReSpawnerAsterrooidGroup();
         }
 
-        ShootTarget target = collision.GetComponent<ShootTarget>();
+        ShootTarget target = Cache.GetShootTargetCollider(collision);
         if (target != null)
         {
             Destroy(target.gameObject);

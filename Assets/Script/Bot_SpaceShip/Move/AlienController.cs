@@ -15,10 +15,10 @@ public class AlienController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        ShootTarget target = other.GetComponent<ShootTarget>();
-        Character tg = other.GetComponent<Character>();
+        ShootTarget target = Cache.GetShootTargetCollider(other);
+        Character tg = Cache.GetCharacterCollider(other);
 
-        if (other.CompareTag("AirSpace1"))
+        if (other.CompareTag(Constant.TAG_AirSpace1))
         {
             if (target.hostAlien != null && shootTarget.hostAlien != null && target.hostAlien.myFamily == shootTarget.hostAlien.myFamily)
                 return;
@@ -42,7 +42,7 @@ public class AlienController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("AirSpace1") || other.CompareTag("Planet"))
+        if (other.CompareTag(Constant.TAG_AirSpace1) || other.CompareTag(Constant.TAG_Planet))
         {
             SwitchToRandomMovement();
         }
