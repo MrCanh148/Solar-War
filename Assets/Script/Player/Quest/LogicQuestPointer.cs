@@ -15,6 +15,9 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
     private Vector3 targetPosScreenPoint, playerScreenPos, direction, pointerScreenPos;
     private bool isOffScreen;
 
+    private Vector3 toPos, fromPos, dir;
+    private float angle;
+
     private void Awake()
     {
         QuestEventManager.Instance.RegisterQuestEvent(this);
@@ -58,11 +61,11 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
 
     private void RotatePointerTowardTargetPos(RectTransform pointerRectTransform, Vector3 targetPos)
     {
-        Vector3 toPos = targetPos;
-        Vector3 fromPos = mainCamera.transform.position;
+        toPos = targetPos;
+        fromPos = mainCamera.transform.position;
         fromPos.z = 0f;
-        Vector3 dir = (toPos - fromPos).normalized;
-        float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
+        dir = (toPos - fromPos).normalized;
+        angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
 

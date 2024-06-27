@@ -15,9 +15,10 @@ public class Quest2 : MonoBehaviour
     private RectTransform PointerRectTransform;
     private Image ArrowImage;
     private Camera mainCamera;
-    private float initialDistance, currentDistance;
+    private float initialDistance, currentDistance, angle;
     private int distanceTravelledPercentage;
     private bool isOffScreen;
+    private Vector3 toPos, fromPos, dir;
 
     private void Start()
     {
@@ -76,11 +77,11 @@ public class Quest2 : MonoBehaviour
 
     private void RotatePointerTowardTargetPos(RectTransform pointerRectTransform, Vector3 targetPos)
     {
-        Vector3 toPos = targetPos;
-        Vector3 fromPos = mainCamera.transform.position;
+        toPos = targetPos;
+        fromPos = mainCamera.transform.position;
         fromPos.z = 0f;
-        Vector3 dir = (toPos - fromPos).normalized;
-        float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
+        dir = (toPos - fromPos).normalized;
+        angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
 }

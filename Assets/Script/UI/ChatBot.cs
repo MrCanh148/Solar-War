@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3Listenner, IQuest4Listenner
 {
@@ -101,11 +101,12 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         TextDisplay.SetActive(true);
         PressEnterText.SetActive(true);
 
-        if (BotChatText.Count > 0)
+        if (BotChatText.Length > 0)
         {
             StartDisplayTextOverTime(BotChatText[currentIndex].text);
         }
     }
+
 
     private void StartDisplayTextOverTime(string text)
     {
@@ -126,12 +127,12 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         {
             if (isInitialBotChat)
             {
-                if (currentIndex < BotChatText.Count - 1)
+                if (currentIndex < BotChatText.Length - 1)
                 {
                     currentIndex++;
                     StartDisplayTextOverTime(BotChatText[currentIndex].text);
                 }
-                else if (currentIndex == BotChatText.Count - 1)
+                else if (currentIndex == BotChatText.Length - 1)
                 {
                     BotUI.SetActive(false);
                     gameObject.SetActive(false);
@@ -148,7 +149,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     private void HandleQuestEvent(string questKey, int textIndex)
     {
         gameObject.SetActive(true);
-        if (botChatTextsCache.TryGetValue(questKey, out List<BotChatText> botChatTexts))
+        if (botChatTextsCache.TryGetValue(questKey, out BotChatText[] botChatTexts))
         {
             BotChatText = botChatTexts;
             isInitialBotChat = false;
@@ -156,49 +157,49 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         }
     }
 
-    // Implement IQuest2Listener
+    // ========================================Implement IQuest2Listener
     public void OnQuest2Started()
     {
-        HandleQuestEvent("BotChatText/BotQuest2/0", 0);
+        HandleQuestEvent("BotQuest2", 0);
     }
 
     public void OnQuest2Completed()
     {
-        HandleQuestEvent("BotChatText/BotQuest2/1", 1);
+        HandleQuestEvent("BotQuest2", 1);
     }
 
     public void OnQuest2ProgressUpdated(int a) { }
 
-    // Implement IQuest1Listener
+    // ========================================Implement IQuest1Listener
     public void OnQuest1Started()
     {
-        HandleQuestEvent("BotChatText/BotQuest1/0", 0);
+        HandleQuestEvent("BotQuest1", 0);
     }
 
     public void OnQuest1Completed()
     {
-        HandleQuestEvent("BotChatText/BotQuest1/1", 1);
+        HandleQuestEvent("BotQuest1", 1);
     }
 
-    // Implement IQuest3Listener
+    // ========================================Implement IQuest3Listener
     public void OnQuest3Started()
     {
-        HandleQuestEvent("BotChatText/BotQuest3/0", 0);
+        HandleQuestEvent("BotQuest3", 0);
     }
 
     public void OnQuest3Completed()
     {
-        HandleQuestEvent("BotChatText/BotQuest3/1", 1);
+        HandleQuestEvent("BotQuest3", 1);
     }
 
-    // Implement IQuest4Listener
+    // ========================================Implement IQuest4Listener
     public void OnQuest4Started()
     {
-        HandleQuestEvent("BotChatText/BotQuest4/0", 0);
+        HandleQuestEvent("BotQuest4", 0);
     }
 
     public void OnQuest4Completed()
     {
-        HandleQuestEvent("BotChatText/BotQuest4/1", 1);
+        HandleQuestEvent("BotQuest4", 1);
     }
 }
