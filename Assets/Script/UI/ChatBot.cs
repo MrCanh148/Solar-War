@@ -2,13 +2,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Collections;
 
 public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3Listenner, IQuest4Listenner
 {
-    private Dictionary<string, List<BotChatText>> botChatTextsCache = new Dictionary<string, List<BotChatText>>();
+    private Dictionary<string, BotChatText[]> botChatTextsCache = new Dictionary<string, BotChatText[]>();
 
     [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
     [SerializeField] TextMeshProUGUI ChatText;
@@ -16,7 +14,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
     [SerializeField] private Button TaptoClose;
 
-    private List<BotChatText> BotChatText;
+    private BotChatText[] BotChatText;
     private int currentIndex = 0;
     private bool isDisplayingText = false;
     private bool displayFullTextImmediately = false;
@@ -46,34 +44,19 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         TaptoClose.onClick.AddListener(OnReturnKeyPressed);
         StartCoroutine(GameObjectTextDisplayer());
 
-        LoadBotChatTexts("BotChatText/BotStartGame");
-        LoadBotChatTexts("BotChatText/BotSurvival");
-        LoadBotChatTexts("BotChatText/BotQuest1");
-        LoadBotChatTexts("BotChatText/BotQuest2");
-        LoadBotChatTexts("BotChatText/BotQuest3");
-        LoadBotChatTexts("BotChatText/BotQuest4");
-    }
+        botChatTextsCache["BotStartGame"] = Resources.LoadAll<BotChatText>("BotChatText/BotStartGame");
+        botChatTextsCache["BotSurvival"] = Resources.LoadAll<BotChatText>("BotChatText/BotSurvival");
+        botChatTextsCache["BotQuest1"] = Resources.LoadAll<BotChatText>("BotChatText/BotQuest1");
+        botChatTextsCache["BotQuest2"] = Resources.LoadAll<BotChatText>("BotChatText/BotQuest2");
+        botChatTextsCache["BotQuest3"] = Resources.LoadAll<BotChatText>("BotChatText/BotQuest3");
+        botChatTextsCache["BotQuest4"] = Resources.LoadAll<BotChatText>("BotChatText/BotQuest4");
 
-    private void LoadBotChatTexts(string label)
-    {
-        Addressables.LoadAssetsAsync<BotChatText>(label, null).Completed += (AsyncOperationHandle<IList<BotChatText>> handle) =>
-        {
-            if (handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                botChatTextsCache[label] = new List<BotChatText>(handle.Result);
+        if (GameManager.instance.currentGameMode == GameMode.Normal)
+            BotChatText = botChatTextsCache["BotStartGame"];
+        else if (GameManager.instance.currentGameMode == GameMode.Survival)
+            BotChatText = botChatTextsCache["BotSurvival"];
 
-                if (label == "BotChatText/BotStartGame" && GameManager.instance.currentGameMode == GameMode.Normal)
-                {
-                    BotChatText = botChatTextsCache[label];
-                    isInitialBotChat = true;
-                }
-                else if (label == "BotChatText/BotSurvival" && GameManager.instance.currentGameMode == GameMode.Survival)
-                {
-                    BotChatText = botChatTextsCache[label];
-                    isInitialBotChat = true;
-                }
-            }
-        };
+        isInitialBotChat = true;
     }
 
     private void Update()
