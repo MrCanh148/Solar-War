@@ -19,12 +19,13 @@ public class ShootTarget : MonoBehaviour
     private List<GameObject> ignoredTargets = new List<GameObject>();
     private RandomMovement moveRandom;
     private SpriteRenderer SpriteRenderer;
+    private Collider2D childCollider;
 
     private void Start()
     {
         moveRandom = GetComponent<RandomMovement>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        Collider2D childCollider = childObject.GetComponent<Collider2D>();
+        childCollider = childObject.GetComponent<Collider2D>();
         if (childCollider != null)
         {
             childCollider.gameObject.AddComponent<ChildTriggerHandler>().parentHandler = this;
@@ -77,9 +78,9 @@ public class ShootTarget : MonoBehaviour
 
         Character target = hit.gameObject.GetComponent<Character>();
         ShootTarget characterTarget = hit.gameObject.GetComponent<ShootTarget>();
-        if (hit.gameObject.tag == "AirSpace1" && characterTarget.hostAlien != null && hostAlien != null && characterTarget.hostAlien.myFamily == hostAlien.myFamily) return;
+        if (hit.gameObject.CompareTag("AirSpace1") && characterTarget.hostAlien != null && hostAlien != null && characterTarget.hostAlien.myFamily == hostAlien.myFamily) return;
 
-        if (target != null && (target.generalityType != GeneralityType.BlackHole) || hit.gameObject.tag == "AirSpace1")
+        if (target != null && (target.generalityType != GeneralityType.BlackHole) || hit.gameObject.CompareTag("AirSpace1"))
         {
             if (target != null && hostAlien != null && (target.myFamily == hostAlien.myFamily)) return;
 

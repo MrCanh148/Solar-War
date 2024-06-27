@@ -86,7 +86,7 @@ public class Laser : MonoBehaviour
                         break;
                     }
 
-                    if (hit.collider.gameObject.CompareTag(Constant.TAG_AirSpace1))
+                    if (hit.collider.gameObject.CompareTag("AirSpace1"))
                     {
                         ShootTarget enermy = hit.collider.gameObject.GetComponent<ShootTarget>();
                         if (enermy != null)

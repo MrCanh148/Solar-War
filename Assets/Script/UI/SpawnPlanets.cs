@@ -10,8 +10,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     [SerializeField] private float FarFromPlayerMin, FarFromPlayerMax;
     [SerializeField] private float destroyDistance;
     [SerializeField] private Player player;
-    private Character lastSpawnedPlanet;
-    private GameObject currentArrow;
 
     public Camera _camera;
     float FarFromPlayerY;
@@ -71,57 +69,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         GameManager.instance.ChangeGameState(GameState.InGame);
     }
 
-    private void Update()
-    {
-        for (int i = 1; i <= 9; i++)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha0 + i) && player.canWASD)
-                SpawnPlanet(i - 1);
-        }
-
-        if (currentArrow != null)
-            UpdateArrow();
-    }
-
-    private void SpawnPlanet(int index)
-    {
-        float xPos = Random.Range(player.tf.position.x + FarFromPlayerMin, player.tf.position.x + FarFromPlayerMax);
-        float yPos = Random.Range(player.tf.position.y + FarFromPlayerMin, player.tf.position.y + FarFromPlayerMax);
-        Vector3 placeSpawn = new Vector3(xPos, yPos, 0);
-
-        if (index >= 0 && index < CharacterInfos.Count)
-        {
-            if (CharacterInfos[index].characterPrefab != null)
-            {
-                Character newPlanet = Instantiate(CharacterInfos[index].characterPrefab, placeSpawn, Quaternion.identity);
-                lastSpawnedPlanet = newPlanet;
-                UpdateArrow();
-            }
-        }
-    }
-
-    private void UpdateArrow()
-    {
-        if (currentArrow != null)
-            Destroy(currentArrow);
-
-        if (lastSpawnedPlanet != null)
-        {
-            Vector3 playerPosition = player.tf.position;
-            Vector3 targetPosition = lastSpawnedPlanet.transform.position;
-            Vector3 direction = (targetPosition - playerPosition).normalized;
-
-            currentArrow = Instantiate(arrowPrefab, playerPosition, Quaternion.identity);
-
-            currentArrow.transform.up = direction;
-
-            float distance = Vector3.Distance(playerPosition, targetPosition);
-            if (distance < destroyDistance)
-                Destroy(currentArrow);
-        }
-    }
-
-
     public Vector3 SpawnerCharacter()
     {
         float xPos = Random.Range(FarFromPlayerX * 1.5f, GameManager.instance.status.coefficientActiveGameObject * FarFromPlayerX);
@@ -142,7 +89,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         GroupPlanet groupPlanet = null;
         CharacterType characterType = RandomCharacterType();
-        //Debug.Log(characterType);
         foreach (var group in groupPlanets)
         {
             if (group.masterStar.characterType == characterType)
@@ -151,7 +97,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 break;
             }
         }
-        //Debug.Log(groupPlanet);
         return groupPlanet;
     }
 
@@ -438,7 +383,6 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void SpawnPlanetWhenCapture()
     {
-        Debug.Log("SpawnPlanetWhenCapture");
         if (quantityPlanetActive < GameManager.instance.AmountPlanet.amountPlanet)
         {
             bool available = false;

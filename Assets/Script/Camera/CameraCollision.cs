@@ -8,7 +8,6 @@ public class CameraCollision : MonoBehaviour
 
     private void Start()
     {
-        //spawnPlanets = SpawnPlanets.instance;
         _camera = Camera.main;
         float boxY = _camera.orthographicSize * GameManager.instance.status.coefficientActiveGameObject;
         float boxX = boxY * (float)_camera.pixelWidth / _camera.pixelHeight;

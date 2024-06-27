@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+
 public enum CharacterType
 {
     Asteroid = 0,
@@ -16,7 +17,6 @@ public enum CharacterType
     BigBang = 10,
 
 };
-
 
 public enum GeneralityType
 {
@@ -60,20 +60,18 @@ public class Character : MonoBehaviour
     public Character myFamily;
     public bool isSetup;
 
+    private float x, y;
+    private Vector2 direction, tmp, dirVeloc;
+
     protected virtual void Start()
     {
-        //OnInit();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
     private void OnEnable()
     {
         if (!isSetup)
-        {
             OnInit();
-        }
-
     }
 
     protected virtual void OnInit()
@@ -90,17 +88,15 @@ public class Character : MonoBehaviour
         if (isCapture)
         {
             lineRenderer.enabled = true;
-            float x = Mathf.Cos(angle) * radius;
-            float y = Mathf.Sin(angle) * radius;
+            x = Mathf.Cos(angle) * radius;
+            y = Mathf.Sin(angle) * radius;
 
             // Cập nhật vị trí của đối tượng
             tf.position = host.tf.position + new Vector3(x, y, 0f);
             angle += spinSpeed * Time.deltaTime;
         }
         else
-        {
             lineRenderer.enabled = false;
-        }
 
         if (host != null && tf != null && lineRenderer.enabled == true)
         {
@@ -118,43 +114,31 @@ public class Character : MonoBehaviour
         velocity.y -= velocity.y * GameManager.instance.status.deceleration * Time.fixedDeltaTime;
         velocity = new Vector2(velocity.x, velocity.y);
         mainVelocity = velocity + externalVelocity;
+
         if (this.host == null)
-        {
             rb.velocity = mainVelocity;
-        }
         else
         {
             rb.velocity = Vector2.zero;
-            Vector2 direction = host.tf.position - tf.position;
+            direction = host.tf.position - tf.position;
 
-            Vector2 tmp;
             if (spinSpeed >= 0f)
             {
-
                 if (tf.position.y >= host.tf.position.y)
-                {
                     tmp = new Vector2(-spinSpeed, 0);
-                }
                 else
-                {
                     tmp = new Vector2(spinSpeed, 0);
-                }
             }
             else
             {
                 if (tf.position.y >= host.tf.position.y)
-                {
                     tmp = new Vector2(spinSpeed, 0);
-                }
                 else
-                {
                     tmp = new Vector2(-spinSpeed, 0);
-                }
             }
-            Vector2 dirVeloc = CalculateProjection(tmp, direction);
 
+            dirVeloc = CalculateProjection(tmp, direction);
             velocity = dirVeloc.normalized * spinSpeed;
-            //Debug.Log(velocity);
         }
 
 
@@ -199,7 +183,6 @@ public class Character : MonoBehaviour
     {
         AudioManager.instance.PlaySFX("Hit");
         float gravitational = (mainVelocity - character.mainVelocity).magnitude;
-        //Debug.Log("gravitational = " + gravitational);
         if (generalityType == GeneralityType.Asteroid && character.generalityType == GeneralityType.Asteroid)
         {
             if (gravitational <= GameManager.instance.status.minimumMergeForce)
@@ -276,7 +259,6 @@ public class Character : MonoBehaviour
     {
         c1.rb.mass += c2.rb.mass;
         c2.AllWhenDie();
-        //c2.gameObject.SetActive(false);
         SpawnPlanets.instance.DeActiveCharacter(c2);
     }
 
@@ -312,7 +294,6 @@ public class Character : MonoBehaviour
 
     public Character GetCharacterWithMinimumMass()
     {
-        Debug.Log(satellites.Count);
         Character character = null;
         if (satellites.Count > 0)
         {
@@ -367,7 +348,6 @@ public class Character : MonoBehaviour
         for (int i = 0; i < owner.satellites.Count; i++)
         {
             Character character = owner.satellites[i];
-            //float tmpRadius = 0.5f + character.circleCollider2D.radius * 0.1f + i * (character.circleCollider2D.radius * 0.1f * 2 + 0.1f);
 
             float limitedRadius = 0;
             if (owner.generalityType == GeneralityType.Planet)
@@ -380,7 +360,6 @@ public class Character : MonoBehaviour
                 limitedRadius = GameManager.instance.status.coefficientRadiusStar * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType);
 
             }
-            //float tmpRadius = limitedRadius + i * (character.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(character.characterType) * GameManager.instance.status.coefficientDistanceCharacter);
             float tmpRadius = limitedRadius + i * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType) * 2;
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f)
                 .OnStart(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = false)
@@ -397,7 +376,6 @@ public class Character : MonoBehaviour
             {
                 t.host = null;
                 t.isCapture = false;
-                //t.tf.SetParent(SpawnPlanets.instance.transform);
                 t.myFamily = t;
             }
 
@@ -405,15 +383,11 @@ public class Character : MonoBehaviour
         if (host != null)
         {
             host.satellites.Remove(this);
-            //tf.SetParent(SpawnPlanets.instance.transform);
             host = null;
             isCapture = false;
 
         }
 
         satellites.Clear();
-
-        /*if (this.isPlayer && GameManager.instance.gameMode == GameMode.Survival)
-            GameManager.instance.ChangeGameState(GameState.GameOver);*/
     }
 }

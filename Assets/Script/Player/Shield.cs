@@ -10,7 +10,8 @@ public class Shield : MonoBehaviour
     public float ShieldPlanet;
     public float MaxShield = 100f;
     public bool TakeDamage;
-    private float lastDamageTime;
+
+    private float lastDamageTime, rechargeRate;
     private bool isRecharging;
     private Coroutine rechargeCoroutine;
     private Character character;
@@ -88,7 +89,7 @@ public class Shield : MonoBehaviour
             yield return null;
         }
 
-        float rechargeRate = MaxShield / TimeToFullRecharge;
+        rechargeRate = MaxShield / TimeToFullRecharge;
         while (ShieldPlanet < MaxShield)
         {
             ShieldPlanet += rechargeRate * Time.deltaTime;

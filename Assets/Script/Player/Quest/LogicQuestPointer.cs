@@ -11,10 +11,17 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
     [SerializeField] private float moveSpeed = 5f;
 
     private List<QuestPointer> questPointers = new List<QuestPointer>();
+    private Camera mainCamera;
+    private Vector3 targetPosScreenPoint, playerScreenPos, direction, pointerScreenPos;
+    private bool isOffScreen;
+
+    private Vector3 toPos, fromPos, dir;
+    private float angle;
 
     private void Awake()
     {
         QuestEventManager.Instance.RegisterQuestEvent(this);
+        mainCamera = Camera.main;
     }
 
     private void OnDestroy()
@@ -26,8 +33,8 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
     {
         foreach (var questPointer in questPointers)
         {
-            Vector3 targetPosScreenPoint = Camera.main.WorldToScreenPoint(questPointer.TargetPos);
-            bool isOffScreen = targetPosScreenPoint.x <= borderSize || targetPosScreenPoint.x > Screen.width - borderSize
+            targetPosScreenPoint = mainCamera.WorldToScreenPoint(questPointer.TargetPos);
+            isOffScreen = targetPosScreenPoint.x <= borderSize || targetPosScreenPoint.x > Screen.width - borderSize
                 || targetPosScreenPoint.y <= borderSize || targetPosScreenPoint.y > Screen.height - borderSize;
 
             if (isOffScreen)
@@ -35,9 +42,9 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
                 RotatePointerTowardTargetPos(questPointer.PointerRectTransform, questPointer.TargetPos);
                 questPointer.PointerImage.sprite = arrow;
 
-                Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(Player.transform.position);
-                Vector3 direction = (targetPosScreenPoint - playerScreenPos).normalized;
-                Vector3 pointerScreenPos = playerScreenPos + direction * R;
+                playerScreenPos = mainCamera.WorldToScreenPoint(Player.transform.position);
+                direction = (targetPosScreenPoint - playerScreenPos).normalized;
+                pointerScreenPos = playerScreenPos + direction * R;
 
                 pointerScreenPos.x = Mathf.Clamp(pointerScreenPos.x, borderSize, Screen.width - borderSize);
                 pointerScreenPos.y = Mathf.Clamp(pointerScreenPos.y, borderSize, Screen.height - borderSize);
@@ -54,11 +61,11 @@ public class LogicQuestPointer : MonoBehaviour, IQuestEvent
 
     private void RotatePointerTowardTargetPos(RectTransform pointerRectTransform, Vector3 targetPos)
     {
-        Vector3 toPos = targetPos;
-        Vector3 fromPos = Camera.main.transform.position;
+        toPos = targetPos;
+        fromPos = mainCamera.transform.position;
         fromPos.z = 0f;
-        Vector3 dir = (toPos - fromPos).normalized;
-        float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
+        dir = (toPos - fromPos).normalized;
+        angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360;
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
 

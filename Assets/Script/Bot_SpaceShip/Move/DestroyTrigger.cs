@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class DestroyTrigger : MonoBehaviour
 {
+    private ShootTarget target;
+    private Bullet bullet;
+    private Missile missile;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject parentObject = transform.parent.gameObject;
-
-        if (collision.gameObject.tag == "AirSpace1")
+        if (collision.gameObject.CompareTag("AirSpace1"))
         {
-            ShootTarget target = collision.gameObject.GetComponent<ShootTarget>();
-            Bullet bullet = parentObject.GetComponent<Bullet>();
-            Missile missile = parentObject.GetComponent<Missile>();
+            target = collision.gameObject.GetComponent<ShootTarget>();
+            bullet = GetComponent<Bullet>();
+            missile = GetComponent<Missile>();
 
             if (bullet != null)
             {
@@ -38,7 +40,7 @@ public class DestroyTrigger : MonoBehaviour
                 }
             }
 
-            Destroy(parentObject);
+            Destroy(gameObject);
         }
     }
 }
