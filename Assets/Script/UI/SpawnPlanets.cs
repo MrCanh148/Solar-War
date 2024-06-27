@@ -181,7 +181,14 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     {
         //character.gameObject.SetActive(false);
         if (character.isPlayer)
-            ReSpawnPlayer.Instance.ResPlayer();
+        {
+            if (GameManager.instance.IsGameMode(GameMode.Normal))
+                ReSpawnPlayer.Instance.ResPlayer();
+            else if (GameManager.instance.IsGameMode(GameMode.Survival))
+            {
+                GameManager.instance.ChangeGameState(GameState.GameOver);
+            }
+        }
         else
         {
             character.gameObject.SetActive(true);
