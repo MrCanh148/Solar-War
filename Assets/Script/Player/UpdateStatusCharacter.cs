@@ -40,7 +40,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         OnChangeMass((int)owner.rb.mass);
         OnChangeGenerateType((int)owner.generalityType);
-        EvolutionCharacter(owner);
+        //EvolutionCharacter(owner);
     }
 
     public void UpdateInfoCharacter(Character character)
@@ -126,7 +126,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         {
             character.generalityType = GeneralityType.Planet;
         }
-        else if (character.characterType == CharacterType.SmallStar || character.characterType == CharacterType.MediumStar || character.characterType == CharacterType.NeutronStar)
+        else if (character.characterType == CharacterType.SmallStar || character.characterType == CharacterType.MediumStar || character.characterType == CharacterType.NeutronStar || character.characterType == CharacterType.BigStar)
         {
             character.generalityType = GeneralityType.Star;
         }
@@ -141,7 +141,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         if (currentMass != newMass)
         {
             UpdateInfoCharacter(owner);
-            //EvolutionCharacter(owner);
+            EvolutionCharacter(owner);
             if (owner.isPlayer)
                 LogicUIPlayer.Instance.UpdateInfo();
         }
