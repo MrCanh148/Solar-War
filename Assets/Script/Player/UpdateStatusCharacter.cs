@@ -40,6 +40,7 @@ public class UpdateStatusCharacter : MonoBehaviour
     {
         OnChangeMass((int)owner.rb.mass);
         OnChangeGenerateType((int)owner.generalityType);
+        EvolutionCharacter(owner);
     }
 
     public void UpdateInfoCharacter(Character character)
@@ -107,8 +108,11 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     requiredMass = c.requiredMass;
                 }
+
+
             }
         } while (typeChanged); // Tiếp tục vòng lặp nếu loại đã thay đổi
+
     }
 
 
@@ -137,7 +141,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         if (currentMass != newMass)
         {
             UpdateInfoCharacter(owner);
-            EvolutionCharacter(owner);
+            //EvolutionCharacter(owner);
             if (owner.isPlayer)
                 LogicUIPlayer.Instance.UpdateInfo();
         }
