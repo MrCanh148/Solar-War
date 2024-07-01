@@ -70,6 +70,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         {
             StatePlayerUI.SetActive(true);
         }
+
     }
 
     private IEnumerator DisplayTextOverTime(string fullText)
