@@ -25,20 +25,23 @@ public class GroupPlanet : MonoBehaviour
         masterStar.satellites.Clear();
         for (int i = 0; i < characterChilds.Count; i++)
         {
+
             Character c = characterChilds[i];
-            c.isSetup = true;
             masterStar.satellites.Add(c);
+            c.rb.mass = (SpawnPlanets.instance.GetRequiredMass(characterTypes[i] + 1) - SpawnPlanets.instance.GetRequiredMass(characterTypes[i])) / 2;
+            c.isBasicReSpawn = true;
             c.gameObject.SetActive(false);
             c.isCapture = true;
             c.host = masterStar;
             c.angle = Random.Range(0f, 360f);
             c.spinSpeed = RandomSpinSpeed(Random.Range(0.5f, 1f));
             c.radius = (c.tf.position - masterStar.tf.position).magnitude;
-            c.rb.mass = (SpawnPlanets.instance.GetRequiredMass(characterTypes[i] + 1) - SpawnPlanets.instance.GetRequiredMass(characterTypes[i])) / 2;
+
         }
         masterStar.ResetRadiusSatellite(masterStar);
+        masterStar.isBasicReSpawn = true;
         masterStar.rb.mass = (SpawnPlanets.instance.GetRequiredMass(masterStarType + 1) - SpawnPlanets.instance.GetRequiredMass(masterStarType)) / 2;
-        masterStar.isSetup = true;
+
         masterStar.gameObject.SetActive(true);
 
         foreach (Character c in characterChilds)
