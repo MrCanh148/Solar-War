@@ -29,6 +29,7 @@ public class GameManager : FastSingleton<GameManager>
         if (gameState == GameState.GameOver)
         {
             UIGameOver.SetActive(true);
+            //Time.timeScale = 0;
         }
         gameCurrentState = gameState;
     }
