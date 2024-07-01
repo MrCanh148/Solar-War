@@ -13,8 +13,15 @@ public class ShowUI : FastSingleton<ShowUI>
 
     private bool isPaused = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
+
         bts[0].onClick.AddListener(PauseGame);
         bts[1].onClick.AddListener(OptionBtFeature);
         bts[2].onClick.AddListener(TutorBtFeature);

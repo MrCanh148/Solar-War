@@ -259,7 +259,7 @@ MonoBehaviour:
   isDead: 0
   canControl: 0
   isBasicReSpawn: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 3944232199249493999}
   canvar: {fileID: 0}
   satellites: []
   circleCollider2D: {fileID: 8115752158164151146}

@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
     public bool isDead;
     public bool canControl;
     public bool isBasicReSpawn;
-    [HideInInspector] public SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     public List<Character> satellites;
     public CircleCollider2D circleCollider2D;
@@ -65,7 +65,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     private void OnEnable()

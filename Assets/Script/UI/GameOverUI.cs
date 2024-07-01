@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private Button BackBt;
@@ -17,12 +16,13 @@ public class GameOverUI : MonoBehaviour
     }
 
     public void BackFeature()
-    {     
+    {
         UIGameOver.SetActive(false);
-        StartGameUI.SetActive(true);    
+        StartGameUI.SetActive(true);
+        //SceneManager.LoadScene("Main");
     }
 
-    private IEnumerator LoadText (string fullText)
+    private IEnumerator LoadText(string fullText)
     {
         infoText.text = "";
         foreach (char c in fullText)
