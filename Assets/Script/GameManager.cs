@@ -29,7 +29,6 @@ public class GameManager : FastSingleton<GameManager>
         if (gameState == GameState.GameOver)
         {
             UIGameOver.SetActive(true);
-            Time.timeScale = 0;
         }
         gameCurrentState = gameState;
     }
@@ -51,12 +50,6 @@ public class GameManager : FastSingleton<GameManager>
             return true;
         else
             return false;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
