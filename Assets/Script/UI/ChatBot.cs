@@ -20,6 +20,8 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     private bool displayFullTextImmediately = false;
     private bool canPressEnter = false;
     private bool isInitialBotChat = true;
+    private string currentFullText = "";
+    private int currentTextIndex = 0;
 
     private Coroutine displayCoroutine;
 
@@ -59,6 +61,14 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         isInitialBotChat = true;
     }
 
+    private void OnEnable()
+    {
+        if (!string.IsNullOrEmpty(currentFullText))
+        {
+            StartDisplayTextOverTime(currentFullText, currentTextIndex);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
@@ -73,14 +83,17 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 
     }
 
-    private IEnumerator DisplayTextOverTime(string fullText)
+    private IEnumerator DisplayTextOverTime(string fullText, int startIndex = 0)
     {
         AudioManager.instance.PlaySFX("Robot");
         isDisplayingText = true;
         displayFullTextImmediately = false;
         ChatText.text = "";
 
-        foreach (char c in fullText)
+        currentFullText = fullText;
+        currentTextIndex = startIndex;
+
+        for (int i = startIndex; i < fullText.Length; i++)
         {
             if (displayFullTextImmediately)
             {
@@ -88,11 +101,13 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
                 break;
             }
 
-            ChatText.text += c;
+            ChatText.text += fullText[i];
             yield return new WaitForSecondsRealtime(TimeShowText);
         }
         canPressEnter = true;
         isDisplayingText = false;
+        currentFullText = "";
+        currentTextIndex = 0;
     }
 
     private IEnumerator GameObjectTextDisplayer()
@@ -108,14 +123,13 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         }
     }
 
-
-    private void StartDisplayTextOverTime(string text)
+    private void StartDisplayTextOverTime(string text, int startIndex = 0)
     {
         if (displayCoroutine != null)
         {
             StopCoroutine(displayCoroutine);
         }
-        displayCoroutine = StartCoroutine(DisplayTextOverTime(text));
+        displayCoroutine = StartCoroutine(DisplayTextOverTime(text, startIndex));
     }
 
     private void OnReturnKeyPressed()
