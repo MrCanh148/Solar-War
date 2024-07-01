@@ -54,6 +54,7 @@ public class GameManager : FastSingleton<GameManager>
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         timePlay = 1200f;
         ChangeGameState(GameState.Menu);
     }
