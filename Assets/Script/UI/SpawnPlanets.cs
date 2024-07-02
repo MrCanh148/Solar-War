@@ -161,6 +161,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         character.velocity = RandomInitialVelocity(2f);
         CharacterType type = RandomCharacterType();
         character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
+        character.name = type.ToString();
     }
 
     public Vector2 RandomInitialVelocity(float limit)
@@ -172,7 +173,15 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public int GetRequiredMass(CharacterType characterType)
     {
-        int mass = CharacterInfos[(int)characterType].requiredMass;
+        int mass = 0;
+        if ((int)characterType < CharacterInfos.Count)
+        {
+            mass = CharacterInfos[(int)characterType].requiredMass;
+        }
+        else
+        {
+            mass = CharacterInfos[(int)characterType - 1].requiredMass; ;
+        }
         return mass;
     }
 

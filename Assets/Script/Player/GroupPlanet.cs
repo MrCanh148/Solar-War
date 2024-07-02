@@ -10,12 +10,12 @@ public class GroupPlanet : MonoBehaviour
 
     private void Start()
     {
-        /*masterStarType = masterStar.characterType;
+        masterStarType = masterStar.characterType;
         foreach (Character c in characterChilds)
         {
             characterTypes.Add(c.characterType);
-        }*/
-
+        }
+        Debug.Log(characterTypes.Count);
         OnInit();
     }
 
