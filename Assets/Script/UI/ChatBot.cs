@@ -8,7 +8,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 {
     private Dictionary<string, BotChatText[]> botChatTextsCache = new Dictionary<string, BotChatText[]>();
 
-    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
+    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI;
     [SerializeField] TextMeshProUGUI ChatText;
     [SerializeField] private float TimeShowText = 0.01f;
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
@@ -22,6 +22,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     private bool isInitialBotChat = true;
     private string currentFullText = "";
     private int currentTextIndex = 0;
+    private bool isFade = false;
 
     private Coroutine displayCoroutine;
 
@@ -78,9 +79,12 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 
         if (currentIndex == 2 || !isInitialBotChat || GameManager.instance.currentGameMode == GameMode.Survival)
         {
-            StatePlayerUI.SetActive(true);
+            if (!isFade)
+            {
+                LogicUIPlayer.Instance.BgFadeIn(2f);
+                isFade = true;
+            }
         }
-
     }
 
     private IEnumerator DisplayTextOverTime(string fullText, int startIndex = 0)

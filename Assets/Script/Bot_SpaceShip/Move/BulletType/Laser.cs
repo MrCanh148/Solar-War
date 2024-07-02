@@ -94,6 +94,7 @@ public class Laser : MonoBehaviour
                             enermy.heart -= damage;
                             if (enermy.heart <= 0)
                             {
+                                VfxManager.instance.AlienDestroyVfx(hit.transform.position, hit.transform.rotation);
                                 characterOwner.Kill++;
                                 Destroy(enermy.gameObject);
                             }

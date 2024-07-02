@@ -56,6 +56,7 @@ public class MissileDef : MonoBehaviour
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)
                 {
+                    VfxManager.instance.AlienDestroyVfx(shootTarget.transform.position, shootTarget.transform.rotation);
                     AudioManager.instance.PlaySFX("Alien-Destroy");
                     Destroy(shootTarget.gameObject);
                     characterOwner.Kill++;

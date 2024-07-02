@@ -26,6 +26,7 @@ public class DiePlanet : MonoBehaviour
         {
             if (!isInvincible)
             {
+                VfxManager.instance.AlienDestroyVfx(transform.position, transform.rotation);
                 AudioManager.instance.PlaySFX("Alien-Destroy");
                 Destroy(parentRandomMovement.gameObject);
             }
