@@ -161,6 +161,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             }
             else
             {
+                owner.AllWhenDie();
                 owner.isBasicReSpawn = false;
             }
 
@@ -174,6 +175,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             }
             else
             {
+                owner.AllWhenDie();
                 owner.isBasicReSpawn = false;
             }
 

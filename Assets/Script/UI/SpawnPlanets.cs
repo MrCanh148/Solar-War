@@ -155,7 +155,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public void ActiveCharacter2(Character character)
     {
         //character.gameObject.SetActive(false);
-        character.isBasicReSpawn = true;
+        //character.isBasicReSpawn = true;
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
         character.velocity = RandomInitialVelocity(2f);
