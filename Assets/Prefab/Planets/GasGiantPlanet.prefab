@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3468910198529262171}
   - component: {fileID: -3289897901089524515}
   - component: {fileID: 8531791091034586340}
+  - component: {fileID: 25882168915147473}
   m_Layer: 0
   m_Name: GasGiantPlanet
   m_TagString: Planet
@@ -159,7 +160,6 @@ MonoBehaviour:
   EvolutionDone: 0
   myFamily: {fileID: 0}
   isSetup: 0
-  vfxPrefab: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
 --- !u!120 &-2952602380615160880
 LineRenderer:
   serializedVersion: 2
@@ -332,6 +332,24 @@ MonoBehaviour:
   ShieldPlanet: 0
   MaxShield: 100
   TakeDamage: 0
+--- !u!114 &25882168915147473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882966884363989911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f42304f5b2fc4a44bf7279fc91f8c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipSpacePrefab:
+  - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
+  spawnInterval: 5
+  TimeEvolutionGO: 5
 --- !u!1 &2124222768444492905
 GameObject:
   m_ObjectHideFlags: 0

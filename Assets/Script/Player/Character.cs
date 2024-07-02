@@ -61,6 +61,7 @@ public class Character : MonoBehaviour
     public bool isSetup;
     private float x, y;
     private Vector2 direction, tmp, dirVeloc;
+    private Vector3 contactPoint;
 
     protected virtual void Start()
     {
@@ -172,6 +173,7 @@ public class Character : MonoBehaviour
     //=================================== VA CHAM DAN HOI ============================================ 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        contactPoint = collision.contacts[0].point;
         Character character = collision.gameObject.GetComponent<Character>();
         if (character == null)
             return;
@@ -189,6 +191,7 @@ public class Character : MonoBehaviour
                 character.velocity = new Vector2(velocity.x, velocity.y);
                 character.ResetExternalVelocity();
                 AudioManager.instance.PlaySFX("Hit");
+                VfxManager.instance.PlanetHitVfx(contactPoint, transform.rotation);
             }
             else
             {
@@ -244,6 +247,7 @@ public class Character : MonoBehaviour
 
             else
             {
+                VfxManager.instance.PlanetHitVfx(contactPoint, transform.rotation);
                 AudioManager.instance.PlaySFX("Hit");
                 character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(characterType + 1) / 10;
             }

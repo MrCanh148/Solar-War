@@ -1,4 +1,3 @@
-using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
 public class DestroyTrigger : MonoBehaviour

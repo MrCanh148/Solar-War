@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 3068643122381640042}
   - component: {fileID: -9176210974703387588}
   - component: {fileID: 1872190135387253115}
+  - component: {fileID: 3138058829500220167}
   m_Layer: 0
   m_Name: Small Planet
   m_TagString: Planet
@@ -322,7 +323,6 @@ MonoBehaviour:
   EvolutionDone: 0
   myFamily: {fileID: 0}
   isSetup: 0
-  vfxPrefab: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
 --- !u!120 &1172948982493763337
 LineRenderer:
   serializedVersion: 2
@@ -495,6 +495,24 @@ MonoBehaviour:
   ShieldPlanet: 0
   MaxShield: 100
   TakeDamage: 0
+--- !u!114 &3138058829500220167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7378639861866745267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f42304f5b2fc4a44bf7279fc91f8c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipSpacePrefab:
+  - {fileID: 5627386560112711568, guid: 4b7efda493dcbee4e877de77c9934190, type: 3}
+  - {fileID: 532995707652806629, guid: 6d18e5209973ec446a1d843f6c8355af, type: 3}
+  - {fileID: 5936262919518486452, guid: 4e1e1dcd79968c74bbca59fec372ff79, type: 3}
+  spawnInterval: 5
+  TimeEvolutionGO: 5
 --- !u!1 &8151717851041829240
 GameObject:
   m_ObjectHideFlags: 0
