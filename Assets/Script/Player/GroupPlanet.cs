@@ -15,7 +15,6 @@ public class GroupPlanet : MonoBehaviour
         {
             characterTypes.Add(c.characterType);
         }
-        Debug.Log(characterTypes.Count);
         OnInit();
     }
 

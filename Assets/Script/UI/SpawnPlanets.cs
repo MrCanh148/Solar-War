@@ -152,7 +152,10 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
         //character.isBasicReSpawn = true;
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();
-        character.velocity = RandomInitialVelocity(2f);
+
+        if (!character.isPlayer)
+            character.velocity = RandomInitialVelocity(2f);
+
         CharacterType type = RandomCharacterType();
         character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
     }
