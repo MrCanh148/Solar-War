@@ -81,7 +81,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public Vector3 ReSpawnerAsterrooidGroup()
     {
         float distance = FarFromPlayerX > FarFromPlayerY ? FarFromPlayerX : FarFromPlayerY;
-        //float random = Random.Range(FarFromPlayerY * 1.5f, (GameManager.instance.status.coefficientActiveGameObject - .5f) * FarFromPlayerY);
+  
         return player.tf.position + ((Vector3)player.mainVelocity.normalized * distance * (GameManager.instance.status.coefficientActiveGameObject + 1) / 2);
     }
 
@@ -124,11 +124,12 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
     public void ActiveCharacter(Character character, CharacterType type)
     {
-        //character.gameObject.SetActive(false);
         if (character.isPlayer)
         {
             if (GameManager.instance.IsGameMode(GameMode.Normal))
+            {
                 ReSpawnPlayer.Instance.ResPlayer();
+            }
             else if (GameManager.instance.IsGameMode(GameMode.Survival))
             {
                 GameManager.instance.ChangeGameState(GameState.GameOver);
@@ -141,20 +142,14 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             character.velocity = RandomInitialVelocity(2f);
         }
 
-        if (character.characterType == CharacterType.Asteroid)
-        {
+        if (type == CharacterType.Asteroid)
             character.rb.mass = (int)Random.Range(1, 3);
-
-        }
         else
-        {
             character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
-        }
     }
 
     public void ActiveCharacter2(Character character)
     {
-        //character.gameObject.SetActive(false);
         character.isBasicReSpawn = true;
         character.gameObject.SetActive(true);
         character.tf.localPosition = SpawnerCharacter();

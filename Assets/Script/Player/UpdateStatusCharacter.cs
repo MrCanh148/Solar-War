@@ -23,7 +23,6 @@ public class UpdateStatusCharacter : MonoBehaviour
         }
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
         currentGenerateType = (int)owner.generalityType;
-
     }
 
     private void OnInit()
@@ -33,7 +32,6 @@ public class UpdateStatusCharacter : MonoBehaviour
             LogicUIPlayer.Instance.UpdateInfo();
 
         EvolutionCharacter(owner);
-
     }
 
     private void Update()
@@ -55,8 +53,6 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             foreach (var c in SpawnPlanets.instance.CharacterInfos)
             {
-
-
                 if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
                     if (character.rb.mass >= c.requiredMass)
@@ -108,8 +104,6 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     requiredMass = c.requiredMass;
                 }
-
-
             }
         } while (typeChanged); // Tiếp tục vòng lặp nếu loại đã thay đổi
 
@@ -170,7 +164,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             if (!owner.isBasicReSpawn)
             {
                 owner.AllWhenDie();
-                owner.rb.mass += (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
+                owner.rb.mass = SpawnPlanets.instance.GetRequiredMass(owner.characterType) + (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
             }
             else
             {
@@ -179,7 +173,5 @@ public class UpdateStatusCharacter : MonoBehaviour
 
         }
         currentGenerateType = newType;
-
     }
-
 }
