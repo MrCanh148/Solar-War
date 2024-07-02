@@ -25,8 +25,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     private void Start()
     {
         _camera = Camera.main;
-        FarFromPlayerY = _camera.orthographicSize;
-        FarFromPlayerX = FarFromPlayerY * (float)_camera.pixelWidth / _camera.pixelHeight;
+        UpdateDistanceSpawn();
         AdjustSpawnRates(player.characterType);
     }
 
@@ -81,7 +80,7 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
     public Vector3 ReSpawnerAsterrooidGroup()
     {
         float distance = FarFromPlayerX > FarFromPlayerY ? FarFromPlayerX : FarFromPlayerY;
-  
+
         return player.tf.position + ((Vector3)player.mainVelocity.normalized * distance * (GameManager.instance.status.coefficientActiveGameObject + 1) / 2);
     }
 
@@ -403,6 +402,12 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
                 quantityPlanetActive++;
             }
         }
+    }
+
+    public void UpdateDistanceSpawn()
+    {
+        FarFromPlayerY = _camera.orthographicSize;
+        FarFromPlayerX = FarFromPlayerY * (float)_camera.pixelWidth / _camera.pixelHeight;
     }
 
 }

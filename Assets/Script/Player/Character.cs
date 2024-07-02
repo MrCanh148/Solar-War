@@ -80,7 +80,6 @@ public class Character : MonoBehaviour
         myFamily = this;
         isCapture = false;
         host = null;
-
     }
 
     private void Update()
