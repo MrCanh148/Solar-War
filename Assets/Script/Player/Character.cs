@@ -79,7 +79,7 @@ public class Character : MonoBehaviour
         myFamily = this;
         isCapture = false;
         host = null;
-        isBasicReSpawn = false;
+
     }
 
     private void Update()
