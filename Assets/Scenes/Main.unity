@@ -11062,6 +11062,7 @@ GameObject:
   - component: {fileID: 581862333}
   - component: {fileID: 581862334}
   - component: {fileID: 581862335}
+  - component: {fileID: 581862336}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11187,6 +11188,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec968d7bf1476994e9b264af147a27f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &581862336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581862328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3475f7a9c0003664d9a5890398455aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listVfx:
+  - {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
+  - {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
+  - {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!1 &582248412
 GameObject:
   m_ObjectHideFlags: 0
@@ -19064,7 +19081,6 @@ MonoBehaviour:
   TextDisplay: {fileID: 1836827987}
   PressEnterText: {fileID: 1574526603}
   BotUI: {fileID: 841581694}
-  StatePlayerUI: {fileID: 1572321023}
   ChatText: {fileID: 1836827988}
   TimeShowText: 0.05
   TimeDelayShowGameObjectText: 1
@@ -20530,6 +20546,7 @@ MonoBehaviour:
   - {fileID: 422603385}
   - {fileID: 119181389}
   player: {fileID: 6772659483532777773}
+  Bg: {fileID: 1572321023}
   numberPlanet: {fileID: 449280691}
   numberKill: {fileID: 1609757196}
   MassText: {fileID: 1915455094}
@@ -36868,7 +36885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 211834571}
   Minimap: {fileID: 427382974}
-  NameTxt: {fileID: 0}
 --- !u!114 &9212076658043548275
 MonoBehaviour:
   m_ObjectHideFlags: 0
