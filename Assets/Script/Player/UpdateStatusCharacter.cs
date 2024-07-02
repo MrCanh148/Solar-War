@@ -53,6 +53,7 @@ public class UpdateStatusCharacter : MonoBehaviour
                         if (character.isPlayer && GameManager.instance.IsGameMode(GameMode.Normal))
                         {
                             SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
+                            SpawnPlanets.instance.UpdateDistanceSpawn();
                         }
                         break;
                     }
@@ -74,9 +75,16 @@ public class UpdateStatusCharacter : MonoBehaviour
                         if (character.isPlayer)
                         {
                             if (GameManager.instance.IsGameMode(GameMode.Normal))
+                            {
+                                SpawnPlanets.instance.UpdateDistanceSpawn();
                                 SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
+                            }
                             else if (GameManager.instance.IsGameMode(GameMode.Survival))
+                            {
+                                SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
                                 GameManager.instance.ChangeGameState(GameState.GameOver);
+                            }
+
                         }
                         break;
                     }
