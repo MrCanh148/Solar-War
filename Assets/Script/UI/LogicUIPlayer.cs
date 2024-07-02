@@ -11,6 +11,7 @@ public class LogicUIPlayer : MonoBehaviour
     [Header("0:Shield - 1:Exp - 2:Envolution - 3:Planet - 4:Kill")]
     [SerializeField] private GameObject[] UIinfo;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject Bg;
 
     [SerializeField] private TextMeshProUGUI numberPlanet;
     [SerializeField] private TextMeshProUGUI numberKill;
@@ -26,10 +27,20 @@ public class LogicUIPlayer : MonoBehaviour
     [SerializeField] private float MaxExp = 36;
     [SerializeField] private float TimeEvolutionGO = 5f;
 
+    private CanvasGroup bgCanvasGroup;
     private Character character;
     private Shield Shield;
     private bool isEvolutionInProgress = false;
     private int currentMass;
+
+    private void Awake()
+    {
+        bgCanvasGroup = Bg.GetComponent<CanvasGroup>();
+        if (bgCanvasGroup == null)
+        {
+            bgCanvasGroup = Bg.AddComponent<CanvasGroup>();
+        }
+    }
 
     private void Start()
     {
@@ -155,5 +166,17 @@ public class LogicUIPlayer : MonoBehaviour
     public void SetNameTxt(string CharacterType)
     {
         NameTxt.text = CharacterType;
+    }
+
+    public void BgFadeIn(float time)
+    {
+        bgCanvasGroup.alpha = 0f;
+        Bg.SetActive(true);
+        bgCanvasGroup.DOFade(1, time);
+    }
+
+    public void BgFadeOut(float time)
+    {
+        bgCanvasGroup.DOFade(0, time).OnComplete(() => Bg.SetActive(false));
     }
 }

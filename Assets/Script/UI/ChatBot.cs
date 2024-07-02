@@ -8,7 +8,7 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 {
     private Dictionary<string, BotChatText[]> botChatTextsCache = new Dictionary<string, BotChatText[]>();
 
-    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI, StatePlayerUI;
+    [SerializeField] private GameObject TextDisplay, PressEnterText, BotUI;
     [SerializeField] TextMeshProUGUI ChatText;
     [SerializeField] private float TimeShowText = 0.01f;
     [SerializeField] private float TimeDelayShowGameObjectText = 1f;
@@ -20,6 +20,9 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
     private bool displayFullTextImmediately = false;
     private bool canPressEnter = false;
     private bool isInitialBotChat = true;
+    private string currentFullText = "";
+    private int currentTextIndex = 0;
+    private bool isFade = false;
 
     private Coroutine displayCoroutine;
 
@@ -59,6 +62,14 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         isInitialBotChat = true;
     }
 
+    private void OnEnable()
+    {
+        if (!string.IsNullOrEmpty(currentFullText))
+        {
+            StartDisplayTextOverTime(currentFullText, currentTextIndex);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) && canPressEnter)
@@ -68,19 +79,25 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
 
         if (currentIndex == 2 || !isInitialBotChat || GameManager.instance.currentGameMode == GameMode.Survival)
         {
-            StatePlayerUI.SetActive(true);
+            if (!isFade)
+            {
+                LogicUIPlayer.Instance.BgFadeIn(2f);
+                isFade = true;
+            }
         }
-
     }
 
-    private IEnumerator DisplayTextOverTime(string fullText)
+    private IEnumerator DisplayTextOverTime(string fullText, int startIndex = 0)
     {
         AudioManager.instance.PlaySFX("Robot");
         isDisplayingText = true;
         displayFullTextImmediately = false;
         ChatText.text = "";
 
-        foreach (char c in fullText)
+        currentFullText = fullText;
+        currentTextIndex = startIndex;
+
+        for (int i = startIndex; i < fullText.Length; i++)
         {
             if (displayFullTextImmediately)
             {
@@ -88,11 +105,13 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
                 break;
             }
 
-            ChatText.text += c;
+            ChatText.text += fullText[i];
             yield return new WaitForSecondsRealtime(TimeShowText);
         }
         canPressEnter = true;
         isDisplayingText = false;
+        currentFullText = "";
+        currentTextIndex = 0;
     }
 
     private IEnumerator GameObjectTextDisplayer()
@@ -108,14 +127,13 @@ public class ChatBot : MonoBehaviour, IQuest2Listener, IQuest1Listenner, IQuest3
         }
     }
 
-
-    private void StartDisplayTextOverTime(string text)
+    private void StartDisplayTextOverTime(string text, int startIndex = 0)
     {
         if (displayCoroutine != null)
         {
             StopCoroutine(displayCoroutine);
         }
-        displayCoroutine = StartCoroutine(DisplayTextOverTime(text));
+        displayCoroutine = StartCoroutine(DisplayTextOverTime(text, startIndex));
     }
 
     private void OnReturnKeyPressed()

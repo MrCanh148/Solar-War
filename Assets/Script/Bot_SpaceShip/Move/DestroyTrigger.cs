@@ -1,3 +1,4 @@
+using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
 public class DestroyTrigger : MonoBehaviour
@@ -22,8 +23,7 @@ public class DestroyTrigger : MonoBehaviour
                     if (target.hostAlien != bullet.characterOwner && bullet.characterOwner != null)
                         bullet.characterOwner.Kill++;
 
-                    AudioManager.instance.PlaySFX("Alien-Destroy");
-                    Destroy(target.gameObject);
+                    LogicGameObjectDestroy();
                 }
             }
 
@@ -35,12 +35,18 @@ public class DestroyTrigger : MonoBehaviour
                     if (target.hostAlien != missile.characterOwner && missile.characterOwner != null)
                         missile.characterOwner.Kill++;
 
-                    AudioManager.instance.PlaySFX("Alien-Destroy");
-                    Destroy(target.gameObject);
+                    LogicGameObjectDestroy();
                 }
             }
 
             Destroy(gameObject);
         }
+    }
+
+    private void LogicGameObjectDestroy()
+    {
+        VfxManager.instance.AlienDestroyVfx(transform.position, transform.rotation);
+        AudioManager.instance.PlaySFX("Alien-Destroy");
+        Destroy(target.gameObject);
     }
 }

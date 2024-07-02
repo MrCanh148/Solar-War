@@ -1,46 +1,28 @@
 ﻿using DG.Tweening;
-using TMPro;
 using UnityEngine;
 
 public class UpdateStatusCharacter : MonoBehaviour
 {
     public Character owner;
-    int currentMass;
+    private int currentMass;
     [SerializeField] private GameObject Minimap;
     private SpriteRenderer spriteRenderer;
-    int requiredMass;
-    int currentGenerateType;
-    [SerializeField] TextMeshProUGUI NameTxt;
+    private int requiredMass;
+    private int currentGenerateType;
 
     private void Start()
     {
-        OnInit();
+        EvolutionCharacter(owner);
         if (Minimap != null)
             spriteRenderer = Minimap.GetComponent<SpriteRenderer>();
-        if (NameTxt != null)
-        {
-            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
-        }
         requiredMass = SpawnPlanets.instance.GetRequiredMass(owner.characterType);
         currentGenerateType = (int)owner.generalityType;
-
-    }
-
-    private void OnInit()
-    {
-        currentMass = (int)owner.rb.mass;
-        if (owner.isPlayer)
-            LogicUIPlayer.Instance.UpdateInfo();
-
-        EvolutionCharacter(owner);
-
     }
 
     private void Update()
     {
         OnChangeMass((int)owner.rb.mass);
         OnChangeGenerateType((int)owner.generalityType);
-        //EvolutionCharacter(owner);
     }
 
     public void UpdateInfoCharacter(Character character)
@@ -55,22 +37,19 @@ public class UpdateStatusCharacter : MonoBehaviour
 
             foreach (var c in SpawnPlanets.instance.CharacterInfos)
             {
-
-
                 if (character.characterType == c.characterType - 1) // Tăng CharacterType
                 {
                     if (character.rb.mass >= c.requiredMass)
                     {
                         character.characterType = c.characterType;
                         character.spriteRenderer.sprite = c.sprite;
+
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
+
                         character.tf.DOScale(c.scale, 0f);
                         typeChanged = true;
-                        if (NameTxt != null)
-                        {
-                            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
-                        }
+
                         if (character.isPlayer && GameManager.instance.IsGameMode(GameMode.Normal))
                         {
                             SpawnPlanets.instance.AdjustSpawnRates(character.characterType);
@@ -85,14 +64,13 @@ public class UpdateStatusCharacter : MonoBehaviour
                     {
                         character.characterType = c.characterType;
                         character.spriteRenderer.sprite = c.sprite;
+
                         if (Minimap != null)
                             spriteRenderer.sprite = character.spriteRenderer.sprite;
+
                         character.tf.DOScale(c.scale, 0f);
                         typeChanged = true;
-                        if (NameTxt != null)
-                        {
-                            NameTxt.text = SpawnPlanets.instance.CharacterInfos[(int)owner.characterType].namePlanet;
-                        }
+
                         if (character.isPlayer)
                         {
                             if (GameManager.instance.IsGameMode(GameMode.Normal))
@@ -108,8 +86,6 @@ public class UpdateStatusCharacter : MonoBehaviour
                 {
                     requiredMass = c.requiredMass;
                 }
-
-
             }
         } while (typeChanged); // Tiếp tục vòng lặp nếu loại đã thay đổi
 
@@ -155,7 +131,7 @@ public class UpdateStatusCharacter : MonoBehaviour
         {
             if (!owner.isBasicReSpawn)
             {
-                AudioManager.instance.PlaySFX("Planet-destroy");
+                owner.SoundAndVfxDie();
                 owner.AllWhenDie();
                 SpawnPlanets.instance.ActiveCharacter(owner, owner.characterType + 1);
             }
@@ -171,7 +147,7 @@ public class UpdateStatusCharacter : MonoBehaviour
             if (!owner.isBasicReSpawn)
             {
                 owner.AllWhenDie();
-                owner.rb.mass += (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
+                owner.rb.mass = SpawnPlanets.instance.GetRequiredMass(owner.characterType) + (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
             }
             else
             {
@@ -181,7 +157,5 @@ public class UpdateStatusCharacter : MonoBehaviour
 
         }
         currentGenerateType = newType;
-
     }
-
 }

@@ -37,6 +37,7 @@ public class ReSpawnPlayer : MonoBehaviour
         character.spriteRenderer.enabled = true;
         character.canControl = true;
         resetVelocity = true;
+        LogicUIPlayer.Instance.BgFadeIn(1f);
     }
 
     private void RespawnPlace()
@@ -51,6 +52,7 @@ public class ReSpawnPlayer : MonoBehaviour
 
     public void ResPlayer()
     {
+        LogicUIPlayer.Instance.BgFadeOut(0.5f);
         character.AllWhenDie();
         character.spriteRenderer.enabled = false;
         character.canControl = false;

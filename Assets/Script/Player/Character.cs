@@ -59,7 +59,6 @@ public class Character : MonoBehaviour
     public bool EvolutionDone = false;
     public Character myFamily;
     public bool isSetup;
-
     private float x, y;
     private Vector2 direction, tmp, dirVeloc;
 
@@ -180,7 +179,6 @@ public class Character : MonoBehaviour
 
     public void HandleCollision2(Character character)
     {
-        AudioManager.instance.PlaySFX("Hit");
         float gravitational = (mainVelocity - character.mainVelocity).magnitude;
         if (generalityType == GeneralityType.Asteroid && character.generalityType == GeneralityType.Asteroid)
         {
@@ -189,6 +187,7 @@ public class Character : MonoBehaviour
                 Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
                 character.velocity = new Vector2(velocity.x, velocity.y);
                 character.ResetExternalVelocity();
+                AudioManager.instance.PlaySFX("Hit");
             }
             else
             {
@@ -229,8 +228,6 @@ public class Character : MonoBehaviour
                     SpawnPlanets.instance.quantityPlanetActive++;
                 }
             }
-
-
             return;
         }
 
@@ -239,15 +236,18 @@ public class Character : MonoBehaviour
             if (characterType == CharacterType.Asteroid)
             {
                 character.rb.mass -= (int)rb.mass;
-                AudioManager.instance.PlaySFX("Planet-destroy");
+                SoundAndVfxDie();
                 SpawnPlanets.instance.ActiveCharacter(this, characterType);
                 AllWhenDie();
             }
 
             else
+            {
+                AudioManager.instance.PlaySFX("Hit");
                 character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(characterType + 1) / 10;
+            }
 
-            Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
+            Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);      
 
             character.velocity = new Vector2(velocity.x, velocity.y);
             character.ResetExternalVelocity();
@@ -256,6 +256,7 @@ public class Character : MonoBehaviour
 
     public void MergeCharacter(Character c1, Character c2)
     {
+        AudioManager.instance.PlaySFX("Eat");
         c1.rb.mass += c2.rb.mass;
         c2.AllWhenDie();
         SpawnPlanets.instance.DeActiveCharacter(c2);
@@ -388,5 +389,11 @@ public class Character : MonoBehaviour
         }
 
         satellites.Clear();
+    }
+
+    public void SoundAndVfxDie()
+    {
+        AudioManager.instance.PlaySFX("Planet-destroy");
+        VfxManager.instance.PlanetDestroyVfx(transform.position, transform.rotation);
     }
 }

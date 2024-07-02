@@ -408,6 +408,7 @@ MonoBehaviour:
   EvolutionDone: 0
   myFamily: {fileID: 0}
   isSetup: 0
+  vfxPrefab: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
 --- !u!120 &-1632637548447218304
 LineRenderer:
   serializedVersion: 2
@@ -579,7 +580,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 6238116557087275231}
   Minimap: {fileID: 0}
-  NameTxt: {fileID: 0}
 --- !u!114 &443096854853448409
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GameOverUI : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameOverUI : MonoBehaviour
     {
         UIGameOver.SetActive(false);
         StartGameUI.SetActive(true);
-        //SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(0);
     }
 
     private IEnumerator LoadText(string fullText)

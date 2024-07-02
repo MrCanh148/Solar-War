@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShowUI : FastSingleton<ShowUI>
@@ -13,19 +14,13 @@ public class ShowUI : FastSingleton<ShowUI>
 
     private bool isPaused = false;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Start()
     {
 
         bts[0].onClick.AddListener(PauseGame);
         bts[1].onClick.AddListener(OptionBtFeature);
         bts[2].onClick.AddListener(TutorBtFeature);
-        bts[3].onClick.AddListener(() => Application.Quit());
+        bts[3].onClick.AddListener(() => SceneManager.LoadScene(0));
         bts[4].onClick.AddListener(BackBtFeature);
         bts[5].onClick.AddListener(AchieveBtFeature);
         bts[6].onClick.AddListener(ResetBtFeature);

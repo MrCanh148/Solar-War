@@ -21,6 +21,7 @@ public class UIStartGame : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         AudioManager.instance.PlayMusic("Theme1");
         player.canWASD = false;
         DisAbleAllUI();
