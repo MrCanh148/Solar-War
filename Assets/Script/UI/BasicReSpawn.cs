@@ -47,5 +47,6 @@ public class BasicReSpawn : MonoBehaviour
         SettingUI.SetActive(false);
         GamePlayUI.SetActive(true);
         Time.timeScale = 1.0f;
+        SpawnPlanets.instance.AdjustSpawnRates(player.characterType);
     }
 }

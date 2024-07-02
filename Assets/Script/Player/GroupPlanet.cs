@@ -28,6 +28,15 @@ public class GroupPlanet : MonoBehaviour
 
             Character c = characterChilds[i];
             masterStar.satellites.Add(c);
+            if (c.characterType != characterTypes[i])
+            {
+                c.isBasicReSpawn = true;
+            }
+            else
+            {
+                c.isBasicReSpawn = false;
+            }
+
             c.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterTypes[i]) + (SpawnPlanets.instance.GetRequiredMass(characterTypes[i] + 1) - SpawnPlanets.instance.GetRequiredMass(characterTypes[i])) / 2;
             c.gameObject.SetActive(false);
             c.isCapture = true;
@@ -38,6 +47,15 @@ public class GroupPlanet : MonoBehaviour
 
         }
         masterStar.ResetRadiusSatellite(masterStar);
+        masterStar.isBasicReSpawn = true;
+        if (masterStar.characterType != masterStarType)
+        {
+            masterStar.isBasicReSpawn = true;
+        }
+        else
+        {
+            masterStar.isBasicReSpawn = false;
+        }
         masterStar.rb.mass = SpawnPlanets.instance.GetRequiredMass(masterStarType) + (SpawnPlanets.instance.GetRequiredMass(masterStarType + 1) - SpawnPlanets.instance.GetRequiredMass(masterStarType)) / 2;
 
         masterStar.gameObject.SetActive(true);
