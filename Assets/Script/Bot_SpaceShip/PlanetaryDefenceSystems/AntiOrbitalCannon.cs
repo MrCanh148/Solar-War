@@ -51,7 +51,7 @@ public class AntiOrbitalCannon : MonoBehaviour
             laserLineRenderer.enabled = true;
 
         }
-        else if (OwnerCharacter.characterType != CharacterType.LifePlanet || targetObject == null)
+        else
             laserLineRenderer.enabled = false;
     }
 
