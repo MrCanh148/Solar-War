@@ -52,7 +52,7 @@ public class LogicSpawnAirSpace : MonoBehaviour
                 StopCoroutine(evolutionCoroutine);
                 evolutionCoroutine = null;
             }
-            DestroyAllSpawnedShipsExceptPlaceSpawn();
+            //DestroyAllSpawnedShipsExceptPlaceSpawn();
         }
 
         if (spawnTimer <= 0f)
