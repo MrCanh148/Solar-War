@@ -145,6 +145,8 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
             character.rb.mass = (int)Random.Range(1, 3);
         else
             character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
+
+        character.isBasicReSpawn = true;
     }
 
     public void ActiveCharacter2(Character character)
@@ -158,6 +160,8 @@ public class SpawnPlanets : FastSingleton<SpawnPlanets>
 
         CharacterType type = RandomCharacterType();
         character.rb.mass = GetRequiredMass(type) + (GetRequiredMass(type + 1) - GetRequiredMass(type)) / 2;
+
+        character.isBasicReSpawn = true;
     }
 
     public Vector2 RandomInitialVelocity(float limit)
