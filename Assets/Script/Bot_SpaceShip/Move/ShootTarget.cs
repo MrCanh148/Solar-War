@@ -40,7 +40,7 @@ public class ShootTarget : MonoBehaviour
 
     private void Update()
     {
-        if (hostAlien == null || !hostAlien.gameObject.activeSelf)
+        if (hostAlien == null || !hostAlien.gameObject.activeSelf || hostAlien.characterType != CharacterType.LifePlanet)
         {
             hostAlien = null;
             SpriteRenderer.color = Color.white;

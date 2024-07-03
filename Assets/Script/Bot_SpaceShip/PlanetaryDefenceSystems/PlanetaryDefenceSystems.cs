@@ -18,7 +18,6 @@ public class PlanetaryDefenceSystems : MonoBehaviour
 
     [Header("AOC")]
     public AntiOrbitalCannon antiOrbitalCannon;
-    int quantityAOEC;
     [SerializeField] bool isAOC;
     GameObject targetAOC;
     public float timeAttackAOC;
@@ -47,18 +46,14 @@ public class PlanetaryDefenceSystems : MonoBehaviour
             missile.source = this;
             missile.characterOwner = owner;
         }
-
-        isAOC = false;
     }
 
     void Update()
     {
-
         OnChangeKill(owner.Kill);
         if (targetAOC != null)
         {
             timeAttackAOC += Time.deltaTime;
-
         }
     }
 
@@ -73,6 +68,9 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         {
             currentKill = -1;
         }
+
+        if (owner.characterType != CharacterType.LifePlanet)
+            isAOC = false;
     }
 
     public void OnChangeKill(int newKill)
@@ -164,7 +162,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
         ShootTarget shootTarget = Cache.GetShootTargetCollider(collision);
         if (shootTarget != null)
         {
-            if ( shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily)
+            if ((shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily) || shootTarget.hostAlien == null)
             {
                 if (timeCoolDownMissile > 3f)
                 {
@@ -172,7 +170,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                     ShotMissile(targetMissile);
                     timeCoolDownMissile = 0;
                 }
-                if (isAOC && targetAOC == null)
+                if (targetAOC == null && isAOC)
                 {
                     timeAttackAOC = 0;
                     targetAOC = shootTarget.gameObject;
@@ -204,7 +202,7 @@ public class PlanetaryDefenceSystems : MonoBehaviour
                 targetMissile = null;
                 ShotMissile(targetMissile);
             }
-            if (targetAOC == shootTarget.gameObject)
+            if (targetAOC == shootTarget.gameObject || owner.characterType != CharacterType.LifePlanet || targetAOC == null)
             {
                 targetAOC = null;
                 AvticeAOC(targetAOC);

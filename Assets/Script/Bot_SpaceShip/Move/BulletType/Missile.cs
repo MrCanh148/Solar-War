@@ -47,10 +47,9 @@ public class Missile : MonoBehaviour
             transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Character target = collision.gameObject.GetComponent<Character>();
-        Rigidbody2D rbTarget = collision.gameObject.GetComponent<Rigidbody2D>();
         Shield shieldTarget = collision.gameObject.GetComponent<Shield>();
 
         if (target == null) return;
@@ -67,14 +66,15 @@ public class Missile : MonoBehaviour
                         shieldTarget.TakeDamage = true;
                     }
                     else
-                        rbTarget.mass -= damage;
+                        target.rb.mass -= damage;
                 }
                 else
                 {
-                    rbTarget.mass -= damage;
-                    if (rbTarget.mass < 1 || (target.characterType == CharacterType.SmallPlanet && rbTarget.mass < 20)
-                                          || (target.characterType == CharacterType.SmallStar && rbTarget.mass < 180))
+                    target.rb.mass -= damage;
+                    if (target.rb.mass < 1 || (target.characterType == CharacterType.SmallPlanet && target.rb.mass < 20)
+                                          || (target.characterType == CharacterType.SmallStar && target.rb.mass < 180))
                     {
+                        VfxManager.instance.PlanetDestroyVfx(target.transform.position, target.transform.rotation);
                         if (collision.gameObject.CompareTag(Constant.TAG_Player))
                             ReSpawnPlayer.Instance.ResPlayer();
 

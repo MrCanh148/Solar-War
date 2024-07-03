@@ -52,7 +52,6 @@ public class LogicSpawnAirSpace : MonoBehaviour
                 StopCoroutine(evolutionCoroutine);
                 evolutionCoroutine = null;
             }
-            //DestroyAllSpawnedShipsExceptPlaceSpawn();
         }
 
         if (spawnTimer <= 0f)
@@ -182,17 +181,5 @@ public class LogicSpawnAirSpace : MonoBehaviour
         }
 
         character.EvolutionDone = true;
-    }
-
-    private void DestroyAllSpawnedShipsExceptPlaceSpawn()
-    {
-        for (int i = spawnedShips.Count - 1; i >= 0; i--)
-        {
-            if (spawnedShips[i] != PlaceSpawn.gameObject)
-            {
-                Destroy(spawnedShips[i]);
-                spawnedShips.RemoveAt(i);
-            }
-        }
     }
 }

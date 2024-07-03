@@ -16,32 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 35c9651eb9cc19c4289cf99587911775
-  m_SerializeEntries:
-  - m_GUID: 6d851e41bfdb81d4395fea7422f0758f
-    m_Address: BotChatText/BotStartGame/4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: dfae03a501544f649a02b4e6872dae26
-    m_Address: BotChatText/BotStartGame/5
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c43970a0ab788de4e810fda53083d280
-    m_Address: BotChatText/BotStartGame/1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 64d667cb4b6a45b429f097d55d4c3d0e
-    m_Address: BotChatText/BotStartGame/3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1b71f6525a345c3458aa1f970681f962
-    m_Address: BotChatText/BotStartGame/2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5aec1bd60eecc3a47991c17dc8870d12, type: 2}
   m_SchemaSet:

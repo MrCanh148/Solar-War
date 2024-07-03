@@ -56,7 +56,7 @@ public class BulletTurret : MonoBehaviour
         ShootTarget shootTarget = collision.GetComponent<ShootTarget>();
         if (shootTarget != null)
         {
-            if (shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily)
+            if ((shootTarget.hostAlien != null && shootTarget.hostAlien.myFamily != owner.myFamily) || shootTarget.hostAlien == null)
             {
                 shootTarget.heart -= damage;
                 if (shootTarget.heart <= 0)

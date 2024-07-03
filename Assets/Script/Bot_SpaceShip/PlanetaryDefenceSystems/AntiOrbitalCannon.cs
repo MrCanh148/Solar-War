@@ -37,29 +37,22 @@ public class AntiOrbitalCannon : MonoBehaviour
             {
                 if (h.collider.CompareTag(Constant.TAG_AirSpace1))
                 {
-
                     ShootTarget shootTarget = h.collider.GetComponent<ShootTarget>();
                     {
-                        if (shootTarget != null && shootTarget.hostAlien != OwnerCharacter)
+                        if (shootTarget.hostAlien != OwnerCharacter)
                         {
                             laserLineRenderer.SetPosition(1, h.point);
                             endVFX.transform.position = h.point;
                         }
                     }
-
                 }
             }
-
-
             // Kích hoạt laser
             laserLineRenderer.enabled = true;
 
         }
-        else
-        {
+        else if (OwnerCharacter.characterType != CharacterType.LifePlanet || targetObject == null)
             laserLineRenderer.enabled = false;
-
-        }
     }
 
     public void FillListVFX()
