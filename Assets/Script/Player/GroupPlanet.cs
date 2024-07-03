@@ -15,7 +15,6 @@ public class GroupPlanet : MonoBehaviour
         {
             characterTypes.Add(c.characterType);
         }
-        Debug.Log(characterTypes.Count);
         OnInit();
     }
 
@@ -37,7 +36,12 @@ public class GroupPlanet : MonoBehaviour
                 c.isBasicReSpawn = false;
             }
 
-            c.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterTypes[i]) + (SpawnPlanets.instance.GetRequiredMass(characterTypes[i] + 1) - SpawnPlanets.instance.GetRequiredMass(characterTypes[i])) / 2;
+            if (characterTypes[i] == CharacterType.Asteroid)
+            {
+                c.rb.mass = 1;
+            }
+            else
+                c.rb.mass = SpawnPlanets.instance.GetRequiredMass(characterTypes[i]) + (SpawnPlanets.instance.GetRequiredMass(characterTypes[i] + 1) - SpawnPlanets.instance.GetRequiredMass(characterTypes[i])) / 2;
             c.gameObject.SetActive(false);
             c.isCapture = true;
             c.host = masterStar;
