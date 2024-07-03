@@ -8,7 +8,7 @@ public class GroupPlanet : MonoBehaviour
     public Character masterStar;
     CharacterType masterStarType;
 
-    private void Start()
+    private void Awake()
     {
         masterStarType = masterStar.characterType;
         foreach (Character c in characterChilds)
