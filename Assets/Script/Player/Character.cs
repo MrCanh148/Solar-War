@@ -251,7 +251,7 @@ public class Character : MonoBehaviour
                 character.rb.mass -= SpawnPlanets.instance.GetRequiredMass(characterType + 1) / 10;
             }
 
-            Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);      
+            Vector2 velocity = (2 * rb.mass * mainVelocity + (character.rb.mass - rb.mass) * character.mainVelocity) / (rb.mass + character.rb.mass);
 
             character.velocity = new Vector2(velocity.x, velocity.y);
             character.ResetExternalVelocity();
@@ -387,6 +387,7 @@ public class Character : MonoBehaviour
         if (host != null)
         {
             host.satellites.Remove(this);
+            host.ResetRadiusSatellite(host);
             host = null;
             isCapture = false;
 
