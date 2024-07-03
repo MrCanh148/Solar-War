@@ -141,8 +141,11 @@ public class UpdateStatusCharacter : MonoBehaviour
             {
                 owner.SoundAndVfxDie();
                 owner.AllWhenDie();
+                if (owner.isPlayer)
+                    Debug.Log(owner.characterType);
                 SpawnPlanets.instance.ActiveCharacter(owner, owner.characterType + 1);
                 owner.isBasicReSpawn = false;
+
             }
             else
             {
@@ -156,6 +159,8 @@ public class UpdateStatusCharacter : MonoBehaviour
             if (!owner.isBasicReSpawn)
             {
                 owner.AllWhenDie();
+                if (owner.isPlayer)
+                    Debug.Log(owner.characterType);
                 owner.rb.mass = SpawnPlanets.instance.GetRequiredMass(owner.characterType) + (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
                 owner.isBasicReSpawn = false;
             }
