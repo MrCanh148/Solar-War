@@ -162,6 +162,7 @@ public class Player : Character
         velocityMoveDown = 0;
         velocityMoveLeft = 0;
         velocityMoveRight = 0;
+        velocity = Vector2.zero;
         externalVelocity = Vector2.zero;
     }
 

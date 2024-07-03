@@ -52,6 +52,7 @@ public class ReSpawnPlayer : MonoBehaviour
 
     public void ResPlayer()
     {
+        player.ResetVelocity();
         LogicUIPlayer.Instance.BgFadeOut(0.5f);
         character.AllWhenDie();
         character.spriteRenderer.enabled = false;
