@@ -62,6 +62,7 @@ public class Character : MonoBehaviour
     private float x, y;
     private Vector2 direction, tmp, dirVeloc;
     private Vector3 contactPoint;
+    [SerializeField] private GameObject BlackHold;
 
     protected virtual void Start()
     {
@@ -167,6 +168,11 @@ public class Character : MonoBehaviour
                 MaxOrbit = 9;
         }
         NunmberOrbit = satellites.Count;
+
+        if (characterType == CharacterType.BlackHole)
+            BlackHold.SetActive(true);
+        else
+            BlackHold.SetActive(false);
     }
 
     //=================================== VA CHAM DAN HOI ============================================ 
