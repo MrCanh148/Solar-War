@@ -158,9 +158,14 @@ public class UpdateStatusCharacter : MonoBehaviour
         {
             if (!owner.isBasicReSpawn)
             {
-                owner.AllWhenDie();
-                if (owner.isPlayer)
-                    Debug.Log(owner.characterType);
+                if (owner.generalityType == GeneralityType.Star && owner.host != null)
+                {
+                    //xu ly logic mutil star
+                }
+                else
+                {
+                    owner.AllWhenDie();
+                }
                 owner.rb.mass = SpawnPlanets.instance.GetRequiredMass(owner.characterType) + (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
                 owner.isBasicReSpawn = false;
             }
