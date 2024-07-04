@@ -39,6 +39,9 @@ public class Character : MonoBehaviour
     public bool isDead;
     public bool canControl;
     public bool isBasicReSpawn;
+    public bool isMultiple;
+    public Transform starSystemCenter;
+
     public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
     public List<Character> satellites;
@@ -81,29 +84,42 @@ public class Character : MonoBehaviour
         myFamily = this;
         isCapture = false;
         host = null;
+        isMultiple = false;
     }
 
     private void Update()
     {
-        if (isCapture)
+        if (!isMultiple)
         {
-            lineRenderer.enabled = true;
-            x = Mathf.Cos(angle) * radius;
-            y = Mathf.Sin(angle) * radius;
+            if (isCapture)
+            {
+                x = Mathf.Cos(angle) * radius;
+                y = Mathf.Sin(angle) * radius;
 
-            // Cập nhật vị trí của đối tượng
-            tf.position = host.tf.position + new Vector3(x, y, 0f);
-            angle += spinSpeed * Time.deltaTime;
+                // Cập nhật vị trí của đối tượng
+                tf.position = host.tf.position + new Vector3(x, y, 0f);
+                angle += spinSpeed * Time.deltaTime;
+            }
+
+            if (host != null && tf != null && lineRenderer.enabled == true)
+            {
+                lineRenderer.SetPosition(1, tf.position);
+                lineRenderer.SetPosition(0, host.tf.position);
+            }
         }
         else
-            lineRenderer.enabled = false;
-
-        if (host != null && tf != null && lineRenderer.enabled == true)
         {
-            lineRenderer.SetPosition(1, tf.position);
-            lineRenderer.SetPosition(0, host.tf.position);
+            if (starSystemCenter != null)
+            {
+                x = Mathf.Cos(angle) * radius;
+                y = Mathf.Sin(angle) * radius;
+                // Cập nhật vị trí của đối tượng
+                tf.position = starSystemCenter.position + new Vector3(x, y, 0f);
+                angle += spinSpeed * Time.deltaTime;
 
-            myFamily = host.myFamily;
+                lineRenderer.SetPosition(1, tf.position);
+                lineRenderer.SetPosition(0, starSystemCenter.position);
+            }
         }
 
     }
@@ -387,6 +403,7 @@ public class Character : MonoBehaviour
                 t.host = null;
                 t.isCapture = false;
                 t.myFamily = t;
+                t.lineRenderer.enabled = false;
             }
 
         }
@@ -396,10 +413,23 @@ public class Character : MonoBehaviour
             host.ResetRadiusSatellite(host);
             host = null;
             isCapture = false;
-
+            lineRenderer.enabled = false;
         }
 
         satellites.Clear();
+    }
+
+    public void UpgradeStarSystem()
+    {
+        foreach (Character t in satellites)
+        {
+            if (t != null)
+            {
+                t.host = null;
+                t.isCapture = false;
+                t.myFamily = t;
+            }
+        }
     }
 
     public void SoundAndVfxDie()

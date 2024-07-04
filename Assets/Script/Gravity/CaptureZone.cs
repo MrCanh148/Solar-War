@@ -94,6 +94,8 @@ public class CaptureZone : MonoBehaviour
     {
         //character.tf.SetParent(owner.tf);
         character.host = owner;
+        character.myFamily = owner.myFamily;
+        character.lineRenderer.enabled = true;
         SetSatellite(character);
     }
 

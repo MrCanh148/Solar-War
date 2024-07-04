@@ -16,5 +16,6 @@ public class Status : ScriptableObject
     public float timeToCapture;     //thời gian để bắt planet
     public float coefficientRadiusPlanet;  // hệ số bán kính quay của vật chủ là planet
     public float coefficientRadiusStar;  // hệ số bán kính quay của vật chủ là star
+    public float coefficientRadiusMultiStar; // hệ số bán kính quay của vật chủ là một cụm star
     public float coefficientDistanceCharacter;  // hệ số khoảng cách giữa 2 vệ tinh
 }
