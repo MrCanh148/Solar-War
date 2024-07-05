@@ -147,7 +147,6 @@ public class UpdateStatusCharacter : MonoBehaviour
             }
             else
             {
-                owner.AllWhenDie();
                 owner.isBasicReSpawn = false;
             }
 
@@ -156,39 +155,13 @@ public class UpdateStatusCharacter : MonoBehaviour
         {
             if (!owner.isBasicReSpawn)
             {
-                if (owner.generalityType == GeneralityType.Star && owner.host != null)
-                {
-                    //xu ly logic mutil star
-                    owner.host.isMultiple = true;
-                    owner.isMultiple = true;
-
-                    owner.host.starSystemCenter.position = (owner.host.tf.position + owner.tf.position) / 2;
-                    owner.starSystemCenter.position = (owner.host.tf.position + owner.tf.position) / 2;
-
-                    owner.host.lineRenderer.enabled = true;
-                    owner.lineRenderer.enabled = true;
-
-                    owner.host.angle = 180;
-                    owner.angle = -180;
-
-                    owner.host.spinSpeed = 1;
-                    owner.spinSpeed = 1;
-
-                    owner.host.radius = 2;
-                    owner.radius = 2;
-
-                    owner.UpgradeStarSystem();
-                }
-                else
-                {
-                    owner.AllWhenDie();
-                }
+                owner.AllWhenDie();
                 owner.rb.mass = SpawnPlanets.instance.GetRequiredMass(owner.characterType) + (SpawnPlanets.instance.GetRequiredMass(owner.characterType + 1) - SpawnPlanets.instance.GetRequiredMass(owner.characterType)) / 2;
                 owner.isBasicReSpawn = false;
             }
             else
             {
-                owner.AllWhenDie();
+
                 owner.isBasicReSpawn = false;
             }
 

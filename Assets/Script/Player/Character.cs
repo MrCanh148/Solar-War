@@ -39,8 +39,6 @@ public class Character : MonoBehaviour
     public bool isDead;
     public bool canControl;
     public bool isBasicReSpawn;
-    public bool isMultiple;
-    public Transform starSystemCenter;
 
     public SpriteRenderer spriteRenderer;
     [SerializeField] GameObject canvar;
@@ -84,42 +82,26 @@ public class Character : MonoBehaviour
         myFamily = this;
         isCapture = false;
         host = null;
-        isMultiple = false;
+
     }
 
     private void Update()
     {
-        if (!isMultiple)
+
+        if (isCapture)
         {
-            if (isCapture)
-            {
-                x = Mathf.Cos(angle) * radius;
-                y = Mathf.Sin(angle) * radius;
+            x = Mathf.Cos(angle) * radius;
+            y = Mathf.Sin(angle) * radius;
 
-                // Cập nhật vị trí của đối tượng
-                tf.position = host.tf.position + new Vector3(x, y, 0f);
-                angle += spinSpeed * Time.deltaTime;
-            }
-
-            if (host != null && tf != null && lineRenderer.enabled == true)
-            {
-                lineRenderer.SetPosition(1, tf.position);
-                lineRenderer.SetPosition(0, host.tf.position);
-            }
+            // Cập nhật vị trí của đối tượng
+            tf.position = host.tf.position + new Vector3(x, y, 0f);
+            angle += spinSpeed * Time.deltaTime;
         }
-        else
-        {
-            if (starSystemCenter != null)
-            {
-                x = Mathf.Cos(angle) * radius;
-                y = Mathf.Sin(angle) * radius;
-                // Cập nhật vị trí của đối tượng
-                tf.position = starSystemCenter.position + new Vector3(x, y, 0f);
-                angle += spinSpeed * Time.deltaTime;
 
-                lineRenderer.SetPosition(1, tf.position);
-                lineRenderer.SetPosition(0, starSystemCenter.position);
-            }
+        if (host != null && tf != null && lineRenderer.enabled == true)
+        {
+            lineRenderer.SetPosition(1, tf.position);
+            lineRenderer.SetPosition(0, host.tf.position);
         }
 
     }
