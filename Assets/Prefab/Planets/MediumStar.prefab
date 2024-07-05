@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc936e4fa2cfd48815b078a1457e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: 0
-  generalityType: 0
+  characterType: 5
+  generalityType: 2
   rb: {fileID: 2865247924362073867}
   tf: {fileID: 7902290382821511966}
   velocity: {x: 0, y: 0}
@@ -293,8 +293,6 @@ MonoBehaviour:
   isDead: 0
   canControl: 0
   isBasicReSpawn: 0
-  isMultiple: 0
-  starSystemCenter: {fileID: 2787776383873423138}
   spriteRenderer: {fileID: 1539775035588817992}
   canvar: {fileID: 0}
   satellites: []

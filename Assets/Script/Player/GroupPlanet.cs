@@ -26,6 +26,8 @@ public class GroupPlanet : MonoBehaviour
         {
 
             Character c = characterChilds[i];
+            float distance = (c.tf.position - masterStar.tf.position).magnitude;
+            c.radius = distance;
             masterStar.satellites.Add(c);
             if (c.characterType != characterTypes[i])
             {
@@ -33,7 +35,7 @@ public class GroupPlanet : MonoBehaviour
             }
             else
             {
-                c.isBasicReSpawn = false;
+                c.isBasicReSpawn = true;
             }
 
             if (characterTypes[i] == CharacterType.Asteroid)

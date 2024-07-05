@@ -370,8 +370,8 @@ public class Character : MonoBehaviour
             }
             float tmpRadius = limitedRadius + i * owner.circleCollider2D.radius * SpawnPlanets.instance.GetScalePlanet(owner.characterType) * 2;
             DOTween.To(() => character.radius, x => character.radius = x, tmpRadius, 0.3f)
-                .OnStart(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = false)
-                .OnComplete(() => character.gameObject.GetComponent<CircleCollider2D>().enabled = true);
+                .OnStart(() => character.circleCollider2D.enabled = false)
+                .OnComplete(() => character.circleCollider2D.enabled = true);
 
         }
     }
